@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:capstone/homePage.dart';
 
-class LoadingCharacter extends StatelessWidget {
+class LoadingCharacter extends StatefulWidget {
   const LoadingCharacter({Key? key}) : super(key: key);
 
+  @override
+  State<LoadingCharacter> createState() => _LoadingCharacterState();
+}
+
+class _LoadingCharacterState extends State<LoadingCharacter> {
+  @override
+  void initState() {
+    Timer(Duration(milliseconds: 1500), () {
+      //if(Condition){
+      //  exit(0);
+      //}
+      Navigator.push(context, MaterialPageRoute(
+            builder: (context) => HomePage()));
+    }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
