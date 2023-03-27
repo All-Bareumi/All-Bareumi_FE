@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -8,8 +7,28 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: Drawer(),
+      endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
+    );
+  }
+
+  Drawer buildDrawer() {
+    String degree = '발음의 마법사';
+    return Drawer(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: Column(
+            children: <Widget>[
+              Text(
+                '안녕하세요!',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              Text(degree, style: TextStyle(
+                  color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),)
+            ],
+          ),
+        )
     );
   }
 
@@ -19,8 +38,8 @@ class HomePage extends StatelessWidget {
       backgroundColor: Color(0xffFED40B),
       title: Text(
         '홈',
-        style: TextStyle(
-            color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+        style:
+            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
