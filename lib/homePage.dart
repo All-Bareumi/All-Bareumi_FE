@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/fileList.dart.dart';
-import 'package:capstone/Learning/learningVideo.dart';
+import 'package:capstone/Learning/fileList.dart';
+import 'package:capstone/Learning/videoFileList.dart';
+import 'package:capstone/AddFile/addNewFilePage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => LearningFile(),
+                          builder: (BuildContext context) => FileList(),
                         ));
                   },
                   child: Stack(children: <Widget>[
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: const Color(0xffED5555)),
                     ),
-                    //buildColumn(),
+                    buildColumn(),
                   ]),
                 ),
                 InkWell(
@@ -48,7 +49,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => LearningVideo(),
+                          builder: (BuildContext context) => VideoFileList(),
                         ));
                   },
                   child: Stack(children: <Widget>[
@@ -67,82 +68,110 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff1AB846)),
                     ),
-
-                    Row(
-                      children: [
-                        Image(image: AssetImage('image/icon/노란상어.png'),),
-                        Image(image: AssetImage('image/icon/핑크퐁_새우.png'),),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 70),
+                      child: Row(
+                        children: [
+                          Image(
+                            image: AssetImage('image/icon/yellowShark.png'),
+                            width: 120,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/pinkfong_shrimp.png'),
+                            width: 60,
+                          ),
+                        ],
+                      ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 115, left: 75),
+                        child: Image(image: AssetImage('image/icon/icon_youtube.png')))
                   ]),
                 ),
               ],
             ),
-            Stack(children: <Widget>[
-              Container(
-                child: Text(
-                  '새로운 자료 추가하기',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Dongle', fontSize: 40, color: Colors.white),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => AddNewFilePage(),
+                    ));
+              },
+              child: Stack(children: <Widget>[
+                Container(
+                  child: Text(
+                    '새로운 자료 추가하기',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Dongle',
+                        fontSize: 40,
+                        color: Colors.white),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 4,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(0XFF1086FE)),
                 ),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 4,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0XFF1086FE)),
-              ),
-            ])
+              ]),
+            )
           ],
         ));
   }
 
   Column buildColumn() {
     return Column(
-                    children: [
-                      SizedBox(height: 60,),
-                      Row(
-                        children: <Widget>[
-                          Image(
-                            image: AssetImage('image/icon/hangeul/이응.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/비읍.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/리을.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/미음.png'),
-                            width: 10,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Image(
-                            image: AssetImage('image/icon/hangeul/오.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/아.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/으.png'),
-                            width: 10,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/hangeul/이.png'),
-                            width: 10,
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+      children: [
+        SizedBox(
+          height: 80,
+        ),
+        Row(
+
+          children: <Widget>[
+            SizedBox(width: 7,),
+            Image(
+                image: AssetImage('image/icon/hangeul/eung.png'),
+                width: 45,
+              ),
+            Image(
+              image: AssetImage('image/icon/hangeul/bieup.png'),
+              width: 45,
+            ),
+            Image(
+              image: AssetImage('image/icon/hangeul/rieul.png'),
+              width: 45,
+            ),
+            Image(
+              image: AssetImage('image/icon/hangeul/mieum.png'),
+              width: 45,
+            ),
+          ],
+        ),
+        SizedBox(height: 20,),
+        Row(
+          children: <Widget>[
+            SizedBox(width: 7,),
+            Image(
+              image: AssetImage('image/icon/hangeul/o.png'),
+              width: 45,
+            ),
+            Image(
+              image: AssetImage('image/icon/hangeul/a.png'),
+              width: 45,
+            ),
+            Image(
+              image: AssetImage('image/icon/hangeul/eui.png'),
+              width: 45,
+            ),
+            Image(
+              image: AssetImage('image/icon/hangeul/i.png'),
+              width: 45,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Drawer buildDrawer() {
