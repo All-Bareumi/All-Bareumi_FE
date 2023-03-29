@@ -108,6 +108,8 @@ class SelectCharacter extends StatelessWidget {
         )
       ],
     );
+
+
   }
 
   InkWell buildCharacterButton(String name, BuildContext context ) {
