@@ -1,4 +1,6 @@
+import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
+import 'package:capstone/AddFile/addPictureFile.dart';
 
 class AddNewFilePage extends StatelessWidget {
   const AddNewFilePage({Key? key}) : super(key: key);
@@ -9,6 +11,60 @@ class AddNewFilePage extends StatelessWidget {
       backgroundColor: Color(0xffFED40B),
       endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
+      body:Column(
+        children: <Widget>[
+          InkWell(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => AddPictureFile(),
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                child: Text('사진찍어\n학습자료 만들기',textAlign: TextAlign.center , style: TextStyle(
+                    fontFamily: 'Dongle',
+                    fontSize: 40,
+                    color: Colors.white,
+                ),
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xff1AB846)),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => AddPictureFile(),
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                child: Text('텍스트 붙여넣어\n학습자료 만들기',textAlign: TextAlign.center , style: TextStyle(
+                  fontFamily: 'Dongle',
+                  fontSize: 40,
+                  color: Colors.white,
+                ),
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0XFF1086FE)),
+              ),
+            ),
+          )
+        ],
+      )
     );
   }
 
