@@ -28,12 +28,6 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color(0xffFED40B),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              color: const Color(0xff5a4c0c),
-              onPressed: () {}),
-        ],
       ),
       body: Column(
         children: <Widget>[

@@ -1,49 +1,17 @@
 import 'package:flutter/material.dart';
-import 'characters.dart';
-//List<Character> Characters= [];
-class MyAvatar extends StatelessWidget {
-  const MyAvatar({Key? key}) : super(key: key);
+
+class AddNewFilePage extends StatelessWidget {
+  const AddNewFilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
       endDrawer: buildDrawer(),
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Color(0xffFED40B),
-        title: Text('내 아바타 생성',
-          style: TextStyle(
-              color: Colors.black,fontFamily: 'Dongle',fontSize: 35),
-        ),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new),
-            color: const Color(0xff5a4c0c),
-            onPressed: (){
-              Navigator.pop(context);
-            }
-        ),
-        actions: <Widget>[
-          Builder(
-              builder: (context) {
-                return IconButton(
-                  icon: Image(
-                    image: AssetImage('image/logo/logo.png'),
-                    width: 60,
-                  ),
-                  onPressed: ()=>Scaffold.of(context).openEndDrawer(),
-                );
-              }
-          )
-        ],
-      ),
-      body: Padding(
-          padding: const EdgeInsets.fromLTRB(60, 150, 20, 0),
-          child: Text('카메라의 표시선에 얼굴을 맞추세요',
-          style: TextStyle(fontFamily: 'Dongle', fontSize: 35),),
-        ),
+      appBar: buildAppBar(context),
     );
   }
+
   Drawer buildDrawer() {
     String degree = '발음의 마법사';
     String userName = 'user123';
@@ -92,6 +60,36 @@ class MyAvatar extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        )
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0.0,
+      backgroundColor: Color(0xffFED40B),
+      title: Text(
+        '새로운 학습자료 추가하기',
+        style:
+            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+      ),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          color: const Color(0xff5a4c0c),
+          onPressed: () {
+            Navigator.pop(context);
+          }),
+      actions: <Widget>[
+        Builder(builder: (context) {
+          return IconButton(
+            icon: Image(
+              image: AssetImage('image/logo/logo.png'),
+              width: 60,
+            ),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+          );
+        })
+      ],
+    );
   }
 }
