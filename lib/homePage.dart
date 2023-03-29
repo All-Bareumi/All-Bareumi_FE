@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/learningFile.dart';
+import 'package:capstone/Learning/fileList.dart.dart';
 import 'package:capstone/Learning/learningVideo.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: const Color(0xffED5555)),
                     ),
+                    //buildColumn(),
                   ]),
                 ),
                 InkWell(
@@ -66,7 +67,13 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xff1AB846)),
                     ),
-                    //Image(image: AssetImage('image/icon/노란상어.png'),),
+
+                    Row(
+                      children: [
+                        Image(image: AssetImage('image/icon/노란상어.png'),),
+                        Image(image: AssetImage('image/icon/핑크퐁_새우.png'),),
+                      ],
+                    ),
                   ]),
                 ),
               ],
@@ -88,6 +95,54 @@ class HomePage extends StatelessWidget {
             ])
           ],
         ));
+  }
+
+  Column buildColumn() {
+    return Column(
+                    children: [
+                      SizedBox(height: 60,),
+                      Row(
+                        children: <Widget>[
+                          Image(
+                            image: AssetImage('image/icon/hangeul/이응.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/비읍.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/리을.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/미음.png'),
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Image(
+                            image: AssetImage('image/icon/hangeul/오.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/아.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/으.png'),
+                            width: 10,
+                          ),
+                          Image(
+                            image: AssetImage('image/icon/hangeul/이.png'),
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
   }
 
   Drawer buildDrawer() {
