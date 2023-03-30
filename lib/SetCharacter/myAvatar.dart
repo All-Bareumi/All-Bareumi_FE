@@ -9,39 +9,46 @@ class MyAvatar extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
       endDrawer: buildDrawer(),
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Color(0xffFED40B),
-        title: Text('내 아바타 생성',
-          style: TextStyle(
-              color: Colors.black,fontFamily: 'Dongle',fontSize: 35),
-        ),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new),
-            color: const Color(0xff5a4c0c),
-            onPressed: (){
-              Navigator.pop(context);
-            }
-        ),
-        actions: <Widget>[
-          Builder(
-              builder: (context) {
-                return IconButton(
-                  icon: Image(
-                    image: AssetImage('image/logo/logo.png'),
-                    width: 60,
-                  ),
-                  onPressed: ()=>Scaffold.of(context).openEndDrawer(),
-                );
-              }
-          )
-        ],
-      ),
+      appBar: buildAppBar(context),
       body: Padding(
-          padding: const EdgeInsets.fromLTRB(60, 150, 20, 0),
-          child: Text('카메라의 표시선에 얼굴을 맞추세요',
-          style: TextStyle(fontFamily: 'Dongle', fontSize: 35),),
+        padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Text('카메라의 표시선에 얼굴을 맞추세요', textAlign: TextAlign.center,
+            style: TextStyle(fontFamily: 'Dongle', fontSize: 35),),
         ),
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0.0,
+      backgroundColor: Color(0xffFED40B),
+      title: Text('내 아바타 생성',
+        style: TextStyle(
+            color: Colors.black,fontFamily: 'Dongle',fontSize: 35),
+      ),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          color: const Color(0xff5a4c0c),
+          onPressed: (){
+            Navigator.pop(context);
+          }
+      ),
+      actions: <Widget>[
+        Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Image(
+                  image: AssetImage('image/logo/logo.png'),
+                  width: 60,
+                ),
+                onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+              );
+            }
+        )
+      ],
     );
   }
   Drawer buildDrawer() {
