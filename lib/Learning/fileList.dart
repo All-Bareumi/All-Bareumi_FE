@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
+import 'learningFile.dart';
 
 class FileList extends StatefulWidget {
   const FileList({Key? key}) : super(key: key);
@@ -53,13 +54,23 @@ class _FileListState extends State<FileList> {
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
                             builder: (BuildContext context) {
                               return InkWell(
-                                onTap: (){
+                                onTap: () {
                                   //학습창으로 넘어가기
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) => LearningFile(),
+
+                                      ));
                                 },
                                 child: Container(
                                   height: 200,
+                                  //color: Colors.transparent,
                                   child: Text(
                                     '학습 시작하기',
                                     textAlign: TextAlign.center,
@@ -68,8 +79,11 @@ class _FileListState extends State<FileList> {
                                         fontSize: 60,
                                         fontFamily: 'Dongle'),
                                   ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
                                     color: Color(0XFFED5555),
                                   ),
                                 ),

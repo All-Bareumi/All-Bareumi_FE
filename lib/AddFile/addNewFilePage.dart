@@ -20,7 +20,8 @@ class AddNewFilePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => AddPictureFile(),
-                  ));
+                  )
+              );
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
