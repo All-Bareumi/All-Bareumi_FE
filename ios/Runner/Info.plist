@@ -47,9 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-    <string>Can I use the camera please?</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Can I use the mic please?</string>
+	<key>LSApplicationQueriesSchemes</key>
+      <array>
+          <!-- 카카오톡으로 로그인 -->
+          <string>a7c9156b6c2c4aab0f535c89d618b305</string>
+
+      </array>
 </dict>
 </plist>
