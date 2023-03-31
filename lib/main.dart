@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'LogIn/login.dart';
 
 Future<void> main() async {
+  //runApp 메소드 호출 전 Flutter SDK를 초기화 해야함.
+  KakaoSdk.init(nativeAppKey: 'a7c9156b6c2c4aab0f535c89d618b305');
 
   runApp(const MyApp());
 }

@@ -1,6 +1,17 @@
+import 'dart:convert';
+import 'dart:ui';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:http/http.dart' as http;
 import '../SetCharacter/setCharacter.dart';
 import '../SignUp/signUp.dart';
+
+enum LoginPlatform {
+  kakao,
+  none,
+}
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -10,136 +21,102 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  LoginPlatform _loginPlatform = LoginPlatform.none;
 
-  TextEditingController idController = TextEditingController();
-  TextEditingController pwController = TextEditingController();
+  void signInWithKakao() async {
+    try {
+      // 카카오톡이 설치되어 있으면 카카오톡 실행 후 로그인, 그렇지 않으면 웹으로 로그인
+      bool isInstalled = await isKakaoTalkInstalled();
+      OAuthToken token = isInstalled
+          ? await UserApi.instance.loginWithKakaoTalk()
+          : await UserApi.instance.loginWithKakaoAccount();
+
+      // https dependency 등록
+      final url = Uri.https('kapi.kakao.com', '/v2/user/me');
+
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
+        },
+      );
+      final profileInfo = json.decode(response.body);
+      print(profileInfo.toString());
+
+      setState(() {
+        _loginPlatform = LoginPlatform.kakao;
+      });
+    } catch (error) {
+      print('카카오톡으로 로그인 실패 ');
+    }
+  }
+
+  void signOut() async {
+    switch (_loginPlatform) {
+      case LoginPlatform.kakao:
+        break;
+      case LoginPlatform.none:
+        break;
+    }
+    setState(() {
+      _loginPlatform = LoginPlatform.none;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFED40B),
-      body: Builder(
-        builder: (context){
-          return GestureDetector(
-            onTap: (){
-              FocusScope.of(context).unfocus(); // 텍스트 필드 이외의 화면을 클릭했을 때 키보드 사라지기
-            },
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 200,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      //SizedBox(width: 80,),
-                      Image(
-                        image: AssetImage('image/logo/AppName.png'),
-                      ),
-                      Image(
-                        image: AssetImage('image/logo/logo.png'),
-                        width: 60,
-                      )
-                    ],
-                  ),
-                  Form(
-                    child: Theme(
-                      data: ThemeData(
-                        primaryColor: Colors.black,
-                        inputDecorationTheme: InputDecorationTheme(
-                          labelStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30.0,
-                            fontFamily: 'Dongle',
-                          )
-                        ),
-                      ),
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(60,200, 60, 0),
-                          child: Column(
-                            children: <Widget>[
-                              TextField(
-                                autofocus: true,
-                                controller: idController,
-                                decoration: InputDecoration(
-                                  labelText: '아이디'
-                                ),
-                            keyboardType: TextInputType.text,
-                                ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextField(
-                            autofocus: true,
-                            controller: pwController,
-                            decoration: InputDecoration(
-                            labelText: '비밀번호',
-                          ),
-                            keyboardType: TextInputType.text,
-                            obscureText: true, // 비밀번호 입력 안보이게
-                              ),
-                              const SizedBox(
-                                height: 60.0,
-                              ),
-                              ButtonTheme(
-                                minWidth: 100.0,
-                                height: 50.0,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: (){
-                                        //DB에 있는 사용자 확인 등 구현
-                                        //if(controller.text)
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context)=> SetCharacter(),
-                                          )
-                                        );
-                                      },
-                                      child: Text(
-                                        '시작하기',
-                                        style: TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 30),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,
-                                      ),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: (){
-                                        //DB에 있는 사용자 확인 등 구현
-                                        //if(controller.text)
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (BuildContext context)=> SignUp(),
-                                            )
-                                        );
-                                      },
-                                      child: Text(
-                                        '회원가입',
-                                        style: TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 30),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.grey[400],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+        backgroundColor: Color(0xffFED40B),
+        body: Builder(
+          builder: (context) {
+            return Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 200,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //SizedBox(width: 80,),
+                    Image(
+                      image: AssetImage('image/logo/AppName.png'),
                     ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      )
+                    Image(
+                      image: AssetImage('image/logo/logo.png'),
+                      width: 60,
+                    )
+                  ],
+                ),
+                _loginPlatform != LoginPlatform.none
+                    ? _logoutButton()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                              onTap: signInWithKakao,
+                              child: Container(
+                                child: Image(
+                                  image:
+                                      AssetImage('image/icon/kakao_login.png'),
+                                ),
+                              )),
+                        ],
+                      )
+              ],
+            );
+          },
+        ));
+  }
+
+  Widget _logoutButton() {
+    return ElevatedButton(
+      onPressed: signOut,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          const Color(0xff0165E1),
+        ),
+      ),
+      child: const Text('로그아웃'),
     );
   }
 }
