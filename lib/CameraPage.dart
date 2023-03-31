@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
-class CameraTest extends StatefulWidget {
+class CameraPage extends StatefulWidget {
+  const CameraPage({Key? key, required this.text}) : super(key: key);
 
+  final String text;
   @override
-  State<CameraTest> createState() => _CameraTestState();
+  State<CameraPage> createState() => _CameraPageState();
 }
 
-class _CameraTestState extends State<CameraTest> {
+class _CameraPageState extends State<CameraPage> {
+
+  // 카메라 기능
   CameraController? _cameraController;
   Future<void>? _initCameraControllerFuture;
   int cameraIndex = 0;
@@ -44,12 +48,28 @@ class _CameraTestState extends State<CameraTest> {
 
   @override
   Widget build(BuildContext context) {
+    // 텍스트 데이터 전달
+    String text = widget.text;
+    // 화면 사이즈
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Camera Example"),
+        elevation: 0.0,
+        backgroundColor: Color(0xffFED40B),
+        title: Text(
+          text,
+          style: TextStyle(
+              color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+        ),
         centerTitle: true,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            color: const Color(0xff5a4c0c),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
+
       backgroundColor: Colors.black,
       body: isCapture
           ? Column(
@@ -60,7 +80,7 @@ class _CameraTestState extends State<CameraTest> {
                   fit: FlexFit.tight,
                   child: Container(
                     width: size.width,
-                    height: size.width,
+                    height: size.height,
                     child: ClipRect(
                       child: FittedBox(
                         fit: BoxFit.fitWidth,
@@ -203,7 +223,7 @@ class _CameraTestState extends State<CameraTest> {
                               await _initCamera();
                             },
                             icon: Icon(
-                              Icons.flip_camera_android,
+                              Icons.flip_camera_ios,
                               color: Colors.white,
                               size: 34.0,
                             ),
