@@ -2,9 +2,14 @@ import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/AddFile/addPictureFile.dart';
 
-class AddPictureFile extends StatelessWidget {
+class AddPictureFile extends StatefulWidget {
   const AddPictureFile({Key? key}) : super(key: key);
 
+  @override
+  State<AddPictureFile> createState() => _AddPictureFileState();
+}
+
+class _AddPictureFileState extends State<AddPictureFile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
