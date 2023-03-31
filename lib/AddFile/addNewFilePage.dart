@@ -51,7 +51,6 @@ class AddNewFilePage extends StatelessWidget {
                   MaterialPageRoute(
                     //builder: (BuildContext context) => AddPictureFile(),
                     builder: (BuildContext context) => AddTextPage(),
-
                   ));
             },
             child: Padding(
