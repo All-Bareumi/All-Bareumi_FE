@@ -1,6 +1,7 @@
 import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
-import 'cameraTest.dart';
+import '../CameraPage.dart';
+import 'addTextPage.dart';
 
 class AddNewFilePage extends StatelessWidget {
   const AddNewFilePage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class AddNewFilePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => AddPictureFile(),
+                    builder: (BuildContext context) => CameraPage(text: "책을 찍어주세요",),
                   )
               );
             },
@@ -49,7 +50,7 @@ class AddNewFilePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     //builder: (BuildContext context) => AddPictureFile(),
-                    builder: (BuildContext context) => CameraTest(),
+                    builder: (BuildContext context) => AddTextPage(),
 
                   ));
             },

@@ -1,3 +1,4 @@
+import 'package:capstone/CameraPage.dart';
 import 'package:flutter/material.dart';
 import 'characters.dart';
 import 'selectCharacter.dart';
@@ -39,7 +40,7 @@ class SetCharacter extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => MyAvatar(),
+                            builder: (BuildContext context) => CameraPage(text: "내 얼굴을 찍어주세요"),
                           ));
                     },
                     child:_buildChooseCharacter(
