@@ -49,7 +49,7 @@ class _FileListState extends State<FileList> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     elevation: 2,
-                    color: Color(0xfffffBde),
+                    color: Color(0xfffffBDE),
                     child: InkWell(
                       onTap: () {
                         showModalBottomSheet(
