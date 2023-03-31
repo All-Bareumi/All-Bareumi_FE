@@ -84,8 +84,9 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 115, left: 75),
-                        child: Image(image: AssetImage('image/icon/icon_youtube.png')))
+                        padding: const EdgeInsets.only(top: 115, left: 75),
+                        child: Image(
+                            image: AssetImage('image/icon/icon_youtube.png')))
                   ]),
                 ),
               ],
@@ -114,6 +115,14 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0XFF1086FE)),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(children: <Widget>[
+                    Image(image: AssetImage('image/icon/book1.jpeg'), width: 100),
+                    Icon(Icons.add, size: 100,color: Colors.white,),
+                    Image(image: AssetImage('image/icon/book2.jpeg'), width: 100),
+                  ]),
+                )
               ]),
             )
           ],
@@ -127,13 +136,14 @@ class HomePage extends StatelessWidget {
           height: 80,
         ),
         Row(
-
           children: <Widget>[
-            SizedBox(width: 7,),
+            SizedBox(
+              width: 7,
+            ),
             Image(
-                image: AssetImage('image/icon/hangeul/eung.png'),
-                width: 45,
-              ),
+              image: AssetImage('image/icon/hangeul/eung.png'),
+              width: 45,
+            ),
             Image(
               image: AssetImage('image/icon/hangeul/bieup.png'),
               width: 45,
@@ -148,10 +158,14 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           children: <Widget>[
-            SizedBox(width: 7,),
+            SizedBox(
+              width: 7,
+            ),
             Image(
               image: AssetImage('image/icon/hangeul/o.png'),
               width: 45,
