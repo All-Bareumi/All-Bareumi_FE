@@ -50,11 +50,8 @@ class _LogInState extends State<LogIn> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context)=> SetCharacter(),
-          )
-      );
-
-
+            builder: (BuildContext context) => SetCharacter(),
+          ));
     } catch (error) {
       print('카카오톡으로 로그인 실패 ');
     }
@@ -78,42 +75,85 @@ class _LogInState extends State<LogIn> {
         backgroundColor: Color(0xffFED40B),
         body: Builder(
           builder: (context) {
-            return Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 200,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //SizedBox(width: 80,),
-                    Image(
-                      image: AssetImage('image/logo/AppName.png'),
-                    ),
-                    Image(
-                      image: AssetImage('image/logo/logo.png'),
-                      width: 60,
-                    )
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height/2 -30 ,),
-                _loginPlatform != LoginPlatform.none
-                    ? _logoutButton()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                              onTap: signInWithKakao,
-                              child: Container(
-                                child: Image(
-                                  image:
-                                      AssetImage('image/icon/kakao_login.png'),
-                                ),
-                              )),
-                        ],
-                      )
-              ],
-            );
+            return Stack(children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Image(
+                          image:
+                              AssetImage('image/design/WhiteSmallElipse.png'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: Image(
+                          image: AssetImage('image/design/GreenEllipse.png'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Image(image: AssetImage('image/design/RedVector.png')),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Image(
+                            image: AssetImage('image/design/BludEllipse.png')),
+                        Image(
+                            image: AssetImage('image/design/WhiteEllipse.png')),
+                      ]),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 200,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      //SizedBox(width: 80,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Image(
+                          image: AssetImage('image/logo/AppName.png'),
+                        ),
+                      ),
+                      Image(
+                        image: AssetImage('image/logo/logo.png'),
+                        width: 60,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 3,
+                  ),
+                  _loginPlatform != LoginPlatform.none
+                      ? _logoutButton()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                                onTap: signInWithKakao,
+                                child: Container(
+                                  child: Image(
+                                    image: AssetImage(
+                                        'image/icon/kakao_login.png'),
+                                  ),
+                                )),
+                          ],
+                        )
+                ],
+              ),
+            ]);
           },
         ));
   }
@@ -122,11 +162,13 @@ class _LogInState extends State<LogIn> {
     return ElevatedButton(
       onPressed: signOut,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          Colors.grey[400]
-        ),
+        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
       ),
-      child: const Text('로그아웃',style: TextStyle(fontSize: 35, fontFamily: 'Dongle', color: Colors.white),),
+      child: const Text(
+        '로그아웃',
+        style:
+            TextStyle(fontSize: 35, fontFamily: 'Dongle', color: Colors.white),
+      ),
     );
   }
 }
