@@ -116,7 +116,7 @@ class HomePage extends StatelessWidget {
                       color: const Color(0XFF1086FE)),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.only(top: 60, left: 45),
                   child: Row(children: <Widget>[
                     Image(image: AssetImage('image/icon/book1.jpeg'), width: 100),
                     Icon(Icons.add, size: 100,color: Colors.white,),
