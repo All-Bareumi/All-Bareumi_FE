@@ -46,6 +46,15 @@ class _LogInState extends State<LogIn> {
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
       });
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context)=> SetCharacter(),
+          )
+      );
+
+
     } catch (error) {
       print('카카오톡으로 로그인 실패 ');
     }
@@ -87,6 +96,7 @@ class _LogInState extends State<LogIn> {
                     )
                   ],
                 ),
+                SizedBox(height: MediaQuery.of(context).size.height/2 -30 ,),
                 _loginPlatform != LoginPlatform.none
                     ? _logoutButton()
                     : Row(
@@ -113,10 +123,10 @@ class _LogInState extends State<LogIn> {
       onPressed: signOut,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          const Color(0xff0165E1),
+          Colors.grey[400]
         ),
       ),
-      child: const Text('로그아웃'),
+      child: const Text('로그아웃',style: TextStyle(fontSize: 35, fontFamily: 'Dongle', color: Colors.white),),
     );
   }
 }
