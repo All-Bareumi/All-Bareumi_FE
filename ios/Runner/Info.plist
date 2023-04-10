@@ -53,11 +53,10 @@
           <string>a7c9156b6c2c4aab0f535c89d618b305</string>
 
       </array>
-</dict>
-<!-- 인터넷 비디오 플레이-->
-<key>NSAppTransportSecurity</key>
-<dict>
-  <key>NSAllowsArbitraryLoads</key>
-  <true/>
+      <key>NSAppTransportSecurity</key>
+      <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+      </dict>
 </dict>
 </plist>
