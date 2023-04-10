@@ -1,5 +1,8 @@
 import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+
 
 class AddPictureFile extends StatelessWidget {
   const AddPictureFile({Key? key}) : super(key: key);
@@ -7,7 +10,7 @@ class AddPictureFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffFED40B),
+        backgroundColor: HexColor("#FED40B"),
         endDrawer: buildDrawer(),
         appBar: buildAppBar(context),
         body: Padding(
@@ -76,7 +79,7 @@ class AddPictureFile extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: Color(0xffFED40B),
+      backgroundColor: HexColor("0xffFED40B"),
       title: Text(
         '사진찍어 학습자료 만들기',
         style:
@@ -84,7 +87,7 @@ class AddPictureFile extends StatelessWidget {
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
-          color: const Color(0xff5a4c0c),
+          color: HexColor("0xff5a4c0c"),
           onPressed: () {
             Navigator.pop(context);
           }),
@@ -101,4 +104,7 @@ class AddPictureFile extends StatelessWidget {
       ],
     );
   }
+}
+
+class Color {
 }

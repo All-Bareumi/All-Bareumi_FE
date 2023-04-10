@@ -1,5 +1,6 @@
 import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
 import 'addTextPage.dart';
 
@@ -9,7 +10,7 @@ class AddNewFilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFED40B),
+      backgroundColor: HexColor("0xffFED40B"),
       endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
       body: Column(
@@ -40,7 +41,7 @@ class AddNewFilePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xff1AB846)),
+                    color: HexColor("0xff1AB846")),
               ),
             ),
           ),
@@ -69,7 +70,7 @@ class AddNewFilePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: const Color(0XFF1086FE)),
+                    color: HexColor("0XFF1086FE")),
               ),
             ),
           )
@@ -132,7 +133,7 @@ class AddNewFilePage extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: Color(0xffFED40B),
+      backgroundColor: HexColor("0xffFED40B"),
       title: Text(
         '새로운 학습자료 추가하기',
         style:
@@ -140,7 +141,7 @@ class AddNewFilePage extends StatelessWidget {
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
-          color: const Color(0xff5a4c0c),
+          color:  HexColor("0xff5a4c0c"),
           onPressed: () {
             Navigator.pop(context);
           }),

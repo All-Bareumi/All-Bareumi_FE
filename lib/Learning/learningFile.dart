@@ -18,7 +18,8 @@ class LearningFile extends StatefulWidget {
 
 class _LearningFileState extends State<LearningFile> {
   late VideoPlayerController controller;
-  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  //String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  String videoPath = "video/temp_anna.mp4";
 
   // 카메라 기능
   CameraController? _cameraController;
@@ -34,7 +35,7 @@ class _LearningFileState extends State<LearningFile> {
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.network(videoUrl);
+    controller = VideoPlayerController.asset(videoPath);
 
     controller.addListener(() {
       setState(() {});

@@ -15,15 +15,16 @@ class LearningVideo extends StatefulWidget {
 class _LearningVideoState extends State<LearningVideo> {
 
   late VideoPlayerController controller;
-  File file = File("video/bee.mp4");
+  //File file = File("video/temp_anna.mp4");
   //var vid = await ApiVideoUploader.uploadWithUploadToken("MY_VIDEO_TOKEN", "path/to/my-video.mp4");
 
-  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  //String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  String videoUrl = 'https://github.com/All-Bareumi/All-Bareumi_FE/blob/master/video/bee.mp4';
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.file(file);
+    controller = VideoPlayerController.asset("video/temp_anna.mp4");
 
     controller.addListener(() {
       setState(() {});
