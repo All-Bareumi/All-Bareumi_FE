@@ -1,4 +1,3 @@
-import 'package:capstone/AddFile/addPictureFile.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
@@ -7,10 +6,15 @@ import 'addTextPage.dart';
 class AddNewFilePage extends StatelessWidget {
   const AddNewFilePage({Key? key}) : super(key: key);
 
+  final String hexYellow ="FED40B";
+  final String hexGreen ="1AB846";
+  final String hexBlue ="1086fe";
+  final String hexRed ="ED5555";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor("0xffFED40B"),
+      backgroundColor: HexColor(hexYellow),
       endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
       body: Column(
@@ -41,7 +45,7 @@ class AddNewFilePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: HexColor("0xff1AB846")),
+                    color: HexColor(hexGreen)),
               ),
             ),
           ),
@@ -70,7 +74,7 @@ class AddNewFilePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 4,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: HexColor("0XFF1086FE")),
+                    color: HexColor(hexBlue)),
               ),
             ),
           )
@@ -133,7 +137,7 @@ class AddNewFilePage extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: HexColor("0xffFED40B"),
+      backgroundColor: HexColor(hexYellow),
       title: Text(
         '새로운 학습자료 추가하기',
         style:
@@ -141,7 +145,7 @@ class AddNewFilePage extends StatelessWidget {
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
-          color:  HexColor("0xff5a4c0c"),
+          color:  HexColor("5a4c0c"),
           onPressed: () {
             Navigator.pop(context);
           }),

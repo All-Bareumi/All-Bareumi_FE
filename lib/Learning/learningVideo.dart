@@ -14,19 +14,19 @@ class LearningVideo extends StatefulWidget {
 
 class _LearningVideoState extends State<LearningVideo> {
   late VideoPlayerController videoController;
+  late Future<void> _initializeVideoPlayerFuture;
+
   String videoPath = 'video/temp_anna.mp4';
 
   @override
   void initState() {
     super.initState();
     videoController = VideoPlayerController.asset(videoPath);
+    _initializeVideoPlayerFuture = videoController.initialize();
 
-    videoController.addListener(() {
-      setState(() {});
-    });
     videoController.setLooping(false);
-    videoController.initialize().then((_) => setState(() {}));
-    videoController.play();
+
+    super.initState();
   }
 
   @override
@@ -41,24 +41,49 @@ class _LearningVideoState extends State<LearningVideo> {
       backgroundColor: Colors.white,
       endDrawer: Drawer(),
       appBar: buildAppBar(context),
-      body: Column(children: <Widget>[
-        Center(
-          child: InkWell(
-            onTap: () {
-              if (videoController.value.isPlaying) {
-                videoController.pause();
-              } else {
-                videoController.play();
-              }
-            },
-            child: AspectRatio(
-              aspectRatio: videoController.value.aspectRatio,
-              child: VideoPlayer(videoController),
-            ),
-          ),
-        ),
-        Text("입모양을 보고 문장을 따라 읽어보세요!", style: TextStyle(fontFamily: 'Dongle', fontSize: 40),)
-      ]),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return AspectRatio(
+                        aspectRatio: videoController.value.aspectRatio,
+                        child: VideoPlayer(videoController));
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (videoController.value.isPlaying) {
+                      videoController.pause();
+                    } else {
+                      videoController.play();
+                    }
+                  },
+                  icon: Icon(
+                    videoController.value.isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    size: 50,
+                    color: Color(0xffFED40B),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                Padding(
+                  padding: const EdgeInsets.only(top:8.0),
+                  child: Text(
+                    "입모양을 보고 문장을 따라 읽어보세요!",
+                    style: TextStyle(fontFamily: 'Dongle', fontSize: 35),
+                  ),
+                ),
+              ],
+            )
+          ]),
     );
   }
 
