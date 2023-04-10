@@ -80,7 +80,7 @@ class _CameraPageState extends State<CameraPage> {
                   fit: FlexFit.tight,
                   child: Container(
                     width: size.width,
-                    height: size.height,
+                    height: size.height /2 ,
                     child: ClipRect(
                       child: FittedBox(
                         fit: BoxFit.fitWidth,

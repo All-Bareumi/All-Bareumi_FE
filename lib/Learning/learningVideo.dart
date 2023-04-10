@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'dart:io';
+import 'package:video_uploader/video_uploader.dart';
 
 class LearningVideo extends StatefulWidget {
   const LearningVideo({Key? key, required this.fileName}) : super(key: key);
@@ -11,13 +13,17 @@ class LearningVideo extends StatefulWidget {
 }
 
 class _LearningVideoState extends State<LearningVideo> {
+
   late VideoPlayerController controller;
+  File file = File("video/bee.mp4");
+  //var vid = await ApiVideoUploader.uploadWithUploadToken("MY_VIDEO_TOKEN", "path/to/my-video.mp4");
+
   String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.network(videoUrl);
+    controller = VideoPlayerController.file(file);
 
     controller.addListener(() {
       setState(() {});
