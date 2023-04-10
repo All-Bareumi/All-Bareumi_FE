@@ -5,26 +5,62 @@ class LearningVideo extends StatefulWidget {
   const LearningVideo({Key? key, required this.fileName}) : super(key: key);
 
   final String fileName;
+
   @override
   State<LearningVideo> createState() => _LearningVideoState();
 }
 
 class _LearningVideoState extends State<LearningVideo> {
+  late VideoPlayerController controller;
+  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+
+  @override
+  void initState() {
+    super.initState();
+    controller = VideoPlayerController.network(videoUrl);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.setLooping(true);
+    controller.initialize().then((_) => setState(() {}));
+    controller.play();
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       endDrawer: Drawer(),
       appBar: buildAppBar(context),
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            if (controller.value.isPlaying) {
+              controller.pause();
+            } else {
+              controller.play();
+            }
+          },
+          child: AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: VideoPlayer(controller),
+          ),
+        ),
+      ),
     );
   }
+
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
       backgroundColor: Color(0xffFED40B),
       title: Text(
-        '학습하기',
+        '${widget.fileName}',
         style:
         TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
@@ -48,3 +84,4 @@ class _LearningVideoState extends State<LearningVideo> {
     );
   }
 }
+
