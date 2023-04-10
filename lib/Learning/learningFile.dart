@@ -4,6 +4,7 @@ class LearningFile extends StatefulWidget {
   const LearningFile({Key? key, required this.fileName}) : super(key: key);
 
   final String fileName;
+
   @override
   State<LearningFile> createState() => _LearningFileState();
 }
@@ -23,7 +24,7 @@ class _LearningFileState extends State<LearningFile> {
       elevation: 0.0,
       backgroundColor: Color(0xffFED40B),
       title: Text(
-        '학습하기',
+        '${widget.fileName}',
         style:
         TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),

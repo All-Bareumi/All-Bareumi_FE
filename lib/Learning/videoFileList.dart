@@ -190,7 +190,7 @@ class _VideoFileListState extends State<VideoFileList> {
 
 Route _createRoute(String fileName) {
   return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => LearningVideo(fileName: fileName),
+      pageBuilder: (context, animation, secondaryAnimation) => new LearningVideo(fileName: fileName),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;

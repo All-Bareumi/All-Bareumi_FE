@@ -25,9 +25,8 @@ class _FileListState extends State<FileList> {
 
   final List<LearningMaterial> learningMaterials = List.generate(
       materialList.length,
-          (index) =>
-          LearningMaterial(materialList[index],
-              "image/icon/icon_" + materialImgPath[index] + ".png"));
+      (index) => LearningMaterial(materialList[index],
+          "image/icon/icon_" + materialImgPath[index] + ".png"));
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +57,9 @@ class _FileListState extends State<FileList> {
                             ),
                             builder: (BuildContext context) {
                               return InkWell(
-
                                 onTap: () {
-                                  Navigator.of(context).push(_createRoute(learningMaterials[index].name));
+                                  Navigator.of(context).push(_createRoute(
+                                      learningMaterials[index].name));
                                 },
                                 child: Container(
                                   height: 200,
@@ -96,11 +95,8 @@ class _FileListState extends State<FileList> {
                           ),
                           Image(
                               image:
-                              AssetImage(learningMaterials[index].imgPath),
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 4),
+                                  AssetImage(learningMaterials[index].imgPath),
+                              width: MediaQuery.of(context).size.width / 4),
                         ],
                       ),
                     )),
@@ -113,50 +109,50 @@ class _FileListState extends State<FileList> {
     String userName = 'user123';
     return Drawer(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Image(
-                image: AssetImage('image/logo/logo.png'),
-                width: 100,
-              ),
-              SizedBox(height: 30),
-              Text(
-                '안녕하세요!',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              SizedBox(height: 30),
-              Text(
-                degree,
-                style: TextStyle(
-                    color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                userName + '님',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                '현재 n일째 학습했어요!',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              SizedBox(height: 30),
-              Text(
-                '설정 캐릭터',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                ': 내 얼굴',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-            ],
+      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Image(
+            image: AssetImage('image/logo/logo.png'),
+            width: 100,
           ),
-        ));
+          SizedBox(height: 30),
+          Text(
+            '안녕하세요!',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          SizedBox(height: 30),
+          Text(
+            degree,
+            style: TextStyle(
+                color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            userName + '님',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            '현재 n일째 학습했어요!',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          SizedBox(height: 30),
+          Text(
+            '설정 캐릭터',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            ': 내 얼굴',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+        ],
+      ),
+    ));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -166,7 +162,7 @@ class _FileListState extends State<FileList> {
       title: Text(
         '학습 자료 목록',
         style:
-        TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
@@ -191,7 +187,8 @@ class _FileListState extends State<FileList> {
 
 Route _createRoute(String fileName) {
   return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => LearningFile(fileName: fileName),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          new LearningFile(fileName: fileName),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
@@ -204,6 +201,5 @@ Route _createRoute(String fileName) {
           position: offsetAnimation,
           child: child,
         );
-      }
-  );
+      });
 }
