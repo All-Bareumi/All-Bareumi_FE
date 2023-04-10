@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
-import 'learningFile.dart';
+import 'learningVideo.dart';
+
 
 class VideoFileList extends StatefulWidget {
   const VideoFileList({Key? key}) : super(key: key);
@@ -59,15 +60,9 @@ class _VideoFileListState extends State<VideoFileList> {
                             ),
                             builder: (BuildContext context) {
                               return InkWell(
-                                onTap: () {
-                                  //학습창으로 넘어가기
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) => LearningFile(),
-
-                                      ));
-                                },
+                                  onTap: () {
+                                    Navigator.of(context).push(_createRoute(learningMaterials[index].name));
+                                  },
                                 child: Container(
                                   height: 200,
                                   //color: Colors.transparent,
@@ -190,4 +185,24 @@ class _VideoFileListState extends State<VideoFileList> {
       ],
     );
   }
+}
+
+
+Route _createRoute(String fileName) {
+  return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => LearningVideo(fileName: fileName),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+        var curveTween = CurveTween(curve: curve);
+
+        var tween = Tween(begin: begin, end: end).chain(curveTween);
+        var offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      }
+  );
 }

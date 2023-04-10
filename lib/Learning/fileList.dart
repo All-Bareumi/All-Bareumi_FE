@@ -38,8 +38,6 @@ class _FileListState extends State<FileList> {
         body: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              //mainAxisSpacing: 10,
-              //crossAxisSpacing: 10,
             ),
             itemCount: learningMaterials.length,
             itemBuilder: (context, index) {
@@ -60,17 +58,9 @@ class _FileListState extends State<FileList> {
                             ),
                             builder: (BuildContext context) {
                               return InkWell(
-                                // onTap: () {
-                                //   //학습창으로 넘어가기
-                                //   Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //         builder: (BuildContext context) => LearningFile(),
-                                //
-                                //       ));
-                                // },
+
                                 onTap: () {
-                                  Navigator.of(context).push(_createRoute());
+                                  Navigator.of(context).push(_createRoute(learningMaterials[index].name));
                                 },
                                 child: Container(
                                   height: 200,
@@ -199,9 +189,9 @@ class _FileListState extends State<FileList> {
   }
 }
 
-Route _createRoute() {
+Route _createRoute(String fileName) {
   return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => LearningFile(),
+      pageBuilder: (context, animation, secondaryAnimation) => LearningFile(fileName: fileName),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LearningFile extends StatefulWidget {
-  const LearningFile({Key? key}) : super(key: key);
+  const LearningFile({Key? key, required this.fileName}) : super(key: key);
 
+  final String fileName;
   @override
   State<LearningFile> createState() => _LearningFileState();
 }
@@ -10,8 +11,9 @@ class LearningFile extends StatefulWidget {
 class _LearningFileState extends State<LearningFile> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: Color(0xffFED40B),
+      backgroundColor: Colors.white,
       endDrawer: Drawer(),
       appBar: buildAppBar(context),
     );
@@ -26,7 +28,7 @@ class _LearningFileState extends State<LearningFile> {
         TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: Icon(Icons.close),
           color: const Color(0xff5a4c0c),
           onPressed: () {
             Navigator.pop(context);
