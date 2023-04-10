@@ -25,8 +25,9 @@ class _FileListState extends State<FileList> {
 
   final List<LearningMaterial> learningMaterials = List.generate(
       materialList.length,
-      (index) => LearningMaterial(materialList[index],
-          "image/icon/icon_" + materialImgPath[index] + ".png"));
+          (index) =>
+          LearningMaterial(materialList[index],
+              "image/icon/icon_" + materialImgPath[index] + ".png"));
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +60,17 @@ class _FileListState extends State<FileList> {
                             ),
                             builder: (BuildContext context) {
                               return InkWell(
+                                // onTap: () {
+                                //   //학습창으로 넘어가기
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //         builder: (BuildContext context) => LearningFile(),
+                                //
+                                //       ));
+                                // },
                                 onTap: () {
-                                  //학습창으로 넘어가기
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) => LearningFile(),
-
-                                      ));
+                                  Navigator.of(context).push(_createRoute());
                                 },
                                 child: Container(
                                   height: 200,
@@ -102,8 +106,11 @@ class _FileListState extends State<FileList> {
                           ),
                           Image(
                               image:
-                                  AssetImage(learningMaterials[index].imgPath),
-                              width: MediaQuery.of(context).size.width / 4),
+                              AssetImage(learningMaterials[index].imgPath),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 4),
                         ],
                       ),
                     )),
@@ -116,50 +123,50 @@ class _FileListState extends State<FileList> {
     String userName = 'user123';
     return Drawer(
         child: Padding(
-      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Image(
-            image: AssetImage('image/logo/logo.png'),
-            width: 100,
+          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Image(
+                image: AssetImage('image/logo/logo.png'),
+                width: 100,
+              ),
+              SizedBox(height: 30),
+              Text(
+                '안녕하세요!',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              SizedBox(height: 30),
+              Text(
+                degree,
+                style: TextStyle(
+                    color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              Text(
+                userName + '님',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              Text(
+                '현재 n일째 학습했어요!',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              SizedBox(height: 30),
+              Text(
+                '설정 캐릭터',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+              Text(
+                ': 내 얼굴',
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+              ),
+            ],
           ),
-          SizedBox(height: 30),
-          Text(
-            '안녕하세요!',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-          ),
-          SizedBox(height: 30),
-          Text(
-            degree,
-            style: TextStyle(
-                color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
-          ),
-          Text(
-            userName + '님',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-          ),
-          Text(
-            '현재 n일째 학습했어요!',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-          ),
-          SizedBox(height: 30),
-          Text(
-            '설정 캐릭터',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-          ),
-          Text(
-            ': 내 얼굴',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -169,7 +176,7 @@ class _FileListState extends State<FileList> {
       title: Text(
         '학습 자료 목록',
         style:
-            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+        TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
@@ -190,4 +197,23 @@ class _FileListState extends State<FileList> {
       ],
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => LearningFile(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+        var curveTween = CurveTween(curve: curve);
+
+        var tween = Tween(begin: begin, end: end).chain(curveTween);
+        var offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      }
+  );
 }
