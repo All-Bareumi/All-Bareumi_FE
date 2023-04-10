@@ -17,21 +17,13 @@ class LearningFile extends StatefulWidget {
 }
 
 class _LearningFileState extends State<LearningFile> {
+  // 비디오 컨트롤러
   late VideoPlayerController videoController;
-
-  //String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
   String videoPath = "video/temp_anna.mp4";
 
   // 카메라 기능
-  CameraController? _cameraController;
-  Future<void>? _initCameraControllerFuture;
-  int cameraIndex = 0;
-
-  bool isCapture = false;
-  File? captureImage;
-
-  //따로
-  bool _cameraInitialized = false;
+  late CameraController _cameraController;
+  Future<void>? _initializeCameraControllerFuture;
 
   @override
   void initState() {
@@ -43,7 +35,7 @@ class _LearningFileState extends State<LearningFile> {
     });
     videoController.setLooping(false); //영상 반복재생 금지
     videoController.initialize().then((_) => setState(() {}));
-    videoController.play();
+    //videoController.play();
 
     //카메라
     _initCamera();
@@ -51,18 +43,19 @@ class _LearningFileState extends State<LearningFile> {
 
   Future<void> _initCamera() async {
     final cameras = await availableCameras();
-    // 전면 카메라 사용
-    CameraDescription frontCamera;
-    for (var camera in cameras) {
-      if (camera.lensDirection == CameraLensDirection.front) {
-        cameraIndex = camera.lensDirection.index; // 이게 맞을진 몰겠음
+    int frontIdx = 0;
+    // 전면 카메라를 바로 켜야하기 때문에!
+    for (int idx = 0; idx < cameras.length; idx++) {
+      if (cameras[idx] == CameraLensDirection.front) {
+        frontIdx = idx;
         break;
       }
     }
     _cameraController =
-        CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
-    _initCameraControllerFuture = _cameraController!.initialize().then((value) {
-      setState(() => _cameraInitialized = true);
+        CameraController(cameras[frontIdx], ResolutionPreset.veryHigh);
+    _initializeCameraControllerFuture =
+        _cameraController!.initialize().then((value) {
+      setState(() {});
     });
   }
 
@@ -77,56 +70,12 @@ class _LearningFileState extends State<LearningFile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      endDrawer: Drawer(),
-      appBar: buildAppBar(context),
-      body: _cameraInitialized
-          ? Column(
-              children: <Widget>[
-                Container(
-                  child: InkWell(
-                    onTap: () {
-                      if (videoController.value.isPlaying) {
-                        videoController.pause();
-                      } else {
-                        videoController.play();
-                      }
-                    },
-                    child: AspectRatio(
-                      aspectRatio: videoController.value.aspectRatio,
-                      child: VideoPlayer(videoController),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Image(
-                        image: AssetImage('image/logo/logo.png'),
-                        width: 60,
-                      ),
-                      onPressed: () {
-                        if (videoController.value.isPlaying) {
-                          videoController.pause();
-                        } else {
-                          videoController.play();
-                        }
-                      },
-                    )
-                  ],
-                )
-                // Container(
-                //     child: CircularProgressIndicator(
-                //       backgroundColor: Colors.black,
-                //       valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                //     )
-                // ),
-                // SizedBox(
-                //     child: CameraPreview(_cameraController)
-                // ),
-              ],
-            )
-          : Container(
+        backgroundColor: Colors.white,
+        endDrawer: Drawer(),
+        appBar: buildAppBar(context),
+        body: Column(
+          children: <Widget>[
+            Container(
               child: InkWell(
                 onTap: () {
                   if (videoController.value.isPlaying) {
@@ -141,6 +90,55 @@ class _LearningFileState extends State<LearningFile> {
                 ),
               ),
             ),
+            Row(
+              children: <Widget>[
+                IconButton(
+                  icon: Image(
+                    image: AssetImage('image/logo/logo.png'),
+                    width: 100,
+                  ),
+                  onPressed: () {
+                    if (videoController.value.isPlaying) {
+                      videoController.pause();
+                    } else {
+                      videoController.play();
+                    }
+                  },
+                )
+              ],
+            ),
+            Container(
+                child: CircularProgressIndicator(
+              backgroundColor: Colors.black,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            )),
+            FutureBuilder<void>(
+              future: _initializeCameraControllerFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  // Future가 완료되면, 프리뷰를 보여줍니다.
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    child: ClipRect(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: AspectRatio(aspectRatio: 1 / _cameraController!.value.aspectRatio, child: CameraPreview(_cameraController!)),
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  // Otherwise, display a loading indicator.
+                  // 그렇지 않다면, 진행 표시기를 보여줍니다.
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            )
+          ],
+        )
     );
   }
 
