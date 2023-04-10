@@ -43,6 +43,7 @@ dependencies:
   kakao_flutter_sdk_user: ^1.4.1 # 카카오 로그인
   http: ^0.13.5
   video_player: ^2.6.1
+  video_uploader: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter:
    - image/design/
    - image/character/
    - image/icon/hangeul/
+   - video/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
