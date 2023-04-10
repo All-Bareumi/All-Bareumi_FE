@@ -13,52 +13,52 @@ class LearningVideo extends StatefulWidget {
 }
 
 class _LearningVideoState extends State<LearningVideo> {
-
-  late VideoPlayerController controller;
-  //File file = File("video/temp_anna.mp4");
-  //var vid = await ApiVideoUploader.uploadWithUploadToken("MY_VIDEO_TOKEN", "path/to/my-video.mp4");
-
-  //String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
-  String videoUrl = 'https://github.com/All-Bareumi/All-Bareumi_FE/blob/master/video/bee.mp4';
+  late VideoPlayerController videoController;
+  String videoPath = 'video/temp_anna.mp4';
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.asset("video/temp_anna.mp4");
+    videoController = VideoPlayerController.asset(videoPath);
 
-    controller.addListener(() {
+    videoController.addListener(() {
       setState(() {});
     });
-    controller.setLooping(true);
-    controller.initialize().then((_) => setState(() {}));
-    controller.play();
+    videoController.setLooping(false);
+    videoController.initialize().then((_) => setState(() {}));
+    videoController.play();
   }
+
   @override
   void dispose() {
-    controller.dispose();
+    videoController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       endDrawer: Drawer(),
       appBar: buildAppBar(context),
-      body: Center(
-        child: InkWell(
-          onTap: () {
-            if (controller.value.isPlaying) {
-              controller.pause();
-            } else {
-              controller.play();
-            }
-          },
-          child: AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
-            child: VideoPlayer(controller),
+      body: Column(children: <Widget>[
+        Center(
+          child: InkWell(
+            onTap: () {
+              if (videoController.value.isPlaying) {
+                videoController.pause();
+              } else {
+                videoController.play();
+              }
+            },
+            child: AspectRatio(
+              aspectRatio: videoController.value.aspectRatio,
+              child: VideoPlayer(videoController),
+            ),
           ),
         ),
-      ),
+        Text("입모양을 보고 문장을 따라 읽어보세요!", style: TextStyle(fontFamily: 'Dongle', fontSize: 40),)
+      ]),
     );
   }
 
@@ -69,7 +69,7 @@ class _LearningVideoState extends State<LearningVideo> {
       title: Text(
         '${widget.fileName}',
         style:
-        TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
           icon: Icon(Icons.close),
@@ -91,4 +91,3 @@ class _LearningVideoState extends State<LearningVideo> {
     );
   }
 }
-

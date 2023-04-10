@@ -10,7 +10,7 @@ class AddPictureFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor("#FED40B"),
+        backgroundColor: HexColor("0xffFED40B"),
         endDrawer: buildDrawer(),
         appBar: buildAppBar(context),
         body: Padding(

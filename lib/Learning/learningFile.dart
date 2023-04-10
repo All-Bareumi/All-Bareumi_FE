@@ -17,7 +17,8 @@ class LearningFile extends StatefulWidget {
 }
 
 class _LearningFileState extends State<LearningFile> {
-  late VideoPlayerController controller;
+  late VideoPlayerController videoController;
+
   //String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
   String videoPath = "video/temp_anna.mp4";
 
@@ -35,14 +36,14 @@ class _LearningFileState extends State<LearningFile> {
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.asset(videoPath);
+    videoController = VideoPlayerController.asset(videoPath);
 
-    controller.addListener(() {
+    videoController.addListener(() {
       setState(() {});
     });
-    controller.setLooping(true);
-    controller.initialize().then((_) => setState(() {}));
-    controller.play();
+    videoController.setLooping(false); //영상 반복재생 금지
+    videoController.initialize().then((_) => setState(() {}));
+    videoController.play();
 
     //카메라
     _initCamera();
@@ -59,7 +60,7 @@ class _LearningFileState extends State<LearningFile> {
       }
     }
     _cameraController =
-    CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
+        CameraController(cameras[cameraIndex], ResolutionPreset.veryHigh);
     _initCameraControllerFuture = _cameraController!.initialize().then((value) {
       setState(() => _cameraInitialized = true);
     });
@@ -69,60 +70,77 @@ class _LearningFileState extends State<LearningFile> {
   void dispose() {
     // 위젯의 생명주기 종료시 컨트롤러 역시 해제시켜줍니다.
     _cameraController!.dispose();
-    controller.dispose();
+    videoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        endDrawer: Drawer(),
-        appBar: buildAppBar(context),
-        body: _cameraInitialized ?
-        Column(
-          children: <Widget>[
-            Container(
+      backgroundColor: Colors.white,
+      endDrawer: Drawer(),
+      appBar: buildAppBar(context),
+      body: _cameraInitialized
+          ? Column(
+              children: <Widget>[
+                Container(
+                  child: InkWell(
+                    onTap: () {
+                      if (videoController.value.isPlaying) {
+                        videoController.pause();
+                      } else {
+                        videoController.play();
+                      }
+                    },
+                    child: AspectRatio(
+                      aspectRatio: videoController.value.aspectRatio,
+                      child: VideoPlayer(videoController),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Image(
+                        image: AssetImage('image/logo/logo.png'),
+                        width: 60,
+                      ),
+                      onPressed: () {
+                        if (videoController.value.isPlaying) {
+                          videoController.pause();
+                        } else {
+                          videoController.play();
+                        }
+                      },
+                    )
+                  ],
+                )
+                // Container(
+                //     child: CircularProgressIndicator(
+                //       backgroundColor: Colors.black,
+                //       valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                //     )
+                // ),
+                // SizedBox(
+                //     child: CameraPreview(_cameraController)
+                // ),
+              ],
+            )
+          : Container(
               child: InkWell(
                 onTap: () {
-                  if (controller.value.isPlaying) {
-                    controller.pause();
+                  if (videoController.value.isPlaying) {
+                    videoController.pause();
                   } else {
-                    controller.play();
+                    videoController.play();
                   }
                 },
                 child: AspectRatio(
-                  aspectRatio: controller.value.aspectRatio,
-                  child: VideoPlayer(controller),
+                  aspectRatio: videoController.value.aspectRatio,
+                  child: VideoPlayer(videoController),
                 ),
               ),
             ),
-            // Container(
-            //     child: CircularProgressIndicator(
-            //       backgroundColor: Colors.black,
-            //       valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            //     )
-            // ),
-            // SizedBox(
-            //     child: CameraPreview(_cameraController)
-            // ),
-
-          ],
-        ) : Container(
-          child: InkWell(
-            onTap: () {
-              if (controller.value.isPlaying) {
-                controller.pause();
-              } else {
-                controller.play();
-              }
-            },
-            child: AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
-              child: VideoPlayer(controller),
-            ),
-          ),
-        ),
     );
   }
 
@@ -133,7 +151,7 @@ class _LearningFileState extends State<LearningFile> {
       title: Text(
         '${widget.fileName}',
         style:
-        TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+            TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
       leading: IconButton(
           icon: Icon(Icons.close),
