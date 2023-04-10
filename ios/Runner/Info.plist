@@ -54,4 +54,10 @@
 
       </array>
 </dict>
+<!-- 인터넷 비디오 플레이-->
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+</dict>
 </plist>

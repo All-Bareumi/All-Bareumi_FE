@@ -50,4 +50,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- 인터넷 영상을 스트리밍할 수 있도록 하기 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

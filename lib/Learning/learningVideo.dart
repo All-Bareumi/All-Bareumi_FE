@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class LearningVideo extends StatefulWidget {
   const LearningVideo({Key? key, required this.fileName}) : super(key: key);
