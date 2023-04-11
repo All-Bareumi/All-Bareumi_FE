@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
 import 'learningVideo.dart';
+import 'learningVideoMaterials.dart';
+
 
 
 class VideoFileList extends StatefulWidget {
@@ -11,23 +13,7 @@ class VideoFileList extends StatefulWidget {
 }
 
 class _VideoFileListState extends State<VideoFileList> {
-  static List<String> materialList = [
-    "아기상어",
-    "학교",
-    "가족",
-    "운동",
-  ];
-  static List<String> materialImgPath = [
-    "food",
-    "school",
-    "family",
-    "exercise"
-  ];
 
-  final List<LearningMaterial> learningMaterials = List.generate(
-      materialList.length,
-      (index) => LearningMaterial(materialList[index],
-          "image/icon/icon_" + materialImgPath[index] + ".png"));
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +47,7 @@ class _VideoFileListState extends State<VideoFileList> {
                             builder: (BuildContext context) {
                               return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(_createRoute(learningMaterials[index].name));
+                                    Navigator.of(context).push(_createRoute(learningVideoMaterials[index]));
                                   },
                                 child: Container(
                                   height: 200,
@@ -88,7 +74,7 @@ class _VideoFileListState extends State<VideoFileList> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            learningMaterials[index].name,
+                            learningVideoMaterials[index].titleKor,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 35,
@@ -97,7 +83,7 @@ class _VideoFileListState extends State<VideoFileList> {
                           ),
                           Image(
                               image:
-                                  AssetImage(learningMaterials[index].imgPath),
+                                  AssetImage(learningVideoMaterials[index].imgPath),
                               width: MediaQuery.of(context).size.width / 4),
                         ],
                       ),
@@ -188,9 +174,9 @@ class _VideoFileListState extends State<VideoFileList> {
 }
 
 
-Route _createRoute(String fileName) {
+Route _createRoute(LearningVideoMaterial learningVideoMaterial) {
   return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => new LearningVideo(fileName: fileName),
+      pageBuilder: (context, animation, secondaryAnimation) => new LearningVideo(learningVideoMaterial: learningVideoMaterial,),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
