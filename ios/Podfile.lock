@@ -6,12 +6,78 @@ PODS:
     - AnyCodable-FlightSchool (~> 0.6.1)
   - camera_avfoundation (0.0.1):
     - Flutter
+  - face_camera (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
+  - google_mlkit_commons (0.2.0):
+    - Flutter
+    - MLKitVision
+  - google_mlkit_face_detection (0.5.0):
+    - Flutter
+    - google_mlkit_commons
+    - GoogleMLKit/FaceDetection (~> 3.2.0)
+  - GoogleDataTransport (9.2.2):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/FaceDetection (3.2.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitFaceDetection (~> 2.2.0)
+  - GoogleMLKit/MLKitCore (3.2.0):
+    - MLKitCommon (~> 8.0.0)
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - GoogleToolboxForMac/Logger (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+  - GoogleUtilities/Environment (7.11.1):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/UserDefaults (7.11.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilitiesComponents (1.1.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.7.2)
   - kakao_flutter_sdk_common (1.4.2):
     - Flutter
+  - MLImage (1.0.0-beta3)
+  - MLKitCommon (8.0.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.12)
+  - MLKitFaceDetection (2.2.0):
+    - MLKitCommon (~> 8.0)
+    - MLKitVision (~> 4.2)
+  - MLKitVision (4.2.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - MLImage (= 1.0.0-beta3)
+    - MLKitCommon (~> 8.0)
+    - Protobuf (~> 3.12)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - PromisesObjC (2.2.0)
+  - Protobuf (3.22.1)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -25,7 +91,10 @@ PODS:
 
 DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
+  - face_camera (from `.symlinks/plugins/face_camera/ios`)
   - Flutter (from `Flutter`)
+  - google_mlkit_commons (from `.symlinks/plugins/google_mlkit_commons/ios`)
+  - google_mlkit_face_detection (from `.symlinks/plugins/google_mlkit_face_detection/ios`)
   - kakao_flutter_sdk_common (from `.symlinks/plugins/kakao_flutter_sdk_common/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
@@ -38,12 +107,31 @@ SPEC REPOS:
     - Alamofire
     - AnyCodable-FlightSchool
     - ApiVideoUploader
+    - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GoogleUtilitiesComponents
+    - GTMSessionFetcher
+    - MLImage
+    - MLKitCommon
+    - MLKitFaceDetection
+    - MLKitVision
+    - nanopb
+    - PromisesObjC
+    - Protobuf
 
 EXTERNAL SOURCES:
   camera_avfoundation:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
+  face_camera:
+    :path: ".symlinks/plugins/face_camera/ios"
   Flutter:
     :path: Flutter
+  google_mlkit_commons:
+    :path: ".symlinks/plugins/google_mlkit_commons/ios"
+  google_mlkit_face_detection:
+    :path: ".symlinks/plugins/google_mlkit_face_detection/ios"
   kakao_flutter_sdk_common:
     :path: ".symlinks/plugins/kakao_flutter_sdk_common/ios"
   path_provider_foundation:
@@ -62,9 +150,25 @@ SPEC CHECKSUMS:
   AnyCodable-FlightSchool: 261cbe76757802b17d471b9059b21e6fa5edf57b
   ApiVideoUploader: d64cb6546058c6e9f67157c7c48c60d00ddd724c
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
+  face_camera: 9473f8c80e20d67bd2d946ed573ccee168d31186
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  google_mlkit_commons: e9070f57232c3a3e4bd42fdfa621bb1f4bb3e709
+  google_mlkit_face_detection: ab4c98846c4e9b0d48e5bd386cedb14feb676802
+  GoogleDataTransport: 8378d1fa8ac49753ea6ce70d65a7cb70ce5f66e6
+  GoogleMLKit: 0017a6a8372e1a182139b9def4d89be5d87ca5a7
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
+  GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   kakao_flutter_sdk_common: fc550ec16c85451e874d5304d2e1c540a221f5cb
+  MLImage: 489dfec109f21da8621b28d476401aaf7a0d4ff4
+  MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
+  MLKitFaceDetection: 9f29d8d0bb38911281407e24e74d2e5da812ba8d
+  MLKitVision: 96c96571190b7f63eddf4a12068ce8a8689e0d2c
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
   video_uploader: 3980300fb2ada13b8276d2a9072232b4419ed98c
