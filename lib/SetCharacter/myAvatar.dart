@@ -10,7 +10,6 @@ class MyAvatar extends StatefulWidget {
   @override
   State<MyAvatar> createState() => _MyAvatarState();
 }
-
 class _MyAvatarState extends State<MyAvatar> {
   File? _capturedImage;
 
