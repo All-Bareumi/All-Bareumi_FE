@@ -159,16 +159,38 @@ class _LogInState extends State<LogIn> {
   }
 
   Widget _logoutButton() {
-    return ElevatedButton(
-      onPressed: signOut,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-      ),
-      child: const Text(
-        '로그아웃',
-        style:
-            TextStyle(fontSize: 35, fontFamily: 'Dongle', color: Colors.white),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: signOut,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+          ),
+          child: const Text(
+            '로그아웃',
+            style: TextStyle(
+                fontSize: 35, fontFamily: 'Dongle', color: Colors.white),
+          ),
+        ),
+        ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Color(0XFF1086FE)),
+          ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => SetCharacter(),
+                ));
+          },
+          child: const Text(
+            '계속하기',
+            style: TextStyle(
+                fontSize: 35, fontFamily: 'Dongle', color: Colors.white),
+          ),
+        )
+      ],
     );
   }
 }
