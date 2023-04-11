@@ -2,7 +2,7 @@ import 'package:capstone/CameraPage.dart';
 import 'package:flutter/material.dart';
 import 'characters.dart';
 import 'selectCharacter.dart';
-import 'myAvatar.dart';
+import 'old_myAvatar.dart';
 
 //List<Character> Characters= [];
 

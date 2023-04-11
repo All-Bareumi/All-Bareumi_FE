@@ -1,104 +1,101 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'characters.dart';
-//List<Character> Characters= [];
-class MyAvatar extends StatelessWidget {
+
+import 'package:face_camera/face_camera.dart';
+
+class MyAvatar extends StatefulWidget {
   const MyAvatar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffFED40B),
-      endDrawer: buildDrawer(),
-      appBar: buildAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Text('카메라의 표시선에 얼굴을 맞추세요', textAlign: TextAlign.center,
-            style: TextStyle(fontFamily: 'Dongle', fontSize: 35),),
-        ),
-      ),
-    );
+  State<MyAvatar> createState() => _MyAvatarState();
+}
+
+class _MyAvatarState extends State<MyAvatar> {
+  File? _capturedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _initCamera();
   }
 
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 0.0,
-      backgroundColor: Color(0xffFED40B),
-      title: Text('내 아바타 생성',
-        style: TextStyle(
-            color: Colors.black,fontFamily: 'Dongle',fontSize: 35),
+  Future<void> _initCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await FaceCamera.initialize();
+  }
+  @override
+  Widget build(BuildContext context) {
+    // 텍스트 데이터 전달
+    // 화면 사이즈
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Color(0xffFED40B),
+        title: Text(
+          "내 얼굴을 찍어주세요",
+          style: TextStyle(
+              color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            color: const Color(0xff5a4c0c),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
-      leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
-          color: const Color(0xff5a4c0c),
-          onPressed: (){
-            Navigator.pop(context);
-          }
-      ),
-      actions: <Widget>[
-        Builder(
-            builder: (context) {
-              return IconButton(
-                icon: Image(
-                  image: AssetImage('image/logo/logo.png'),
-                  width: 60,
+      body: Builder(builder: (context) {
+        if (_capturedImage != null) {
+          return Center(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Image.file(
+                  _capturedImage!,
+                  width: double.maxFinite,
+                  fit: BoxFit.fitWidth,
                 ),
-                onPressed: ()=>Scaffold.of(context).openEndDrawer(),
-              );
-            }
-        )
-      ],
+                ElevatedButton(
+                    onPressed: () => setState(() => _capturedImage = null),
+                    child: const Text(
+                      'Capture Again',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w700),
+                    ))
+              ],
+            ),
+          );
+        }
+        return SmartFaceCamera(
+            autoCapture: true,
+            defaultCameraLens: CameraLens.front,
+            onCapture: (File? image) {
+              setState(() => _capturedImage = image);
+            },
+            onFaceDetected: (Face? face) {
+              //Do something
+            },
+            messageBuilder: (context, face) {
+              if (face == null) {
+                return _message('내 얼굴을 카메라 안에 위치시키세요');
+              }
+              if (!face.wellPositioned) {
+                return _message('내 얼굴을 사각형의 중간에 위치시키세요');
+              }
+              return const SizedBox.shrink();
+            });
+      }),
     );
   }
-  Drawer buildDrawer() {
-    String degree = '발음의 마법사';
-    String userName = 'user123';
-    return Drawer(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Image(
-                image: AssetImage('image/logo/logo.png'),
-                width: 100,
-              ),
-              SizedBox(height: 30),
-              Text(
-                '안녕하세요!',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              SizedBox(height: 30),
-              Text(
-                degree,
-                style: TextStyle(
-                    color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                userName + '님',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                '현재 n일째 학습했어요!',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              SizedBox(height: 30),
-              Text(
-                '설정 캐릭터',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-              Text(
-                ': 내 얼굴',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-              ),
-            ],
-          ),
-        ));
-  }
+  Widget _message(String msg) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 15),
+    child: Text(msg,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+            fontSize: 14, height: 1.5, fontWeight: FontWeight.w400)),
+  );
 }
