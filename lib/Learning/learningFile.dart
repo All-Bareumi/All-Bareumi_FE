@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:capstone/Learning/learningMaterials.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
@@ -8,9 +9,10 @@ import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
 class LearningFile extends StatefulWidget {
-  const LearningFile({Key? key, required this.fileName}) : super(key: key);
+  const LearningFile({Key? key, required this.learningMaterial})
+      : super(key: key);
 
-  final String fileName;
+  final LearningMaterial learningMaterial;
 
   @override
   State<LearningFile> createState() => _LearningFileState();
@@ -120,14 +122,11 @@ class _LearningFileState extends State<LearningFile> {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.width,
-                    child: ClipRect(
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: AspectRatio(aspectRatio: 1 / _cameraController!.value.aspectRatio, child: CameraPreview(_cameraController!)),
-                        ),
-                      ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: AspectRatio(
+                          aspectRatio: 1 / _cameraController!.value.aspectRatio,
+                          child: CameraPreview(_cameraController!)),
                     ),
                   );
                 } else {
@@ -138,8 +137,7 @@ class _LearningFileState extends State<LearningFile> {
               },
             )
           ],
-        )
-    );
+        ));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -147,7 +145,7 @@ class _LearningFileState extends State<LearningFile> {
       elevation: 0.0,
       backgroundColor: Color(0xffFED40B),
       title: Text(
-        '${widget.fileName}',
+        '${widget.learningMaterial.subjectKor}',
         style:
             TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),

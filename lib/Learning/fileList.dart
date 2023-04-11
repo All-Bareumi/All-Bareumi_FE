@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
 import 'learningFile.dart';
+import 'learningMaterials.dart';
 
 class FileList extends StatefulWidget {
   const FileList({Key? key}) : super(key: key);
@@ -10,23 +11,7 @@ class FileList extends StatefulWidget {
 }
 
 class _FileListState extends State<FileList> {
-  static List<String> materialList = [
-    "음식",
-    "학교",
-    "가족",
-    "운동",
-  ];
-  static List<String> materialImgPath = [
-    "food",
-    "school",
-    "family",
-    "exercise"
-  ];
 
-  final List<LearningMaterial> learningMaterials = List.generate(
-      materialList.length,
-      (index) => LearningMaterial(materialList[index],
-          "image/icon/icon_" + materialImgPath[index] + ".png"));
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +44,7 @@ class _FileListState extends State<FileList> {
                               return InkWell(
                                 onTap: () {
                                   Navigator.of(context).push(_createRoute(
-                                      learningMaterials[index].name));
+                                      learningMaterials[index]));
                                 },
                                 child: Container(
                                   height: 200,
@@ -86,7 +71,7 @@ class _FileListState extends State<FileList> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            learningMaterials[index].name,
+                            learningMaterials[index].subjectKor,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 35,
@@ -185,10 +170,10 @@ class _FileListState extends State<FileList> {
   }
 }
 
-Route _createRoute(String fileName) {
+Route _createRoute(LearningMaterial learningMaterial) {
   return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          new LearningFile(fileName: fileName),
+          new LearningFile(learningMaterial: learningMaterial),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;

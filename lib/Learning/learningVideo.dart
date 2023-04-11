@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:io';
 import 'package:video_uploader/video_uploader.dart';
+import 'learningVideoMaterials.dart';
 
 class LearningVideo extends StatefulWidget {
-  const LearningVideo({Key? key, required this.fileName}) : super(key: key);
+  const LearningVideo({Key? key, required this.learningVideoMaterial}) : super(key: key);
 
-  final String fileName;
+  final LearningVideoMaterial learningVideoMaterial;
 
   @override
   State<LearningVideo> createState() => _LearningVideoState();
@@ -92,7 +93,7 @@ class _LearningVideoState extends State<LearningVideo> {
       elevation: 0.0,
       backgroundColor: Color(0xffFED40B),
       title: Text(
-        '${widget.fileName}',
+        '${widget.learningVideoMaterial.title}',
         style:
             TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
