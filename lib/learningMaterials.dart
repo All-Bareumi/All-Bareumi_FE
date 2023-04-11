@@ -43,7 +43,7 @@ List<String> familySentenceList = [
   "저녁은 매일 가족들과 먹어요"
 ];
 
-List<String> scoolSentenceList = [
+List<String> schoolSentenceList = [
   "나는 학교에 가는 게 재미있어요",
   "학교에 가면 친구들과 선생님이 있어요",
   "우리 학교에는 도서관이 있어요",
@@ -90,4 +90,19 @@ List<String> schoolSentenceVideoList = [
 final List<SentenceData> foodSentences = List.generate(
     foodSentenceList.length,
     (idx) =>SentenceData("food", foodSentenceList[idx], "video/"+foodSentenceVideoList[idx]+".mp4")
+);
+
+final List<SentenceData> exerciseSentences = List.generate(
+    foodSentenceList.length,
+        (idx) =>SentenceData("exercise", exerciseSentenceList[idx], "video/"+exerciseSentenceVideoList[idx]+".mp4")
+);
+
+final List<SentenceData> familySentences = List.generate(
+    foodSentenceList.length,
+        (idx) =>SentenceData("family", familySentenceList[idx], "video/"+familySentenceVideoList[idx]+".mp4")
+);
+
+final List<SentenceData> schoolSentences = List.generate(
+    foodSentenceList.length,
+        (idx) =>SentenceData("school", schoolSentenceList[idx], "video/"+schoolSentenceVideoList[idx]+".mp4")
 );
