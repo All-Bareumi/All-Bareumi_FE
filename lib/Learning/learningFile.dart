@@ -18,7 +18,7 @@ class LearningFile extends StatefulWidget {
 class _LearningFileState extends State<LearningFile> {
   // 비디오 컨트롤러
   late VideoPlayerController videoController;
-  String videoPath = "video/temp_anna.mp4";
+  String videoPath = learningMaterials.first.sentences.first.videoPath;
 
   // 카메라 기능
   late CameraController _cameraController;
@@ -45,9 +45,9 @@ class _LearningFileState extends State<LearningFile> {
     _initCamera();
 
     //텍스트
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      activeIndex++;
-      if (activeIndex > words.length) activeIndex = 0;
+    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      //activeIndex++;
+      //if (activeIndex > words.length) activeIndex = 0;
       setState(() {});
     });
   }
@@ -115,6 +115,11 @@ class _LearningFileState extends State<LearningFile> {
                     } else {
                       videoController.play();
                     }
+                    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+                      activeIndex++;
+                      //if (activeIndex > words.length) activeIndex = 0;
+                      setState(() {});
+                    });
                   },
                 ),
                 buildTextAnimation(context),

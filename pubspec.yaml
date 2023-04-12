@@ -79,6 +79,23 @@ flutter:
    - image/character/
    - image/icon/hangeul/
    - video/
+   - video/sentence/
+   - video/sentence/anna/food/
+   - video/sentence/anna/exercise/
+   - video/sentence/anna/school/
+   - video/sentence/anna/family/
+   - video/sentence/elsa/food/
+   - video/sentence/elsa/exercise/
+   - video/sentence/elsa/school/
+   - video/sentence/elsa/family/
+   - video/sentence/hans/food/
+   - video/sentence/hans/exercise/
+   - video/sentence/hans/school/
+   - video/sentence/hans/family/
+   - video/sentence/kristoff/food/
+   - video/sentence/kristoff/exercise/
+   - video/sentence/kristoff/school/
+   - video/sentence/kristoff/family/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
