@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'characters.dart';
 import 'loadingCharacter.dart';
-
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
 List<String> charName = [

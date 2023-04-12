@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+final String selectedChar = "kristoff";
 
 class LearningMaterial {
   final String subject;
@@ -21,8 +22,8 @@ class SentenceData {
   final String sentence;
   late String videoPath;
 
-  SentenceData(this.subject, this.sentence, String video){
-    this.videoPath = "video/sentence/${this.subject}/"+ video + ".mp4";
+  SentenceData(this.subject, this.sentence, String video) {
+    this.videoPath = "video/sentence/${selectedChar}/${this.subject}/" + video + ".mp4";
   }
 }
 
@@ -58,76 +59,66 @@ List<String> schoolSentenceList = [
   "친구들과 먹는 급식은 맛있어요"
 ];
 
-
 List<String> foodSentenceVideoList = [
+  "food0",
   "food1",
   "food2",
   "food3",
-  "food4",
-  "food5"
+  "food4"
 ];
 
-
 List<String> exerciseSentenceVideoList = [
+  "exercise0",
   "exercise1",
   "exercise2",
   "exercise3",
-  "exercise4",
-  "exercise5"
+  "exercise4"
 ];
 
-
 List<String> familySentenceVideoList = [
+  "family0",
   "family1",
   "family2",
   "family3",
-  "family4",
-  "family5"
+  "family4"
 ];
 
-
 List<String> schoolSentenceVideoList = [
+  "school0",
   "school1",
   "school2",
   "school3",
   "school4",
-  "school5"
 ];
 
 final List<SentenceData> foodSentences = List.generate(
     foodSentenceList.length,
-    (idx) =>SentenceData("food", foodSentenceList[idx], foodSentenceVideoList[idx])
-);
+    (idx) => SentenceData(
+        "food", foodSentenceList[idx], foodSentenceVideoList[idx]));
 
 final List<SentenceData> exerciseSentences = List.generate(
     foodSentenceList.length,
-        (idx) =>SentenceData("exercise", exerciseSentenceList[idx], exerciseSentenceVideoList[idx])
-);
+    (idx) => SentenceData(
+        "exercise", exerciseSentenceList[idx], exerciseSentenceVideoList[idx]));
 
 final List<SentenceData> familySentences = List.generate(
     foodSentenceList.length,
-        (idx) =>SentenceData("family", familySentenceList[idx], familySentenceVideoList[idx])
-);
+    (idx) => SentenceData(
+        "family", familySentenceList[idx], familySentenceVideoList[idx]));
 
 final List<SentenceData> schoolSentences = List.generate(
     foodSentenceList.length,
-        (idx) =>SentenceData("school", schoolSentenceList[idx], schoolSentenceVideoList[idx])
-);
+    (idx) => SentenceData(
+        "school", schoolSentenceList[idx], schoolSentenceVideoList[idx]));
 
-LearningMaterial food = new LearningMaterial("food", "음식", foodSentences, "food");
-LearningMaterial exercise = new LearningMaterial("exercise", "운동",exerciseSentences, "exercise");
-LearningMaterial family = new LearningMaterial("family", "가족",familySentences, "family");
-LearningMaterial school = new LearningMaterial("school", "학교",schoolSentences, "school");
+LearningMaterial food =
+    new LearningMaterial("food", "음식", foodSentences, "food");
+LearningMaterial exercise =
+    new LearningMaterial("exercise", "운동", exerciseSentences, "exercise");
+LearningMaterial family =
+    new LearningMaterial("family", "가족", familySentences, "family");
+LearningMaterial school =
+    new LearningMaterial("school", "학교", schoolSentences, "school");
 
-List<LearningMaterial> learningMaterials = [
-  food,
-  school,
-  family,
-  exercise
-];
-List<String> learningMaterialKorList = [
-  "음식",
-  "학교",
-  "가족",
-  "운동"
-];
+List<LearningMaterial> learningMaterials = [food, school, family, exercise];
+List<String> learningMaterialKorList = ["음식", "학교", "가족", "운동"];

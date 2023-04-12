@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:capstone/Learning/learningMaterials.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
-import 'package:path/path.dart' show join;
-import 'package:path_provider/path_provider.dart';
+
 
 class LearningFile extends StatefulWidget {
   const LearningFile({Key? key, required this.learningMaterial})
@@ -27,6 +24,11 @@ class _LearningFileState extends State<LearningFile> {
   late CameraController _cameraController;
   Future<void>? _initializeCameraControllerFuture;
 
+  // 텍스트 애니메이션
+  late List<String> words= widget.learningMaterial.sentences.first.sentence.split(" ").toList();
+  late Timer timer;
+  int activeIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,13 @@ class _LearningFileState extends State<LearningFile> {
 
     //카메라
     _initCamera();
+
+    //텍스트
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      activeIndex++;
+      if (activeIndex > words.length) activeIndex = 0;
+      setState(() {});
+    });
   }
 
   Future<void> _initCamera() async {
@@ -66,6 +75,7 @@ class _LearningFileState extends State<LearningFile> {
     // 위젯의 생명주기 종료시 컨트롤러 역시 해제시켜줍니다.
     _cameraController!.dispose();
     videoController.dispose();
+    timer.cancel();
     super.dispose();
   }
 
@@ -106,7 +116,8 @@ class _LearningFileState extends State<LearningFile> {
                       videoController.play();
                     }
                   },
-                )
+                ),
+                buildTextAnimation(context),
               ],
             ),
             Container(
@@ -166,6 +177,33 @@ class _LearningFileState extends State<LearningFile> {
           );
         })
       ],
+    );
+  }
+
+  Widget buildTextAnimation(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: () {
+          List<InlineSpan> spans = [];
+          for (int i = 0; i < words.length; i++) {
+            spans.add(TextSpan(
+              text: words[i] + " ",
+              style: i == activeIndex
+                  ? const TextStyle( //highlight style
+                color: Colors.orange,
+                fontSize: 35,
+                fontFamily: 'Dongle',
+              )
+                  : TextStyle(
+                color: Colors.grey.shade300,
+                fontSize: 35,
+                fontFamily: 'Dongle',
+              ),
+            ));
+          }
+          return spans;
+        }(),
+      ),
     );
   }
 }
