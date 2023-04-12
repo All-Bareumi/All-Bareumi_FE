@@ -48,8 +48,6 @@ class _LearningFileState extends State<LearningFile> {
 
     //텍스트
     timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      //activeIndex++;
-      //if (activeIndex > words.length) activeIndex = 0;
       setState(() {});
     });
   }
@@ -87,79 +85,83 @@ class _LearningFileState extends State<LearningFile> {
         backgroundColor: Colors.white,
         endDrawer: Drawer(),
         appBar: buildAppBar(context),
-        body: Column(
-          children: <Widget>[
-            Container(
-              child: InkWell(
-                onTap: () {
+        body: buildBody(context)
+    );
+  }
+
+  Column buildBody(BuildContext context) {
+    return Column(
+        children: <Widget>[
+          Container(
+            child: InkWell(
+              onTap: () {
+                if (videoController.value.isPlaying) {
+                  videoController.pause();
+                } else {
+                  videoController.play();
+                }
+              },
+              child: AspectRatio(
+                aspectRatio: videoController.value.aspectRatio,
+                child: VideoPlayer(videoController),
+              ),
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              IconButton(
+                icon: Image(
+                  image: AssetImage('image/logo/logo.png'),
+                  width: 100,
+                ),
+                onPressed: () {
                   if (videoController.value.isPlaying) {
                     videoController.pause();
                   } else {
                     videoController.play();
                   }
+                  timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+                    activeIndex++;
+                    setState(() {});
+                  });
+                  if (activeIndex > words.length) activeIndex = 0;
                 },
-                child: AspectRatio(
-                  aspectRatio: videoController.value.aspectRatio,
-                  child: VideoPlayer(videoController),
-                ),
               ),
-            ),
-            Row(
-              children: <Widget>[
-                IconButton(
-                  icon: Image(
-                    image: AssetImage('image/logo/logo.png'),
-                    width: 100,
-                  ),
-                  onPressed: () {
-                    if (videoController.value.isPlaying) {
-                      videoController.pause();
-                    } else {
-                      videoController.play();
-                    }
-                    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-                      activeIndex++;
-                      //if (activeIndex > words.length) activeIndex = 0;
-                      setState(() {});
-                    });
-                    if (activeIndex > words.length) activeIndex = 0;
-                  },
-                ),
-                buildTextAnimation(context),
-              ],
-            ),
-            // Container(
-            //     child: CircularProgressIndicator(
-            //   backgroundColor: Colors.black,
-            //   valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            // )),
-            Container(
-              child: Image(image: AssetImage("image/logo/logo.png"),),
-            ),
-            FutureBuilder<void>(
-              future: _initializeCameraControllerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // Future가 완료되면, 프리뷰를 보여줍니다.
-                  return SizedBox(
+              buildTextAnimation(context),
+            ],
+          ),
+          // Container(
+          //     child: CircularProgressIndicator(
+          //   backgroundColor: Colors.black,
+          //   valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+          // )),
+          Container(
+            child: Image(image: AssetImage("image/logo/logo.png"),),
+          ),
+          FutureBuilder<void>(
+            future: _initializeCameraControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // Future가 완료되면, 프리뷰를 보여줍니다.
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width,
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: AspectRatio(
-                          aspectRatio: 1 / _cameraController!.value.aspectRatio,
-                          child: CameraPreview(_cameraController!)),
-                    ),
-                  );
-                } else {
-                  // Otherwise, display a loading indicator.
-                  // 그렇지 않다면, 진행 표시기를 보여줍니다.
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            )
-          ],
-        ));
+                    child: AspectRatio(
+                        aspectRatio: 1 / _cameraController!.value.aspectRatio,
+                        child: CameraPreview(_cameraController!)),
+                  ),
+                );
+              } else {
+                // Otherwise, display a loading indicator.
+                // 그렇지 않다면, 진행 표시기를 보여줍니다.
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          )
+        ],
+      );
   }
 
   AppBar buildAppBar(BuildContext context) {

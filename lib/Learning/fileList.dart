@@ -1,3 +1,4 @@
+import 'package:capstone/Learning/learningPage.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
 import 'learningFile.dart';
@@ -173,7 +174,9 @@ class _FileListState extends State<FileList> {
 Route _createRoute(LearningMaterial learningMaterial) {
   return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          new LearningFile(learningMaterial: learningMaterial),
+          new LearningPage(learningMaterial: learningMaterial),
+      // pageBuilder: (context, animation, secondaryAnimation) =>
+      // new LearningFile(learningMaterial: learningMaterial),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
