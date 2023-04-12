@@ -18,7 +18,7 @@ class LearningFile extends StatefulWidget {
 class _LearningFileState extends State<LearningFile> {
   // 비디오 컨트롤러
   late VideoPlayerController videoController;
-  String videoPath = learningMaterials.first.sentences.first.videoPath;
+  late String videoPath;
 
   // 카메라 기능
   late CameraController _cameraController;
@@ -32,6 +32,8 @@ class _LearningFileState extends State<LearningFile> {
   @override
   void initState() {
     super.initState();
+    videoPath = widget.learningMaterial.sentences.first.videoPath;
+
     videoController = VideoPlayerController.asset(videoPath);
 
     videoController.addListener(() {
@@ -120,16 +122,20 @@ class _LearningFileState extends State<LearningFile> {
                       //if (activeIndex > words.length) activeIndex = 0;
                       setState(() {});
                     });
+                    if (activeIndex > words.length) activeIndex = 0;
                   },
                 ),
                 buildTextAnimation(context),
               ],
             ),
+            // Container(
+            //     child: CircularProgressIndicator(
+            //   backgroundColor: Colors.black,
+            //   valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            // )),
             Container(
-                child: CircularProgressIndicator(
-              backgroundColor: Colors.black,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            )),
+              child: Image(image: AssetImage("image/logo/logo.png"),),
+            ),
             FutureBuilder<void>(
               future: _initializeCameraControllerFuture,
               builder: (context, snapshot) {
@@ -169,6 +175,7 @@ class _LearningFileState extends State<LearningFile> {
           icon: Icon(Icons.close),
           color: const Color(0xff5a4c0c),
           onPressed: () {
+            videoController.pause();
             Navigator.pop(context);
           }),
       actions: <Widget>[
