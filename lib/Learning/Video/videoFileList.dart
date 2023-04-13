@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/learningMaterials.dart';
+import 'package:capstone/Learning/File/learningMaterials.dart';
 import 'learningVideo.dart';
 import 'learningVideoMaterials.dart';
 

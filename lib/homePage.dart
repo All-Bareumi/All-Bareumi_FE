@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/fileList.dart';
-import 'package:capstone/Learning/videoFileList.dart';
+import 'package:capstone/Learning/File/fileList.dart';
+import 'package:capstone/Learning/Video/videoFileList.dart';
 import 'package:capstone/AddFile/addNewFilePage.dart';
 
 class HomePage extends StatelessWidget {

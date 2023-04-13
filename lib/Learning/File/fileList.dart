@@ -1,6 +1,6 @@
-import 'package:capstone/Learning/learningPage.dart';
+import 'package:capstone/Learning/File/learningFile.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/learningMaterials.dart';
+import 'package:capstone/Learning/File/learningMaterials.dart';
 
 class FileList extends StatefulWidget {
   const FileList({Key? key}) : super(key: key);
@@ -193,7 +193,7 @@ class _FileListState extends State<FileList> {
 Route _createRoute(LearningMaterial learningMaterial) {
   return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          new LearningPage(learningMaterial: learningMaterial),
+          new LearningFile(learningMaterial: learningMaterial),
       // pageBuilder: (context, animation, secondaryAnimation) =>
       // new LearningFile(learningMaterial: learningMaterial),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
