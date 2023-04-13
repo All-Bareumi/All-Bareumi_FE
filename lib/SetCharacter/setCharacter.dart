@@ -15,43 +15,64 @@ class SetCharacter extends StatelessWidget {
       backgroundColor: Color(0xffFED40B),
       endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => SelectCharacter(),
-                          ));
-                    },
-                    child: _buildChooseCharacter(
-                        '캐릭터 입모양', '생성하기', 'elsa_face', 'Blue', context),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            //builder: (BuildContext context) => CameraPage(text: "내 얼굴을 찍어주세요"),
-                            builder: (BuildContext context) => MyAvatar(),
-                          ));
-                    },
-                    child:_buildChooseCharacter(
-                        '내 얼굴로 입모양', '생성하기', 'camera', 'Green', context),
-                  ),
-                ],
+      body: Stack(
+        children: <Widget>[
+          Column(
+              children:<Widget>[
+                SizedBox(height: MediaQuery.of(context).size.height/16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/4),
+                Row(
+                  children: [
+                    //SizedBox(width: 30,),
+                    Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+                  ],
+                )
+              ]
+          ),
+          Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => SelectCharacter(),
+                            ));
+                      },
+                      child: _buildChooseCharacter(
+                          '캐릭터 입모양', '생성하기', 'elsa_face', 'Blue', context),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              //builder: (BuildContext context) => CameraPage(text: "내 얼굴을 찍어주세요"),
+                              builder: (BuildContext context) => MyAvatar(),
+                            ));
+                      },
+                      child:_buildChooseCharacter(
+                          '내 얼굴로 입모양', '생성하기', 'camera', 'Green', context),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ),],
       ),
     );
   }

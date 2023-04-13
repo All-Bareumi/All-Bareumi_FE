@@ -20,74 +20,95 @@ class _FileListState extends State<FileList> {
         backgroundColor: Color(0xffFED40B),
         endDrawer: _buildDrawer(),
         appBar: buildAppBar(context),
-        body: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+        body: Stack(
+          children: <Widget>[
+            Column(
+                children:<Widget>[
+                  SizedBox(height: MediaQuery.of(context).size.height/16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/4),
+                  Row(
+                    children: [
+                      //SizedBox(width: 30,),
+                      Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+                    ],
+                  )
+                ]
             ),
-            itemCount: learningMaterials.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    elevation: 2,
-                    color: Color(0xfffffBDE),
-                    child: InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            builder: (BuildContext context) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(_createRoute(
-                                      learningMaterials[index]));
-                                },
-                                child: Container(
-                                  height: 200,
-                                  //color: Colors.transparent,
-                                  child: Text(
-                                    '학습 시작하기',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 60,
-                                        fontFamily: 'Dongle'),
-                                  ),
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30),
-                                      topRight: Radius.circular(30),
-                                    ),
-                                    color: Color(0XFFED5555),
-                                  ),
-                                ),
-                              );
-                            });
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            learningMaterials[index].subjectKor,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 35,
-                                fontFamily: 'Dongle',
-                                color: Colors.black),
-                          ),
-                          Image(
-                              image:
-                                  AssetImage(learningMaterials[index].imgPath),
-                              width: MediaQuery.of(context).size.width / 4),
-                        ],
+            GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemCount: learningMaterials.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                    )),
-              );
-            }));
+                      elevation: 2,
+                      color: Color(0xfffffBDE),
+                      child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              builder: (BuildContext context) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(_createRoute(
+                                        learningMaterials[index]));
+                                  },
+                                  child: Container(
+                                    height: 200,
+                                    //color: Colors.transparent,
+                                    child: Text(
+                                      '학습 시작하기',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 60,
+                                          fontFamily: 'Dongle'),
+                                    ),
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30),
+                                      ),
+                                      color: Color(0XFFED5555),
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              learningMaterials[index].subjectKor,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 35,
+                                  fontFamily: 'Dongle',
+                                  color: Colors.black),
+                            ),
+                            Image(
+                                image:
+                                    AssetImage(learningMaterials[index].imgPath),
+                                width: MediaQuery.of(context).size.width / 4),
+                          ],
+                        ),
+                      )),
+                );
+              }),],
+        ));
   }
 
   Drawer _buildDrawer() {

@@ -12,120 +12,141 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color(0xffFED40B),
         endDrawer: buildDrawer(),
         appBar: buildAppBar(context),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => FileList(),
-                        ));
-                  },
-                  child: Stack(children: <Widget>[
-                    Container(
-                      child: Text(
-                        '기존 자료로 학습하기',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Dongle',
-                            fontSize: 40,
-                            color: Colors.white),
-                      ),
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: const Color(0xffED5555)),
-                    ),
-                    buildColumn(),
-                  ]),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => VideoFileList(),
-                        ));
-                  },
-                  child: Stack(children: <Widget>[
-                    Container(
-                      child: Text(
-                        '영상으로 학습하기',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Dongle',
-                            fontSize: 40,
-                            color: Colors.white),
-                      ),
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xff1AB846)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 70),
-                      child: Row(
-                        children: [
-                          Image(
-                            image: AssetImage('image/icon/yellowShark.png'),
-                            width: 120,
-                          ),
-                          Image(
-                            image: AssetImage('image/icon/pinkfong_shrimp.png'),
-                            width: 60,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 115, left: 75),
-                        child: Image(
-                            image: AssetImage('image/icon/icon_youtube.png')))
-                  ]),
-                ),
-              ],
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => AddNewFilePage(),
-                    ));
-              },
-              child: Stack(children: <Widget>[
-                Container(
-                  child: Text(
-                    '새로운 자료 추가하기',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: 'Dongle',
-                        fontSize: 40,
-                        color: Colors.white),
+            Column(
+                children:<Widget>[
+                  SizedBox(height: MediaQuery.of(context).size.height/16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+                    ],
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 4,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0XFF1086FE)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60, left: 45),
-                  child: Row(children: <Widget>[
-                    Image(image: AssetImage('image/icon/book1.jpeg'), width: 100),
-                    Icon(Icons.add, size: 100,color: Colors.white,),
-                    Image(image: AssetImage('image/icon/book2.jpeg'), width: 100),
-                  ]),
-                )
-              ]),
-            )
-          ],
+                  SizedBox(height: MediaQuery.of(context).size.height/4),
+                  Row(
+                    children: [
+                      //SizedBox(width: 30,),
+                      Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+                    ],
+                  )
+                ]
+            ),
+            Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => FileList(),
+                          ));
+                    },
+                    child: Stack(children: <Widget>[
+                      Container(
+                        child: Text(
+                          '기존 자료로 학습하기',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Dongle',
+                              fontSize: 40,
+                              color: Colors.white),
+                        ),
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color(0xffED5555)),
+                      ),
+                      buildColumn(),
+                    ]),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => VideoFileList(),
+                          ));
+                    },
+                    child: Stack(children: <Widget>[
+                      Container(
+                        child: Text(
+                          '영상으로 학습하기',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Dongle',
+                              fontSize: 40,
+                              color: Colors.white),
+                        ),
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xff1AB846)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 70),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: AssetImage('image/icon/yellowShark.png'),
+                              width: 120,
+                            ),
+                            Image(
+                              image: AssetImage('image/icon/pinkfong_shrimp.png'),
+                              width: 60,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(top: 115, left: 75),
+                          child: Image(
+                              image: AssetImage('image/icon/icon_youtube.png')))
+                    ]),
+                  ),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => AddNewFilePage(),
+                      ));
+                },
+                child: Stack(children: <Widget>[
+                  Container(
+                    child: Text(
+                      '새로운 자료 추가하기',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Dongle',
+                          fontSize: 40,
+                          color: Colors.white),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 4,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0XFF1086FE)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 60, left: 45),
+                    child: Row(children: <Widget>[
+                      Image(image: AssetImage('image/icon/book1.jpeg'), width: 100),
+                      Icon(Icons.add, size: 100,color: Colors.white,),
+                      Image(image: AssetImage('image/icon/book2.jpeg'), width: 100),
+                    ]),
+                  )
+                ]),
+              )
+            ],
+          ),],
         ));
   }
 
