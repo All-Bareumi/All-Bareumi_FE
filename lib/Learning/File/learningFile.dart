@@ -77,27 +77,72 @@ class _LearningFileState extends State<LearningFile> {
         //buildCameraFutureBuilder(),
         Padding(
           padding: const EdgeInsets.only(right: 8.0),
-          child: Row(
+          child: _sentenceIdx!=0? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        if(_sentenceIdx >= 0){
+                          this._sentenceIdx--;
+                        }
+                      });
+                    },
+                    child: Text(
+                      "< 이전",
+                      style: TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                    )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        this._sentenceIdx++;
+                      });
+                      if (this._sentenceIdx >=
+                          widget.learningMaterial.sentences.length - 1) {
+                        //학습 완료 시 보상
+                        //지금은 학습 페이지 나가기로 설정
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text(
+                      "다음 >",
+                      style: TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                    )
+                ),
+              ),
+            ],
+          ):
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(
-                  onPressed: () {
-                    setState(() {
-                      this._sentenceIdx++;
-                    });
-                    if (this._sentenceIdx >=
-                        widget.learningMaterial.sentences.length - 1) {
-                      //학습 완료 시 보상
-                      //지금은 학습 페이지 나가기로 설정
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text(
-                    "${_sentenceIdx}다음 >",
-                    style: TextStyle(fontFamily: 'Dongle', fontSize: 30),
-                  )),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        this._sentenceIdx++;
+                      });
+                      if (this._sentenceIdx >=
+                          widget.learningMaterial.sentences.length - 1) {
+                        //학습 완료 시 보상
+                        //지금은 학습 페이지 나가기로 설정
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text(
+                      "다음 >",
+                      style: TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                    )
+                ),
+              ),
             ],
-          ),
+          )
         ),
       ],
     );
@@ -266,15 +311,17 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   }
 }
 
-class Index_Provider with ChangeNotifier{
+class Index_Provider with ChangeNotifier {
   int _idx = 0;
+
   int get idx => _idx;
 
-  void next(){
+  void next() {
     _idx++;
     notifyListeners();
   }
-  void prev(){
+
+  void prev() {
     _idx--;
     notifyListeners();
   }
