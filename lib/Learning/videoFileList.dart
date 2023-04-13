@@ -24,10 +24,8 @@ class _VideoFileListState extends State<VideoFileList> {
         body: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              //mainAxisSpacing: 10,
-              //crossAxisSpacing: 10,
             ),
-            itemCount: learningMaterials.length,
+            itemCount: learningVideoMaterials.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(10.0),

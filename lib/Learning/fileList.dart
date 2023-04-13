@@ -1,8 +1,6 @@
 import 'package:capstone/Learning/learningPage.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/learningMaterials.dart';
-import 'learningFile.dart';
-import 'learningMaterials.dart';
 
 class FileList extends StatefulWidget {
   const FileList({Key? key}) : super(key: key);

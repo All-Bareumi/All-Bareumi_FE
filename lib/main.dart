@@ -1,11 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
-import 'package:camera/camera.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:path/path.dart' show join;
-import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter/material.dart';
 import 'LogIn/login.dart';
 
@@ -29,9 +23,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Capstone',
-      home: LogIn(
-      ),
+      home: LogIn(),
     );
   }
 }
-

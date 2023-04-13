@@ -10,7 +10,9 @@ class LearningVideoMaterial{
 }
 
 LearningVideoMaterial babyShark = new LearningVideoMaterial("babyShark", "아기상어", "babyShark", "yellowShark");
+LearningVideoMaterial theTreeFrog = new LearningVideoMaterial("theTreeFrog", "청개구리", "theTreeFrog", "theTreeFrog");
 
 List<LearningVideoMaterial> learningVideoMaterials= [
-  babyShark
+  babyShark,
+  theTreeFrog
 ];

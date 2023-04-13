@@ -17,11 +17,12 @@ class _LearningVideoState extends State<LearningVideo> {
   late VideoPlayerController videoController;
   late Future<void> _initializeVideoPlayerFuture;
 
-  String videoPath = 'video/temp_anna.mp4';
+  late String videoPath;
 
   @override
   void initState() {
     super.initState();
+    videoPath = widget.learningVideoMaterial.videoPath;
     videoController = VideoPlayerController.asset(videoPath);
     _initializeVideoPlayerFuture = videoController.initialize();
 
