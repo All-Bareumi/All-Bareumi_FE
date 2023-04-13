@@ -66,21 +66,21 @@ class _LearningContentsPageState extends State<LearningContentsPage> {
   // 비디오 컨트롤러
   late VideoPlayerController videoController;
   late String videoPath;
-  int idx = 0;
+  int sentenceIdx = 0;
 
   // 카메라 기능
   late CameraController _cameraController;
   Future<void>? _initializeCameraControllerFuture;
 
   // 텍스트 애니메이션
-  late List<String> words= widget.learningMaterial.sentences[idx].sentence.split(" ").toList();
+  late List<String> words= widget.learningMaterial.sentences[sentenceIdx].sentence.split(" ").toList();
   late Timer timer;
   int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    videoPath = widget.learningMaterial.sentences[idx].videoPath;
+    videoPath = widget.learningMaterial.sentences[sentenceIdx].videoPath;
 
     videoController = VideoPlayerController.asset(videoPath);
 
@@ -204,9 +204,10 @@ class _LearningContentsPageState extends State<LearningContentsPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(onPressed: (){
-              idx++;
-              setState(() {});
-              if(idx >= widget.learningMaterial.sentences.length){
+              setState(() {
+                this.sentenceIdx++;
+              });
+              if(this.sentenceIdx >= widget.learningMaterial.sentences.length){
                 //학습 완료 시 보상
                 //지금은 학습 페이지 나가기로 설정
                 Navigator.pop(context);
