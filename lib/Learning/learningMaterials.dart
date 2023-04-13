@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-final String selectedChar = "kristoff";
-
+import 'package:capstone/SetCharacter/selectCharacter.dart';
 class LearningMaterial {
   final String subject;
   final String subjectKor;

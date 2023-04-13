@@ -3,6 +3,9 @@ import 'characters.dart';
 import 'loadingCharacter.dart';
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
+
+late final String selectedChar;
+
 List<String> charName = [
   '엘사',
   '안나',
@@ -23,57 +26,78 @@ class SelectCharacter extends StatelessWidget {
       backgroundColor: Color(0xffFED40B),
       endDrawer: buildDrawer(),
       appBar: buildAppBar(context),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left :30.0, right: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Text('엘사', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
-                  SizedBox(width: 140,),
-                  Text('안나', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
+      body: Stack(
+        children: <Widget>[
+          Column(
+              children:<Widget>[
+                SizedBox(height: MediaQuery.of(context).size.height/16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/4),
+                Row(
+                  children: [
+                    //SizedBox(width: 30,),
+                    Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+                  ],
+                )
+              ]
+          ),
+          Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left :30.0, right: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Text('엘사', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
+                    SizedBox(width: 140,),
+                    Text('안나', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
 
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left :30.0, right: 20.0, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  buildCharacterButton('elsa',context),
-                  SizedBox(width: 30),
-                  buildCharacterButton('anna',context),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left :30.0, right: 20.0, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    buildCharacterButton('elsa',context),
+                    SizedBox(width: 30),
+                    buildCharacterButton('anna',context),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30,left :30.0, right: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Text('크리스토프', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
-                  SizedBox(width: 100,),
-                  Text('한스', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
+              Padding(
+                padding: const EdgeInsets.only(top: 30,left :30.0, right: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Text('크리스토프', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
+                    SizedBox(width: 100,),
+                    Text('한스', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
 
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left :20.0, right: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  buildCharacterButton('kristoff',context),
-                  SizedBox(width: 30),
-                  buildCharacterButton('hans',context),
+              Padding(
+                padding: const EdgeInsets.only(left :20.0, right: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    buildCharacterButton('kristoff',context),
+                    SizedBox(width: 30),
+                    buildCharacterButton('hans',context),
 
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ),]
       ),
     );
   }
@@ -166,6 +190,7 @@ class SelectCharacter extends StatelessWidget {
       onTap: (){
         // 캐릭터 선택 이후 액션
         // 캐릭터 선택 확정 로딩페이지로 이동
+        selectedChar = name;
         Navigator.push(
             context,
             MaterialPageRoute(
