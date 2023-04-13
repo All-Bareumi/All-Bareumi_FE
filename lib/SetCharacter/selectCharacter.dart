@@ -4,7 +4,7 @@ import 'loadingCharacter.dart';
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
 
-late final String selectedChar;
+late String selectedChar;
 
 List<String> charName = [
   '엘사',
@@ -208,3 +208,10 @@ class SelectCharacter extends StatelessWidget {
     );
   }
 }
+
+
+
+// class SetChar with ChangeNotifier{
+//   String _selectedChar;
+//   String get
+// }
