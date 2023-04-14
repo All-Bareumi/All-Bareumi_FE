@@ -94,7 +94,7 @@ class _LearningVideoState extends State<LearningVideo> {
       elevation: 0.0,
       backgroundColor: Color(0xffFED40B),
       title: Text(
-        '${widget.learningVideoMaterial.title}',
+        '${widget.learningVideoMaterial.titleKor}',
         style:
             TextStyle(color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
       ),
