@@ -111,7 +111,8 @@ class _LearningFileState extends State<LearningFile> {
                                 context.read<Index_Provider>().next();
                               });
                               if (this._sentenceIdx >=
-                                  widget.learningMaterial.sentences.length - 1) {
+                                  widget.learningMaterial.sentences.length -
+                                      1) {
                                 //학습 완료 시 보상
                                 //지금은 학습 페이지 나가기로 설정
                                 Navigator.pop(context);
