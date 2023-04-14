@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'LogIn/login.dart';
+import 'myProvider.dart';
 
 Future<void> main() async {
   //runApp 메소드 호출 전 Flutter SDK를 초기화 해야함.
@@ -20,10 +22,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Capstone',
-      home: LogIn(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>Index_Provider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Capstone',
+        home: LogIn(),
+      ),
     );
   }
 }
