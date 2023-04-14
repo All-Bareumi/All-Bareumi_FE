@@ -16,3 +16,9 @@ class Index_Provider with ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+// class Character_Provider with ChangeNotifier{
+//   String _characterName;
+//   String get characterName
+// }
