@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'characters.dart';
+import 'character.dart';
 import 'loadingCharacter.dart';
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
@@ -107,7 +107,7 @@ class SelectCharacter extends StatelessWidget {
     String userName = 'user123';
     return Drawer(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

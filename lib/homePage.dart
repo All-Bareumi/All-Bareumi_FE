@@ -214,7 +214,7 @@ class HomePage extends StatelessWidget {
     String userName = 'user123';
     return Drawer(
         child: Padding(
-      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+      padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

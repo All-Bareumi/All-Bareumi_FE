@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'characters.dart';
+import 'character.dart';
 //List<Character> Characters= [];
 class MyAvatar extends StatelessWidget {
   const MyAvatar({Key? key}) : super(key: key);

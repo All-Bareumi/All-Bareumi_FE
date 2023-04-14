@@ -1,6 +1,6 @@
 import 'package:capstone/CameraPage.dart';
 import 'package:flutter/material.dart';
-import 'characters.dart';
+import 'character.dart';
 import 'selectCharacter.dart';
 import 'myAvatar.dart';
 
@@ -82,7 +82,7 @@ class SetCharacter extends StatelessWidget {
     String userName = 'user123';
     return Drawer(
         child: Padding(
-      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+      padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

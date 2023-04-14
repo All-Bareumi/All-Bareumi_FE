@@ -3,6 +3,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'LogIn/login.dart';
+import 'SetCharacter/character.dart';
 import 'myProvider.dart';
 
 Future<void> main() async {
@@ -20,11 +21,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @overridef
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>Index_Provider()),
+        //ChangeNotifierProvider(create: (_)=>Character()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
