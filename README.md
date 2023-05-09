@@ -1,6 +1,10 @@
 # ALL-Bareumi_FE
 
 Flutter FrontEnd Code
+## ISSUE
+- 현재 캐릭터 재설정시 학습 파일이 객체로 형성되어 있어서 캐릭터가 바뀔 때 마다 새롭게 객체를 다시 생성하게 됨
+  - 이상함!
+- 백에서 Json 데이터를 넘겨주는건가?? 그럼 상태 변화를 객체로 안해도 되니깐 그냥 그때그때 넘기는 걸 다르게 하면 될듯??
 
 ## TODO List
 
@@ -10,9 +14,12 @@ Flutter FrontEnd Code
 
 - 캐릭터 설정
   - 캐릭터 재설정 오류 해결하기
+- 사용자 정보 가져와서 프로필 등등 보여주기
+  - https://developers.kakao.com/docs/latest/ko/kakaologin/js#req-user-info
+
 
 - 앱 페이지 구현
-  - 
+  - 학습 완료 후 페이지 구현하기
 ## Now
 - 앱 페이지 구현중
   - 사용자 환경설정 페이지
