@@ -30,6 +30,7 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
 
       print("!!");
       print(userNameNP);
+      print(notNullUser);
     } catch (error) {
       notNullUser = false;
     }
