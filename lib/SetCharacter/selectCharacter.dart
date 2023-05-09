@@ -4,7 +4,7 @@ import 'loadingCharacter.dart';
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
 
-late String selectedChar;
+//late String selectedChar;
 
 List<String> charName = [
   '엘사',
@@ -16,6 +16,10 @@ List<String> charName = [
 final List<Character> CharacterData= List.generate(
     charName.length, (idx) => Character(charName[idx], 'image/character'+ charName[idx]+'.png')
 );
+
+//future로 선택(late키워드) -> 여기서 그냥 임의 객체 생성해주기로 함.
+//late SelectedCharacter selectedCharacter;
+SelectedCharacter selectedCharacter = new SelectedCharacter(CharacterData[0]);
 
 class SelectCharacter extends StatelessWidget {
   const SelectCharacter({Key? key}) : super(key: key);
@@ -66,9 +70,9 @@ class SelectCharacter extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    buildCharacterButton('elsa',context),
+                    buildCharacterButton(CharacterData[0],context),
                     SizedBox(width: 30),
-                    buildCharacterButton('anna',context),
+                    buildCharacterButton(CharacterData[1],context),
                   ],
                 ),
               ),
@@ -88,9 +92,9 @@ class SelectCharacter extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    buildCharacterButton('kristoff',context),
+                    buildCharacterButton(CharacterData[2],context),
                     SizedBox(width: 30),
-                    buildCharacterButton('hans',context),
+                    buildCharacterButton(CharacterData[3],context),
 
                   ],
                 ),
@@ -150,7 +154,8 @@ class SelectCharacter extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        )
+    );
   }
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
@@ -185,12 +190,12 @@ class SelectCharacter extends StatelessWidget {
 
   }
 
-  InkWell buildCharacterButton(String name, BuildContext context ) {
+  InkWell buildCharacterButton(Character character, BuildContext context ) {
     return InkWell(
       onTap: (){
         // 캐릭터 선택 이후 액션
         // 캐릭터 선택 확정 로딩페이지로 이동
-        selectedChar = name;
+        selectedCharacter.setCharacter(character);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -200,7 +205,7 @@ class SelectCharacter extends StatelessWidget {
         },
       child: Container(
         child:CircleAvatar(
-          backgroundImage:AssetImage('image/character/'+name+'_face.png'),
+          backgroundImage:AssetImage('image/character/'+character.name+'_face.png'),
           backgroundColor: Color(0xffFED40B) ,
           radius: 70,
         ),
@@ -208,10 +213,3 @@ class SelectCharacter extends StatelessWidget {
     );
   }
 }
-
-
-
-// class SetChar with ChangeNotifier{
-//   String _selectedChar;
-//   String get
-// }
