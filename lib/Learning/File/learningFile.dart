@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:capstone/Learning/File/learningMaterials.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:capstone/myProvider.dart';
 import 'videoAndTextScreen.dart';
@@ -18,8 +17,6 @@ class LearningFile extends StatefulWidget {
 }
 
 class _LearningFileState extends State<LearningFile> {
-  int _sentenceIdx = 0;
-
   // 카메라 기능
   late CameraController _cameraController;
   Future<void>? _initializeCameraControllerFuture;
@@ -71,7 +68,8 @@ class _LearningFileState extends State<LearningFile> {
     return Column(
       children: <Widget>[
         VideoAndTextScreen(
-            sentenceData: widget.learningMaterial.sentences[Provider.of<Index_Provider>(context).idx]),
+            sentenceData: widget.learningMaterial
+                .sentences[Provider.of<Index_Provider>(context).idx]),
         Expanded(
           child: Image(
             image: AssetImage("image/logo/logo.png"),
@@ -81,7 +79,7 @@ class _LearningFileState extends State<LearningFile> {
         //buildCameraFutureBuilder(),
         Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: _sentenceIdx != 0
+            child: Provider.of<Index_Provider>(context).idx != 0
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -90,7 +88,8 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                if (_sentenceIdx >= 0) {
+                                if (Provider.of<Index_Provider>(context).idx >=
+                                    0) {
                                   //this._sentenceIdx--;
                                   context.read<Index_Provider>().prev();
                                 }
@@ -110,9 +109,8 @@ class _LearningFileState extends State<LearningFile> {
                                 //this._sentenceIdx++;
                                 context.read<Index_Provider>().next();
                               });
-                              if (this._sentenceIdx >=
-                                  widget.learningMaterial.sentences.length -
-                                      1) {
+                              if (Provider.of<Index_Provider>(context).idx >=
+                                  widget.learningMaterial.sentences.length - 1) {
                                 //학습 완료 시 보상
                                 //지금은 학습 페이지 나가기로 설정
                                 Navigator.pop(context);
@@ -134,9 +132,9 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                this._sentenceIdx++;
+                                context.read<Index_Provider>().next();
                               });
-                              if (this._sentenceIdx >=
+                              if (Provider.of<Index_Provider>(context).idx >=
                                   widget.learningMaterial.sentences.length -
                                       1) {
                                 //학습 완료 시 보상

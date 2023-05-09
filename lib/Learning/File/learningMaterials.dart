@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:capstone/SetCharacter/selectCharacter.dart';
+
+import '../../SetCharacter/character.dart';
 class LearningMaterial {
   final String subject;
   final String subjectKor;
@@ -21,8 +23,8 @@ class SentenceData {
   final String sentence;
   late String videoPath;
 
-  SentenceData(this.subject, this.sentence, String video) {
-    this.videoPath = "video/sentence/${selectedChar}/${this.subject}/" + video + ".mp4";
+  SentenceData(this.subject, this.sentence, SelectedCharacter selectedCharacter,String video) {
+    this.videoPath = "video/sentence/${selectedCharacter.character.name}/${this.subject}/" + video + ".mp4";
   }
 }
 
@@ -93,22 +95,22 @@ List<String> schoolSentenceVideoList = [
 final List<SentenceData> foodSentences = List.generate(
     foodSentenceList.length,
     (idx) => SentenceData(
-        "food", foodSentenceList[idx], foodSentenceVideoList[idx]));
+        "food", foodSentenceList[idx], selectedCharacter, foodSentenceVideoList[idx]));
 
 final List<SentenceData> exerciseSentences = List.generate(
     foodSentenceList.length,
     (idx) => SentenceData(
-        "exercise", exerciseSentenceList[idx], exerciseSentenceVideoList[idx]));
+        "exercise", exerciseSentenceList[idx], selectedCharacter, exerciseSentenceVideoList[idx]));
 
 final List<SentenceData> familySentences = List.generate(
     foodSentenceList.length,
     (idx) => SentenceData(
-        "family", familySentenceList[idx], familySentenceVideoList[idx]));
+        "family", familySentenceList[idx], selectedCharacter, familySentenceVideoList[idx]));
 
 final List<SentenceData> schoolSentences = List.generate(
     foodSentenceList.length,
     (idx) => SentenceData(
-        "school", schoolSentenceList[idx], schoolSentenceVideoList[idx]));
+        "school", schoolSentenceList[idx], selectedCharacter, schoolSentenceVideoList[idx]));
 
 LearningMaterial food =
     new LearningMaterial("food", "음식", foodSentences, "food");

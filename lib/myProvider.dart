@@ -7,13 +7,18 @@ class Index_Provider with ChangeNotifier {
   int get idx => _idx;
 
   void next() {
-    _idx++;
-    notifyListeners();
+    if(_idx<5){
+      _idx++;
+      notifyListeners();
+    }
+
   }
 
   void prev() {
-    _idx--;
-    notifyListeners();
+    if(_idx>=0){
+      _idx--;
+      notifyListeners();
+    }
   }
 }
 
