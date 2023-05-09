@@ -15,7 +15,7 @@ Flutter FrontEnd Code
 - 캐릭터 설정
   - 캐릭터 재설정 오류 해결하기
 - 사용자 정보 가져와서 프로필 등등 보여주기
-  - https://developers.kakao.com/docs/latest/ko/kakaologin/js#req-user-info
+  - https://developers.kakao.com/docs/latest/ko/kakaologin/flutter
 
 
 - 앱 페이지 구현

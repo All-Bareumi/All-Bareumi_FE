@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:capstone/userDataDrawer.dart';
 
+import '../loadingDrawer.dart';
+
 class AddPictureFile extends StatelessWidget {
   const AddPictureFile({Key? key}) : super(key: key);
 
@@ -9,7 +11,7 @@ class AddPictureFile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor("0xffFED40B"),
-        endDrawer: buildDrawer(),
+        endDrawer: LoadingDrawer(),
         appBar: buildAppBar(context),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),

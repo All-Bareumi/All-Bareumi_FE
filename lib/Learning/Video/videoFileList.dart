@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../loadingDrawer.dart';
 import 'learningVideo.dart';
 import 'learningVideoMaterials.dart';
 import 'package:capstone/userDataDrawer.dart';
@@ -18,7 +19,7 @@ class _VideoFileListState extends State<VideoFileList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xffFED40B),
-        endDrawer: buildDrawer(),
+        endDrawer: LoadingDrawer(),
         appBar: buildAppBar(context),
         body: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

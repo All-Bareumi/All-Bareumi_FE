@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../loadingDrawer.dart';
 import 'character.dart';
 import 'loadingCharacter.dart';
 import 'package:capstone/userDataDrawer.dart';
@@ -8,10 +9,10 @@ import 'package:capstone/userDataDrawer.dart';
 //late String selectedChar;
 
 List<String> charName = [
-  '엘사',
-  '안나',
-  '크리스토프',
-  '한스'
+  'elsa',
+  'anna',
+  'kristoff',
+  'hans'
 ];
 
 final List<Character> CharacterData= List.generate(
@@ -29,7 +30,7 @@ class SelectCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: buildDrawer(),
+      endDrawer: LoadingDrawer(),
       appBar: buildAppBar(context),
       body: Stack(
         children: <Widget>[

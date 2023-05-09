@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/fileList.dart';
 import 'package:capstone/Learning/Video/videoFileList.dart';
 import 'package:capstone/AddFile/addNewFilePage.dart';
+import 'loadingDrawer.dart';
 import 'userDataDrawer.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xffFED40B),
-        endDrawer: buildDrawer(),
+        endDrawer: LoadingDrawer(),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[

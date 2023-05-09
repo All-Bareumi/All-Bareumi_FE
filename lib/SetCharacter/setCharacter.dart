@@ -1,5 +1,6 @@
 import 'package:capstone/CameraPage.dart';
 import 'package:flutter/material.dart';
+import '../loadingDrawer.dart';
 import 'character.dart';
 import 'selectCharacter.dart';
 import 'myAvatar.dart';
@@ -14,7 +15,7 @@ class SetCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: buildDrawer(),
+      endDrawer: LoadingDrawer(),
       appBar: buildAppBar(context),
       body: Stack(
         children: <Widget>[

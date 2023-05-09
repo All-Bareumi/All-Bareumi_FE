@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/learningMaterials.dart';
 import 'package:capstone/userDataDrawer.dart';
 
+import '../../loadingDrawer.dart';
+
 class FileList extends StatefulWidget {
   const FileList({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class _FileListState extends State<FileList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xffFED40B),
-        endDrawer: buildDrawer(),
+        endDrawer: LoadingDrawer(),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[

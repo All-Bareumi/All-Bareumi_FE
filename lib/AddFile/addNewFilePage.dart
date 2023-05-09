@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
+import '../loadingDrawer.dart';
 import 'addTextPage.dart';
 import 'package:capstone/userDataDrawer.dart';
 
@@ -16,7 +17,7 @@ class AddNewFilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor(hexYellow),
-      endDrawer: buildDrawer(),
+      endDrawer: LoadingDrawer(),
       appBar: buildAppBar(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

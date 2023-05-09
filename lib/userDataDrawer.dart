@@ -1,52 +1,77 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
-Drawer buildDrawer() {
-  String degree = '발음의 마법사';
-  String userName = 'user123';
-  return Drawer(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Image(
-              image: AssetImage('image/logo/logo.png'),
-              width: 100,
-            ),
-            SizedBox(height: 30),
-            Text(
-              '안녕하세요!',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-            ),
-            SizedBox(height: 30),
-            Text(
-              degree,
-              style: TextStyle(
-                  color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
-            ),
-            Text(
-              userName + '님',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-            ),
-            Text(
-              '현재 n일째 학습했어요!',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-            ),
-            SizedBox(height: 30),
-            Text(
-              '설정 캐릭터',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-            ),
-            Text(
-              ': 내 얼굴',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
-            ),
-          ],
-        ),
-      ));
+// void 반환하는 userData 받는 async getUserData 함수 하나 만들기
+// getUserData 함수 호출하는 drawer그려주는 stateless widget만들기
+
+class myDrawer extends StatefulWidget {
+  const myDrawer(
+      {Key? key,
+      required this.user,
+      required this.userName,
+      required this.userId,
+      required this.profileImg})
+      : super(key: key);
+  final User user;
+  final String userName;
+  final int userId;
+  final String profileImg;
+
+  @override
+  State<myDrawer> createState() => _myDrawerState();
+}
+
+class _myDrawerState extends State<myDrawer> {
+  @override
+  String degree = "발음의 마법사";
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: Padding(
+      padding: const EdgeInsets.fromLTRB(20, 70, 0, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          (widget.profileImg == 'image/logo/logo.png')
+              ? Image(image: AssetImage('image/logo/logo.png'), width: 100)
+              : CircleAvatar(backgroundImage: NetworkImage(widget.profileImg), radius: 50),
+          SizedBox(height: 30),
+          Text(
+            '안녕하세요!',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          SizedBox(height: 30),
+          Text(
+            degree,
+            style: TextStyle(
+                color: Colors.orange, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            widget.userName + '님',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            '현재 n일째 학습했어요!',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          SizedBox(height: 30),
+          Text(
+            '설정 캐릭터',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+          Text(
+            ': 내 얼굴',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
+          ),
+        ],
+      ),
+    ));
+  }
 }
