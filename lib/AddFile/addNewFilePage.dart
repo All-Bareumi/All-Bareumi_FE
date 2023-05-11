@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
-import '../loadingDrawer.dart';
+import '../userDrawer/loadingDrawer.dart';
 import 'addTextPage.dart';
-import 'package:capstone/userDataDrawer.dart';
+import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 class AddNewFilePage extends StatelessWidget {
   const AddNewFilePage({Key? key}) : super(key: key);

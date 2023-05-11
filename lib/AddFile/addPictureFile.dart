@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:capstone/userDataDrawer.dart';
+import 'package:capstone/userDrawer/userDataDrawer.dart';
 
-import '../loadingDrawer.dart';
+import '../userDrawer/loadingDrawer.dart';
 
 class AddPictureFile extends StatelessWidget {
   const AddPictureFile({Key? key}) : super(key: key);

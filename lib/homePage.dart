@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/fileList.dart';
 import 'package:capstone/Learning/Video/videoFileList.dart';
 import 'package:capstone/AddFile/addNewFilePage.dart';
-import 'loadingDrawer.dart';
-import 'userDataDrawer.dart';
+import 'userDrawer/loadingDrawer.dart';
+import 'userDrawer/userDataDrawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

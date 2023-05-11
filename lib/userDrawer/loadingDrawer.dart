@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:capstone/userDataDrawer.dart';
+import 'package:capstone/userDrawer/userDataDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
@@ -69,29 +69,4 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
           }
         });
   }
-
-// Widget build(BuildContext context) {
-//   return notNullUser
-//       ? myDrawer(
-//           user: user,
-//           userName: userName,
-//           userId: userId,
-//           profileImg: profileImg)
-//       : Drawer(
-//           child: Padding(
-//           padding: const EdgeInsets.fromLTRB(20, 70, 0, 0),
-//           child: Center(
-//             child: Column(children: <Widget>[
-//               Text(
-//                 '사용자 정보를',
-//                 style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),
-//               ),
-//               Text('불러오지 못했습니다.',
-//                   style: TextStyle(fontSize: 40, fontFamily: 'Dongle')),
-//             ]),
-//           ),
-//         )
-//   );
-//   //print(notNullUser);
-// }
 }

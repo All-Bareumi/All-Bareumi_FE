@@ -1,10 +1,10 @@
 import 'package:capstone/CameraPage.dart';
 import 'package:flutter/material.dart';
-import '../loadingDrawer.dart';
+import '../userDrawer/loadingDrawer.dart';
 import 'character.dart';
 import 'selectCharacter.dart';
 import 'myAvatar.dart';
-import 'package:capstone/userDataDrawer.dart';
+import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 //List<Character> Characters= [];
 

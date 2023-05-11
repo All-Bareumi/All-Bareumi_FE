@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../loadingDrawer.dart';
+import '../../userDrawer/loadingDrawer.dart';
 import 'learningVideo.dart';
 import 'learningVideoMaterials.dart';
-import 'package:capstone/userDataDrawer.dart';
+import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 
 class VideoFileList extends StatefulWidget {
