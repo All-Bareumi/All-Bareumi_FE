@@ -27,13 +27,10 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
       profileImgNP = user.kakaoAccount?.profile?.profileImageUrl;
       userId = user.id;
       notNullUser = true;
-
-      print("!!");
-      print(userNameNP);
-      print(notNullUser);
     } catch (error) {
       notNullUser = false;
     }
+    print(user);
     userName = userNameNP ?? "사용자";
     profileImg = profileImgNP ?? "image/logo/logo.png";
   }
