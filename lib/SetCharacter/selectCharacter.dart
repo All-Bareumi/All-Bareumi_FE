@@ -63,7 +63,6 @@ class SelectCharacter extends StatelessWidget {
                     Text('엘사', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
                     SizedBox(width: 140,),
                     Text('안나', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
-
                   ],
                 ),
               ),
