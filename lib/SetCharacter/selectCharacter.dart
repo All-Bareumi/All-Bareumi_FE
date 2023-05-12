@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import '../userDrawer/loadingDrawer.dart';
 import 'character.dart';
 import 'loadingCharacter.dart';
-import 'package:capstone/userDrawer/userDataDrawer.dart';
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
-
-//late String selectedChar;
 
 List<String> charName = [
   'elsa',
@@ -20,7 +17,6 @@ final List<Character> CharacterData= List.generate(
 );
 
 //future로 선택(late키워드) -> 여기서 그냥 임의 객체 생성해주기로 함.
-//late SelectedCharacter selectedCharacter;
 SelectedCharacter selectedCharacter = new SelectedCharacter(CharacterData[0]);
 
 class SelectCharacter extends StatelessWidget {
@@ -84,7 +80,6 @@ class SelectCharacter extends StatelessWidget {
                     Text('크리스토프', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
                     SizedBox(width: 100,),
                     Text('한스', style: TextStyle(fontSize: 40, fontFamily: 'Dongle'),),
-
                   ],
                 ),
               ),
