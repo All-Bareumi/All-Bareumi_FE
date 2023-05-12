@@ -7,7 +7,7 @@ import 'myProvider.dart';
 
 Future<void> main() async {
   //runApp 메소드 호출 전 Flutter SDK를 초기화 해야함.
-  KakaoSdk.init(nativeAppKey: 'a7c9156b6c2c4aab0f535c89d618b305');
+  KakaoSdk.init(nativeAppKey: 'a7c9156b6c2c4aab0f535c89d618b305', javaScriptAppKey: 'f018c1e6f7f6089813b1b9e9002de712');
 
   runApp(const MyApp());
 }
