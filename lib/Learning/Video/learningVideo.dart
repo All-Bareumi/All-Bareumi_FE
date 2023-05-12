@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'dart:io';
-import 'package:video_uploader/video_uploader.dart';
 import 'learningVideoMaterials.dart';
 
 class LearningVideo extends StatefulWidget {

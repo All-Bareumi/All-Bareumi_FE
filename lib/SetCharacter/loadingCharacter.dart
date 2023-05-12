@@ -13,9 +13,6 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
   @override
   void initState() {
     Timer(Duration(milliseconds: 1500), () {
-      //if(Condition){
-      //  exit(0);
-      //}
       Navigator.push(context, MaterialPageRoute(
             builder: (context) => HomePage()));
     }
