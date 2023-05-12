@@ -1,13 +1,12 @@
 # ALL-Bareumi_FE
 
 Flutter FrontEnd Code
-## ISSUE
-~~1. Future builder, late initialization문제 (사용자 프로필 확인)~~
-2. Character 선택 이후 변경 문제   
-3. 다음 문장으로 넘기기 문제   
-4. 텍스트 애니메이션 속도가 빨라지는 문제   
+## ISSUE 
+~~- Future builder, late initialization문제 (사용자 프로필 확인)~~
+- Character 선택 이후 변경 문제
+- 다음 문장으로 넘기기 문제
+- 텍스트 애니메이션 속도가 빨라지는 문제   
 
-- 사용자 drawer 설정 시 future 객체로 인한 문제가 발생
 - learningMaterials 에 학습 주제 별로 객체가 생성되어 있고, 문장별로 문장이 연결되어 있는 비디오와 매칭시켜놨는데, 
   이 부분을 network 패키지로 백과 소통하는 메서드를 만들고 받아온 데이터는 학습 시 문장 idx 증가 형태로 보여주기
 - 캐릭터 부분도 마찬가지로 전역 변수로 설정해두고 캐릭터 선택 부분에 선택한 데이터 사용하기 
@@ -22,8 +21,7 @@ Flutter FrontEnd Code
 
 - 캐릭터 설정
   - 캐릭터 재설정 오류 해결하기
-- 사용자 정보 가져와서 프로필 등등 보여주기
-  - https://developers.kakao.com/docs/latest/ko/kakaologin/flutter
+
 
 
 - 앱 페이지 구현
@@ -47,6 +45,7 @@ Flutter FrontEnd Code
 - 텍스트 단어 단위로 색깔 변화 구현 완료
 - 학습 자료에 대한 객체 생성 완료 및 로컬 환경에서 확인할 수 있음.
 - 새로운 학습 자료 추가 페이지 구현 완료
+- 사용자 정보 가져와서 프로필 등등 보여주기
 
 ## Design
 ![FirstPage](image/AppPageDesign/1.png)
