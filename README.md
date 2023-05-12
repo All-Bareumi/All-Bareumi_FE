@@ -3,9 +3,9 @@
 Flutter FrontEnd Code
 ## ISSUE
 ~~1. Future builder, late initialization문제 (사용자 프로필 확인)~~
-2. Character 선택 이후 변경 문제
-3. 다음 문장으로 넘기기 문제
-4. 텍스트 애니메이션 속도가 빨라지는 문제
+2. Character 선택 이후 변경 문제   
+3. 다음 문장으로 넘기기 문제   
+4. 텍스트 애니메이션 속도가 빨라지는 문제   
 
 - 사용자 drawer 설정 시 future 객체로 인한 문제가 발생
 - learningMaterials 에 학습 주제 별로 객체가 생성되어 있고, 문장별로 문장이 연결되어 있는 비디오와 매칭시켜놨는데, 
