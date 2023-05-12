@@ -10,25 +10,40 @@ class LoadingDrawer extends StatefulWidget {
   State<LoadingDrawer> createState() => _LoadingDrawerState();
 }
 
-class _LoadingDrawerState extends State<LoadingDrawer> {
-  bool notNullUser = false;
-  late User user;
-  late String? userNameNP; // null 가능 상태
-  late String? profileImgNP;
-  late int userId;
-  late String userName;
-  late String profileImg;
+class UserInfo {
+  final User user;
+  final String userName;
+  final int userId;
+  final String profileImg;
 
-  Future<User> getUserData() async {
+  UserInfo(this.user, this.userName, this.userId, this.profileImg);
+}
+
+class _LoadingDrawerState extends State<LoadingDrawer> {
+  // bool notNullUser = false;
+  // late Future<User> user;
+  // late Future<UserInfo> userInfo;
+  // late String? userNameNP; // null 가능 상태
+  // late String? profileImgNP;
+  // late int userId;
+  // late String userName;
+  // late String profileImg;
+
+  Future<UserInfo> getUserData() async {
     //카카오에서 받아오는 user 정보
-    user = await UserApi.instance.me();
-    return user;
+    User user = await UserApi.instance.me();
+    String? userNameNP = user.kakaoAccount?.profile?.nickname;
+    String? profileImgNP = user.kakaoAccount?.profile?.profileImageUrl;
+    int userId = user.id;
+    String userName = userNameNP ?? "사용자";
+    String profileImg = profileImgNP ?? "image/logo/logo.png";
+    return UserInfo(user, userName, userId, profileImg);
   }
 
   @override
   void initState() {
     super.initState();
-    //getUserData();
+    getUserData();
   }
 
   @override
@@ -36,14 +51,9 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
     return FutureBuilder(
         future: getUserData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          userNameNP = user.kakaoAccount?.profile?.nickname;
-          profileImgNP = user.kakaoAccount?.profile?.profileImageUrl;
-          userId = user.id;
-          userName = userNameNP ?? "사용자";
-          profileImg = profileImgNP ?? "image/logo/logo.png";
           if (snapshot.hasData == false) {
             return Drawer(
-              child: CircularProgressIndicator(),
+              child: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.hasError) {
             return Drawer(
@@ -62,10 +72,10 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
             ));
           } else {
             return myDrawer(
-                user: user,
-                userName: userName,
-                userId: userId,
-                profileImg: profileImg);
+                user: snapshot.data!.user,
+                userName: snapshot.data!.userName.toString(),
+                userId: snapshot.data!.userId,
+                profileImg: snapshot.data!.profileImg.toString());
           }
         });
   }
