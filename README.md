@@ -2,7 +2,7 @@
 
 Flutter FrontEnd Code
 ## ISSUE
-~~ 1. Future builder, late initialization문제 (사용자 프로필 확인) ~~
+~~1. Future builder, late initialization문제 (사용자 프로필 확인)~~
 2. Character 선택 이후 변경 문제
 3. 다음 문장으로 넘기기 문제
 4. 텍스트 애니메이션 속도가 빨라지는 문제
