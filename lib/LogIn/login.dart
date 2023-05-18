@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk_auth.dart';
 import 'package:http/http.dart' as http;
 import '../SetCharacter/setCharacter.dart';
 
@@ -29,7 +30,11 @@ class _LogInState extends State<LogIn> {
       OAuthToken token = isInstalled
           ? await UserApi.instance.loginWithKakaoTalk()
           : await UserApi.instance.loginWithKakaoAccount();
-
+      // final login_response = isInstalled
+      //     ? await AuthCodeClient.instance.authorizeWithTalk( redirectUri:'http://localhost:8001/api/auth/login/callback')
+      //     : await AuthCodeClient.instance.authorize( redirectUri:'http://localhost:8001/api/auth/login/callback')
+      // var tokenResponse = AccessTokenResponse.fromJson(login_response);
+      // var token = OAuthToken.fromResponse(tokenResponse);
       // https dependency 등록
       final url = Uri.https('kapi.kakao.com', '/v2/user/me');
 
