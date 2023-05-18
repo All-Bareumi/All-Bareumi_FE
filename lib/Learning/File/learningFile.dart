@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:capstone/Learning/File/learningMaterials.dart';
+import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
-import 'package:capstone/myProvider.dart';
 import 'videoAndTextScreen.dart';
 
 class LearningFile extends StatefulWidget {
@@ -60,16 +60,14 @@ class _LearningFileState extends State<LearningFile> {
         endDrawer: Drawer(),
         appBar: buildAppBar(context),
         body: ChangeNotifierProvider(
-            create: (BuildContext context) => Index_Provider(),
+            create: (BuildContext context) => SentenceIndexProvider(),
             child: buildBody(context)));
   }
 
   Column buildBody(BuildContext context) {
     return Column(
       children: <Widget>[
-        VideoAndTextScreen(
-            sentenceData: widget.learningMaterial
-                .sentences[Provider.of<Index_Provider>(context).idx]),
+        VideoAndTextScreen(learningMaterial: widget.learningMaterial),
         Expanded(
           child: Image(
             image: AssetImage("image/logo/logo.png"),
@@ -79,7 +77,7 @@ class _LearningFileState extends State<LearningFile> {
         //buildCameraFutureBuilder(),
         Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Provider.of<Index_Provider>(context).idx != 0
+            child: Provider.of<SentenceIndexProvider>(context).sentenceIdx != 0
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -88,12 +86,9 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                if (Provider.of<Index_Provider>(context).idx >=
-                                    0) {
-                                  //this._sentenceIdx--;
-                                  context.read<Index_Provider>().prev();
+                                  context.read<SentenceIndexProvider>().prev();
                                 }
-                              });
+                              );
                             },
                             child: Text(
                               "< 이전",
@@ -106,14 +101,14 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                //this._sentenceIdx++;
-                                context.read<Index_Provider>().next();
+                                context.read<SentenceIndexProvider>().next();
                               });
-                              if (Provider.of<Index_Provider>(context).idx >=
+                              if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
                                   widget.learningMaterial.sentences.length - 1) {
                                 //학습 완료 시 보상
                                 //지금은 학습 페이지 나가기로 설정
                                 Navigator.pop(context);
+                                context.read<SentenceIndexProvider>().init();
                               }
                             },
                             child: Text(
@@ -132,9 +127,9 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                context.read<Index_Provider>().next();
+                                context.read<SentenceIndexProvider>().next();
                               });
-                              if (Provider.of<Index_Provider>(context).idx >=
+                              if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
                                   widget.learningMaterial.sentences.length -
                                       1) {
                                 //학습 완료 시 보상
@@ -194,6 +189,7 @@ class _LearningFileState extends State<LearningFile> {
           onPressed: () {
             //videoController.pause();
             Navigator.pop(context);
+            context.read<SentenceIndexProvider>().init();
           }),
       actions: <Widget>[
         Builder(builder: (context) {

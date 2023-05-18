@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'LogIn/login.dart';
-import 'myProvider.dart';
 
 Future<void> main() async {
   //runApp 메소드 호출 전 Flutter SDK를 초기화 해야함.
@@ -24,12 +24,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>Index_Provider()),
-        //ChangeNotifierProvider(create: (_)=>Character()),
+        ChangeNotifierProvider(create: (_)=>SentenceIndexProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Capstone',
+        title: 'All-Bareumi',
         home: LogIn(),
       ),
     );

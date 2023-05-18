@@ -1,16 +1,17 @@
 import 'dart:async';
 
+import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/myProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import 'learningMaterials.dart';
 
 class VideoAndTextScreen extends StatefulWidget {
-  const VideoAndTextScreen({Key? key, required this.sentenceData})
+  const VideoAndTextScreen({Key? key, required this.learningMaterial})
       : super(key: key);
 
-  final SentenceData sentenceData;
+  final LearningMaterial learningMaterial;
 
   @override
   State<VideoAndTextScreen> createState() => _VideoAndTextScreenState();
@@ -23,14 +24,14 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late String videoPath;
 
   // 텍스트 애니메이션
-  late List<String> words = widget.sentenceData.sentence.split(" ").toList();
+  late List<String> words = widget.learningMaterial.sentences[context.read<SentenceIndexProvider>().sentenceIdx].sentence.split(" ").toList();
   late Timer timer;
   int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    videoPath = widget.sentenceData.videoPath;
+    videoPath = widget.learningMaterial.sentences[context.read<SentenceIndexProvider>().sentenceIdx].videoPath;
     _videoController = VideoPlayerController.asset(videoPath);
     _initializedController = _videoController.initialize();
     _videoController.setLooping(false); //영상 반복재생 금지
