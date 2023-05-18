@@ -24,7 +24,7 @@ class SentenceData {
   late String videoPath;
 
   SentenceData(this.subject, this.sentence, SelectedCharacter selectedCharacter,String video) {
-    this.videoPath = "video/sentence/${selectedCharacter.character.name}/${this.subject}/" + video + ".mp4";
+    this.videoPath = "video/sentence/${this.subject}/${selectedCharacter.character.name}/" + video + ".mp4";
   }
 }
 
