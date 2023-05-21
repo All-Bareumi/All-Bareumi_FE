@@ -66,9 +66,6 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
         words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence?.split(" ")?.toList() ?? [];
         activeIndex = 0;
 
-        timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-          setState(() {});
-        });
       });
     }
     super.didUpdateWidget(oldWidget);
