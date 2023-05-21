@@ -1,17 +1,15 @@
 import 'dart:async';
-
-import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import 'learningMaterials.dart';
 
 class VideoAndTextScreen extends StatefulWidget {
-  const VideoAndTextScreen({Key? key, required this.learningMaterial})
+   VideoAndTextScreen({Key? key, required this.learningMaterial, required this.sentIndex})
       : super(key: key);
 
   final LearningMaterial learningMaterial;
+  int sentIndex;
 
   @override
   State<VideoAndTextScreen> createState() => _VideoAndTextScreenState();
@@ -24,27 +22,56 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late String videoPath;
 
   // 텍스트 애니메이션
-  late List<String> words = widget.learningMaterial.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.sentence?.split(" ")?.toList() ?? [];
+  late List<String> words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence?.split(" ")?.toList() ?? [];
+  //late List<String> words = widget.learningMaterial.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.sentence?.split(" ")?.toList() ?? [];
   late Timer timer;
   int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    videoPath = widget.learningMaterial?.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.videoPath ?? '';
+    videoPath = widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ?? '';
+    //videoPath = widget.learningMaterial?.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.videoPath ?? '';
     _videoController = VideoPlayerController.asset(videoPath);
     _initializedController = _videoController.initialize();
     _videoController.setLooping(false); //영상 반복재생 금지
 
     timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      setState(() {});
+      if (mounted){
+        setState(() {
+          activeIndex++;
+          if (activeIndex >= words.length) {
+            activeIndex = 0;
+          }
+        });
+      }
     });
   }
 
   void dispose() {
     _videoController.dispose();
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant VideoAndTextScreen oldWidget) {
+    if (widget.sentIndex != oldWidget.sentIndex) {
+      setState(() {
+        videoPath = widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ?? '';
+        _videoController = VideoPlayerController.asset(videoPath);
+        _initializedController = _videoController.initialize();
+        _videoController.setLooping(false); //영상 반복재생 금지
+
+        words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence?.split(" ")?.toList() ?? [];
+        activeIndex = 0;
+
+        timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+          setState(() {});
+        });
+      });
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

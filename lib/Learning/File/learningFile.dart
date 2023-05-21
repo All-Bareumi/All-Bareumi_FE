@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:capstone/Learning/File/learningMaterials.dart';
-import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
 import 'videoAndTextScreen.dart';
 
@@ -20,6 +18,8 @@ class _LearningFileState extends State<LearningFile> {
   // 카메라 기능
   late CameraController _cameraController;
   Future<void>? _initializeCameraControllerFuture;
+
+  int sentIndex = 0;
 
   @override
   void initState() {
@@ -59,15 +59,16 @@ class _LearningFileState extends State<LearningFile> {
         backgroundColor: Colors.white,
         endDrawer: Drawer(),
         appBar: buildAppBar(context),
-        body: ChangeNotifierProvider(
-            create: (BuildContext context) => SentenceIndexProvider(),
-            child: buildBody(context)));
+        body: buildBody(context));
   }
 
   Column buildBody(BuildContext context) {
     return Column(
       children: <Widget>[
-        VideoAndTextScreen(learningMaterial: widget.learningMaterial),
+        VideoAndTextScreen(
+          learningMaterial: widget.learningMaterial,
+          sentIndex: sentIndex,
+        ),
         Expanded(
           child: Image(
             image: AssetImage("image/logo/logo.png"),
@@ -77,7 +78,7 @@ class _LearningFileState extends State<LearningFile> {
         //buildCameraFutureBuilder(),
         Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Provider.of<SentenceIndexProvider>(context).sentenceIdx != 0
+            child: sentIndex != 0
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -86,9 +87,10 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                  context.read<SentenceIndexProvider>().prev();
+                                if (sentIndex > 0) {
+                                  sentIndex--;
                                 }
-                              );
+                              });
                             },
                             child: Text(
                               "< 이전",
@@ -101,15 +103,17 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                context.read<SentenceIndexProvider>().next();
+                                if (sentIndex >=
+                                    (widget.learningMaterial.sentences
+                                                ?.length ??
+                                            1) -
+                                        1) {
+                                  Navigator.pop(context);
+                                  sentIndex = 0;
+                                } else {
+                                  sentIndex++;
+                                }
                               });
-                              if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
-                                  (widget.learningMaterial.sentences?.length ?? 1) - 1) {
-                                //학습 완료 시 보상
-                                //지금은 학습 페이지 나가기로 설정
-                                Navigator.pop(context);
-                                context.read<SentenceIndexProvider>().init();
-                              }
                             },
                             child: Text(
                               "다음 >",
@@ -127,14 +131,16 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                context.read<SentenceIndexProvider>().next();
+                                if (sentIndex >=
+                                    (widget.learningMaterial.sentences
+                                                ?.length ??
+                                            0) -
+                                        1) {
+                                  Navigator.pop(context);
+                                } else {
+                                  sentIndex++;
+                                }
                               });
-                              if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
-                                  (widget.learningMaterial.sentences?.length ?? 0) - 1) {
-                                //학습 완료 시 보상
-                                //지금은 학습 페이지 나가기로 설정
-                                Navigator.pop(context);
-                              }
                             },
                             child: Text(
                               "다음 >",
@@ -188,7 +194,7 @@ class _LearningFileState extends State<LearningFile> {
           onPressed: () {
             //videoController.pause();
             Navigator.pop(context);
-            context.read<SentenceIndexProvider>().init();
+            sentIndex = 0;
           }),
       actions: <Widget>[
         Builder(builder: (context) {
