@@ -104,7 +104,7 @@ class _LearningFileState extends State<LearningFile> {
                                 context.read<SentenceIndexProvider>().next();
                               });
                               if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
-                                  widget.learningMaterial.sentences.length - 1) {
+                                  (widget.learningMaterial.sentences?.length ?? 1) - 1) {
                                 //학습 완료 시 보상
                                 //지금은 학습 페이지 나가기로 설정
                                 Navigator.pop(context);
@@ -130,8 +130,7 @@ class _LearningFileState extends State<LearningFile> {
                                 context.read<SentenceIndexProvider>().next();
                               });
                               if (Provider.of<SentenceIndexProvider>(context, listen: false).sentenceIdx >=
-                                  widget.learningMaterial.sentences.length -
-                                      1) {
+                                  (widget.learningMaterial.sentences?.length ?? 0) - 1) {
                                 //학습 완료 시 보상
                                 //지금은 학습 페이지 나가기로 설정
                                 Navigator.pop(context);

@@ -2,19 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:capstone/SetCharacter/selectCharacter.dart';
 
 import '../../SetCharacter/character.dart';
+
 class LearningMaterial {
-  final String subject;
-  final String subjectKor;
+  String subject;
+  String subjectKor;
+  String imgPath;
+  List<SentenceData>? sentences;
   int sentenceCnt = 0;
-  late String imgPath;
-  final List<SentenceData> sentences;
 
   //final String videoPath;
 
-  LearningMaterial(this.subject, this.subjectKor, this.sentences, String img) {
-    this.sentenceCnt = this.sentences.length;
-    this.imgPath = "image/icon/icon_" + img + ".png";
+  LearningMaterial({required this.subject, required this.subjectKor, this.sentences,  required this.imgPath}) {
+    this.sentenceCnt = this.sentences!.length;
     // sentence list어떻게 만들지 고민!
+  }
+
+  // json data 처리
+  factory LearningMaterial.fromJson(Map<String, dynamic> json){
+    return LearningMaterial(
+        subject: json['subject'],
+        subjectKor: json['subjectKor'],
+        sentences: json['senteneces'],
+        imgPath: json['subjectImg']);
   }
 }
 
@@ -23,8 +32,11 @@ class SentenceData {
   final String sentence;
   late String videoPath;
 
-  SentenceData(this.subject, this.sentence, SelectedCharacter selectedCharacter,String video) {
-    this.videoPath = "video/sentence/${this.subject}/${selectedCharacter.character.name}/" + video + ".mp4";
+  SentenceData(this.subject, this.sentence, SelectedCharacter selectedCharacter,
+      String video) {
+    this.videoPath =
+        "video/sentence/${this.subject}/${selectedCharacter.character.name}/" +
+            video + ".mp4";
   }
 }
 
@@ -94,32 +106,40 @@ List<String> schoolSentenceVideoList = [
 
 final List<SentenceData> foodSentences = List.generate(
     foodSentenceList.length,
-    (idx) => SentenceData(
-        "food", foodSentenceList[idx], selectedCharacter, foodSentenceVideoList[idx]));
+        (idx) =>
+        SentenceData(
+            "food", foodSentenceList[idx], selectedCharacter,
+            foodSentenceVideoList[idx]));
 
 final List<SentenceData> exerciseSentences = List.generate(
     foodSentenceList.length,
-    (idx) => SentenceData(
-        "exercise", exerciseSentenceList[idx], selectedCharacter, exerciseSentenceVideoList[idx]));
+        (idx) =>
+        SentenceData(
+            "exercise", exerciseSentenceList[idx], selectedCharacter,
+            exerciseSentenceVideoList[idx]));
 
 final List<SentenceData> familySentences = List.generate(
     foodSentenceList.length,
-    (idx) => SentenceData(
-        "family", familySentenceList[idx], selectedCharacter, familySentenceVideoList[idx]));
+        (idx) =>
+        SentenceData(
+            "family", familySentenceList[idx], selectedCharacter,
+            familySentenceVideoList[idx]));
 
 final List<SentenceData> schoolSentences = List.generate(
     foodSentenceList.length,
-    (idx) => SentenceData(
-        "school", schoolSentenceList[idx], selectedCharacter, schoolSentenceVideoList[idx]));
+        (idx) =>
+        SentenceData(
+            "school", schoolSentenceList[idx], selectedCharacter,
+            schoolSentenceVideoList[idx]));
 
 LearningMaterial food =
-    new LearningMaterial("food", "음식", foodSentences, "food");
+new LearningMaterial(subject: "food", subjectKor: "음식", sentences: foodSentences, imgPath: "image/icon/icon_food.png");
 LearningMaterial exercise =
-    new LearningMaterial("exercise", "운동", exerciseSentences, "exercise");
+new LearningMaterial(subject: "exercise", subjectKor:"운동", sentences: exerciseSentences, imgPath: "image/icon/icon_exercise.png");
 LearningMaterial family =
-    new LearningMaterial("family", "가족", familySentences, "family");
+new LearningMaterial(subject: "family",subjectKor: "가족", sentences: familySentences, imgPath: "image/icon/icon_family.png");
 LearningMaterial school =
-    new LearningMaterial("school", "학교", schoolSentences, "school");
+new LearningMaterial(subject: "school",subjectKor: "학교", sentences: schoolSentences, imgPath: "image/icon/icon_school.png");
 
 List<LearningMaterial> learningMaterials = [food, school, family, exercise];
 List<String> learningMaterialKorList = ["음식", "학교", "가족", "운동"];

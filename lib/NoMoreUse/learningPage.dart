@@ -24,15 +24,15 @@ class _LearningPageState extends State<LearningPage> {
   Future<void>? _initializeCameraControllerFuture;
 
   // 텍스트 애니메이션
-  late List<String> words =
-  widget.learningMaterial.sentences.first.sentence.split(" ").toList();
+  late List<String>? words =
+  widget.learningMaterial.sentences?.first.sentence.split(" ").toList();
   late Timer timer;
   int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    videoPath = widget.learningMaterial.sentences.first.videoPath;
+    videoPath = widget.learningMaterial.sentences?.first.videoPath ?? '';
 
     videoController = VideoPlayerController.asset(videoPath);
 
@@ -115,7 +115,7 @@ class _LearningPageState extends State<LearningPage> {
                       activeIndex++;
                       setState(() {});
                     });
-                if (activeIndex > words.length) activeIndex = 0;
+                if (activeIndex > words!.length) activeIndex = 0;
               },
             ),
             buildTextAnimation(context),
@@ -216,9 +216,9 @@ class _LearningPageState extends State<LearningPage> {
       text: TextSpan(
         children: () {
           List<InlineSpan> spans = [];
-          for (int i = 0; i < words.length; i++) {
+          for (int i = 0; i < words!.length; i++) {
             spans.add(TextSpan(
-              text: words[i] + " ",
+              text: words![i] + " ",
               style: i == activeIndex
                   ? const TextStyle(
                 //highlight style

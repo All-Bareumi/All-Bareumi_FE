@@ -24,14 +24,14 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late String videoPath;
 
   // 텍스트 애니메이션
-  late List<String> words = widget.learningMaterial.sentences[context.read<SentenceIndexProvider>().sentenceIdx].sentence.split(" ").toList();
+  late List<String> words = widget.learningMaterial.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.sentence?.split(" ")?.toList() ?? [];
   late Timer timer;
   int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    videoPath = widget.learningMaterial.sentences[context.read<SentenceIndexProvider>().sentenceIdx].videoPath;
+    videoPath = widget.learningMaterial?.sentences?[context.read<SentenceIndexProvider>().sentenceIdx]?.videoPath ?? '';
     _videoController = VideoPlayerController.asset(videoPath);
     _initializedController = _videoController.initialize();
     _videoController.setLooping(false); //영상 반복재생 금지
@@ -75,7 +75,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
                       activeIndex++;
                       setState(() {});
                     });
-                if (activeIndex > words.length) activeIndex = 0;
+                if (activeIndex > words!.length) activeIndex = 0;
               },
             ),
             buildTextAnimation(context),
@@ -90,9 +90,9 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
       text: TextSpan(
         children: () {
           List<InlineSpan> spans = [];
-          for (int i = 0; i < words.length; i++) {
+          for (int i = 0; i < words!.length; i++) {
             spans.add(TextSpan(
-              text: words[i] + " ",
+              text: words![i] + " ",
               style: i == activeIndex
                   ? const TextStyle(
                 //highlight style
