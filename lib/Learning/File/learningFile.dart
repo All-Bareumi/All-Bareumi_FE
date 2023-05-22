@@ -103,11 +103,7 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                if (sentIndex >=
-                                    (widget.learningMaterial.sentences
-                                                ?.length ??
-                                            1) -
-                                        1) {
+                                if (sentIndex >= (widget.learningMaterial.sentences?.length ?? 1) - 1) {
                                   Navigator.pop(context);
                                   sentIndex = 0;
                                 } else {
