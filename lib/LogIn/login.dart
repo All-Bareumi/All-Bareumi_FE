@@ -64,6 +64,12 @@ class _LogInState extends State<LogIn> {
   void signOut() async {
     switch (_loginPlatform) {
       case LoginPlatform.kakao:
+        try{
+          await UserApi.instance.logout();
+          print('로그아웃 성공, SDK에서 토큰 삭제');
+        }catch(error){
+          print('로그아웃 실패, SDK에서 토큰 삭제 $error');
+        }
         break;
       case LoginPlatform.none:
         break;
@@ -94,7 +100,7 @@ class _LogInState extends State<LogIn> {
                         padding: const EdgeInsets.only(left: 20),
                         child: Image(
                           image:
-                              AssetImage('image/design/WhiteSmallElipse.png'),
+                          AssetImage('image/design/WhiteSmallElipse.png'),
                         ),
                       ),
                       Padding(
@@ -143,18 +149,18 @@ class _LogInState extends State<LogIn> {
                   _loginPlatform != LoginPlatform.none
                       ? _logoutButton()
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                                onTap: signInWithKakao,
-                                child: Container(
-                                  child: Image(
-                                    image: AssetImage(
-                                        'image/icon/kakao_login.png'),
-                                  ),
-                                )),
-                          ],
-                        )
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                          onTap: signInWithKakao,
+                          child: Container(
+                            child: Image(
+                              image: AssetImage(
+                                  'image/icon/kakao_login.png'),
+                            ),
+                          )),
+                    ],
+                  )
                 ],
               ),
             ]);
