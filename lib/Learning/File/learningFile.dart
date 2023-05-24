@@ -3,6 +3,7 @@ import 'package:capstone/Learning/File/learningMaterials.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'videoAndTextScreen.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class LearningFile extends StatefulWidget {
   const LearningFile({Key? key, required this.learningMaterial})
@@ -75,6 +76,7 @@ class _LearningFileState extends State<LearningFile> {
             width: MediaQuery.of(context).size.width,
           ),
         ),
+        learningProgress(),
         //buildCameraFutureBuilder(),
         Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -103,7 +105,11 @@ class _LearningFileState extends State<LearningFile> {
                         child: TextButton(
                             onPressed: () {
                               setState(() {
-                                if (sentIndex >= (widget.learningMaterial.sentences?.length ?? 1) - 1) {
+                                if (sentIndex >=
+                                    (widget.learningMaterial.sentences
+                                                ?.length ??
+                                            1) -
+                                        1) {
                                   Navigator.pop(context);
                                   sentIndex = 0;
                                 } else {
@@ -146,6 +152,27 @@ class _LearningFileState extends State<LearningFile> {
                       ),
                     ],
                   )),
+      ],
+    );
+  }
+
+  Widget learningProgress() {
+    double percent = sentIndex/widget.learningMaterial.sentences!.length;
+    return Column(
+      children: [
+        Container(
+          alignment: FractionalOffset(percent, 1 - percent),
+          child: FractionallySizedBox(
+              child: Image.asset('image/logo/logo.png',
+                  width: 30, height: 30, fit: BoxFit.cover)),
+        ),
+        LinearPercentIndicator(
+            padding: EdgeInsets.zero,
+            percent: percent,
+            lineHeight: 10,
+            backgroundColor: Colors.black38,
+            progressColor: Colors.indigo.shade900,
+            width: MediaQuery.of(context).size.width)
       ],
     );
   }
