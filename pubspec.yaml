@@ -39,7 +39,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   # kakao_flutter_sdk: ^1.4.2
-  kakao_flutter_sdk: ^1.4.2 # 전체 추가
+  kakao_flutter_sdk: ^1.4.3 # 전체 추가
   kakao_flutter_sdk_user: ^1.4.1 # 카카오 로그인
   http: ^0.13.5
   video_player: ^2.6.1
@@ -50,6 +50,8 @@ dependencies:
   flutter_provider: ^2.1.0
   provider: ^6.0.5
   flutter_lyric: ^2.0.4+6
+  percent_indicator: ^4.2.3
+  dio: ^5.1.2
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path: "image/logo/logo.png"
+  remove_alpha_ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,22 +92,22 @@ flutter:
    - image/icon/hangeul/
    - video/
    - video/sentence/
-   - video/sentence/anna/food/
-   - video/sentence/anna/exercise/
-   - video/sentence/anna/school/
-   - video/sentence/anna/family/
-   - video/sentence/elsa/food/
-   - video/sentence/elsa/exercise/
-   - video/sentence/elsa/school/
-   - video/sentence/elsa/family/
-   - video/sentence/hans/food/
-   - video/sentence/hans/exercise/
-   - video/sentence/hans/school/
-   - video/sentence/hans/family/
-   - video/sentence/kristoff/food/
-   - video/sentence/kristoff/exercise/
-   - video/sentence/kristoff/school/
-   - video/sentence/kristoff/family/
+   - video/sentence/food/anna/
+   - video/sentence/exercise/anna/
+   - video/sentence/school/anna/
+   - video/sentence/family/anna/
+   - video/sentence/food/elsa/
+   - video/sentence/exercise/elsa/
+   - video/sentence/school/elsa/
+   - video/sentence/family/elsa/
+   - video/sentence/food/hans/
+   - video/sentence/exercise/hans/
+   - video/sentence/school/hans/
+   - video/sentence/family/hans/
+   - video/sentence/food/kristoff/
+   - video/sentence/exercise/kristoff/
+   - video/sentence/school/kristoff/
+   - video/sentence/family/kristoff/
    - video/videoContents/
 
   # An image asset can refer to one or more resolution-specific "variants", see
