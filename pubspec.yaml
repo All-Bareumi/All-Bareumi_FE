@@ -52,6 +52,8 @@ dependencies:
   flutter_lyric: ^2.0.4+6
   percent_indicator: ^4.2.3
   dio: ^5.1.2
+  webview_flutter: ^4.2.1
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:
