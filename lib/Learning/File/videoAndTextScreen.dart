@@ -4,7 +4,8 @@ import 'package:video_player/video_player.dart';
 import 'learningMaterials.dart';
 
 class VideoAndTextScreen extends StatefulWidget {
-  VideoAndTextScreen({Key? key, required this.learningMaterial, required this.sentIndex})
+  VideoAndTextScreen(
+      {Key? key, required this.learningMaterial, required this.sentIndex})
       : super(key: key);
 
   final LearningMaterial learningMaterial;
@@ -14,7 +15,6 @@ class VideoAndTextScreen extends StatefulWidget {
   State<VideoAndTextScreen> createState() => _VideoAndTextScreenState();
 }
 
-
 class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   // 비디오 컨트롤러
   late VideoPlayerController _videoController;
@@ -22,7 +22,11 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late String videoPath;
 
   // 텍스트 애니메이션
-  late List<String> words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence?.split(" ")?.toList() ?? [];
+  late List<String> words = widget
+      .learningMaterial.sentences?[widget.sentIndex]?.sentence
+      ?.split(" ")
+      ?.toList() ??
+      [];
   Timer? _animationTimer;
   int activeIndex = 0;
 
@@ -31,20 +35,24 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   @override
   void initState() {
     super.initState();
-    videoPath = widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ?? '';
+    videoPath =
+        widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ?? '';
     _videoController = VideoPlayerController.asset(videoPath);
     _initializedController = _videoController.initialize();
     _videoController.setLooping(false); //영상 반복재생 금지
+    _animationTimer =
+        Timer.periodic(const Duration(milliseconds: 500), (timer) {
 
-    _animationTimer = Timer.periodic(const Duration(milliseconds: 500), (timer)
-    {
-      if (mounted && isPlaying) {
-        activeIndex++;
-        setState(() {
-          if (activeIndex >= words.length) activeIndex = 0;
+          if (mounted && isPlaying) {
+            activeIndex++;
+            setState(() {
+              if (activeIndex >= words.length) {
+                isPlaying = false;
+                activeIndex = 0;
+              }
+            });
+          }
         });
-      }
-    });
   }
 
   void dispose() {
@@ -57,13 +65,18 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   void didUpdateWidget(covariant VideoAndTextScreen oldWidget) {
     if (widget.sentIndex != oldWidget.sentIndex) {
       setState(() {
-        videoPath = widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ?? '';
+        videoPath =
+            widget.learningMaterial?.sentences?[widget.sentIndex]?.videoPath ??
+                '';
         _videoController = VideoPlayerController.asset(videoPath);
         _initializedController = _videoController.initialize();
         _videoController.setLooping(false); //영상 반복재생 금지
 
-        words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence?.split(" ")?.toList() ?? [];
-        activeIndex = 0;
+        words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence
+            ?.split(" ")
+            ?.toList() ??
+            [];
+        activeIndex = -1;
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -94,20 +107,6 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
                 } else {
                   _videoController.play();
                   isPlaying = true;
-                }
-                if(isPlaying){
-                  if (_animationTimer?.isActive == false) {
-                    // 실행 중인 타이머가 없으면 새로운 타이머 시작
-                    _animationTimer = Timer.periodic(
-                      Duration(milliseconds: (500).round()),
-                          (timer) {
-                        activeIndex++;
-                        setState(() {
-                          if (activeIndex >= words.length) activeIndex = 0;
-                        });
-                      },
-                    );
-                  }
                 }
               },
             ),
