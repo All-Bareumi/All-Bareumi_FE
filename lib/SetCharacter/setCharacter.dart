@@ -1,5 +1,5 @@
 import 'package:capstone/CameraPage.dart';
-import 'package:capstone/SetCharacter/selectMyAvatar.dart';
+import 'package:capstone/NoMoreUse/selectMyAvatar.dart';
 import 'package:capstone/SetCharacter/setMyAvatar.dart';
 import 'package:flutter/material.dart';
 import '../userDrawer/loadingDrawer.dart';
@@ -8,10 +8,10 @@ import 'selectCharacter.dart';
 import 'myAvatar.dart';
 import 'package:capstone/userDrawer/userDataDrawer.dart';
 
-//List<Character> Characters= [];
 
 class SetCharacter extends StatelessWidget {
-  const SetCharacter({Key? key}) : super(key: key);
+  const SetCharacter({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class SetCharacter extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    SelectCharacter(),
+                                    SelectCharacter(login_token: login_token,),
                               ));
                         },
                         child: _buildChooseCharacter(
@@ -64,7 +64,7 @@ class SetCharacter extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 //builder: (BuildContext context) => CameraPage(text: "내 얼굴을 찍어주세요"),
-                                builder: (BuildContext context) => SetMyAvatar(),
+                                builder: (BuildContext context) => SetMyAvatar(login_token : login_token),
                               ));
                         },
                         child: _buildChooseCharacter(

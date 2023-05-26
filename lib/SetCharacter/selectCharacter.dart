@@ -20,7 +20,8 @@ final List<Character> CharacterData= List.generate(
 SelectedCharacter selectedCharacter = new SelectedCharacter(CharacterData[0]);
 
 class SelectCharacter extends StatelessWidget {
-  const SelectCharacter({Key? key}) : super(key: key);
+  const SelectCharacter({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
   @override
   Widget build(BuildContext context) {

@@ -22,6 +22,7 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   LoginPlatform _loginPlatform = LoginPlatform.none;
+  late String login_token;
 
   void signInWithKakao() async {
     try {
@@ -36,6 +37,18 @@ class _LogInState extends State<LogIn> {
       // var tokenResponse = AccessTokenResponse.fromJson(login_response);
       // var token = OAuthToken.fromResponse(tokenResponse);
       // https dependency 등록
+      final login_url = Uri.http('localhost:8001','/api/auth/login');
+      print('!');
+
+      final login_response = await http.get(
+        login_url,
+        headers:{
+          HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}' // 이 형식으로 항상 넘겨주기
+        }
+      );
+      login_token = json.decode(login_response.body)['token'];
+      print(login_token); // 이거를 다른거 요청할 때마다 보내주기(토큰)
+
       final url = Uri.https('kapi.kakao.com', '/v2/user/me');
 
       final response = await http.get(
@@ -54,7 +67,7 @@ class _LogInState extends State<LogIn> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => SetCharacter(),
+            builder: (BuildContext context) => SetCharacter(login_token: login_token),
           ));
     } catch (error) {
       print('카카오톡으로 로그인 실패 ');
@@ -191,7 +204,7 @@ class _LogInState extends State<LogIn> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => SetCharacter(),
+                  builder: (BuildContext context) => SetCharacter(login_token: login_token), // 여기 json.decode(login_response.body)['token'] 를 전달해주기
                 ));
           },
           child: const Text(
