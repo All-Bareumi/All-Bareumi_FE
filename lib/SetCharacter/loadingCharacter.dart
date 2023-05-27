@@ -1,3 +1,4 @@
+import 'package:capstone/Learning/File/fileList.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:capstone/homePage.dart';
@@ -13,11 +14,60 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
   @override
   void initState() {
     Timer(Duration(milliseconds: 1500), () {
-      Navigator.push(context, MaterialPageRoute(
-            builder: (context) => HomePage()));
-    }
-    );
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+      showDialog(
+          context: context,
+          builder: (c) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                content: SingleChildScrollView(
+                  child: Column(children: <Widget>[
+                    Text('오늘의 학습 목표!',
+                        style: TextStyle(fontFamily: 'Dongle', fontSize: 50)),
+                    Text('새로운 문장',
+                        style: TextStyle(fontFamily: 'Dongle', fontSize: 40)),
+                    Text('10개 학습', // server에서 받아온 값 (부모님이 설정해둔 값)
+                        style: TextStyle(fontFamily: 'Dongle', fontSize: 40)),
+                  ]),
+                ),
+                actions: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FileList()));
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color(0xffED5555)),
+                                child: const Text(
+                                  '  바로 학습하기  ',
+                                  style: TextStyle(
+                                      fontSize: 45,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.white),
+                                ))),
+                        TextButton(
+                            onPressed: () => Navigator.pop(context, 'cancel'),
+                            child: const Text(
+                              '닫기',
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontFamily: 'Dongle',
+                                  color: Colors.black),
+                            ))
+                      ]),
+                ],
+              ));
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,27 +76,24 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
         elevation: 0.0,
         backgroundColor: Color(0xffFED40B),
       ),
-      body: Stack(
-        children:<Widget>[
-          Column(
-              children:<Widget>[
-                SizedBox(height: MediaQuery.of(context).size.height/16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height/4),
-                Row(
-                  children: [
-                    //SizedBox(width: 30,),
-                    Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
-                  ],
-                )
-              ]
+      body: Stack(children: <Widget>[
+        Column(children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).size.height / 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+            ],
           ),
-          Column(
+          SizedBox(height: MediaQuery.of(context).size.height / 4),
+          Row(
+            children: [
+              //SizedBox(width: 30,),
+              Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+            ],
+          )
+        ]),
+        Column(
           children: <Widget>[
             SizedBox(
               height: 100,
@@ -90,15 +137,18 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, top : 13),
-                    child: Text('잠시만 기다려줘', style: TextStyle(fontSize: 30, fontFamily: 'Dongle'),),
+                    padding: const EdgeInsets.only(left: 15, top: 13),
+                    child: Text(
+                      '잠시만 기다려줘',
+                      style: TextStyle(fontSize: 30, fontFamily: 'Dongle'),
+                    ),
                   ),
                 ]),
               ],
             )
           ],
-        ),]
-      ),
+        ),
+      ]),
     );
   }
 }
