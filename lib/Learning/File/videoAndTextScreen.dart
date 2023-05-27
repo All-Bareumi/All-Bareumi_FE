@@ -20,7 +20,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late VideoPlayerController _videoController;
   late Future<void> _initializedController;
   late String videoPath;
-  String guideText = "입모양을 보고 소리를 들어보아요";
+  int iterCount = 0;
 
   // 텍스트 애니메이션
   late List<String> words = widget
@@ -69,6 +69,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
                 ?.toList() ??
             [];
         activeIndex = -1;
+        iterCount = 0;
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -77,10 +78,23 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(builder: (_, snapshot) {
+      print(iterCount);
+
       return Column(children: <Widget>[
-        Text(
-          '$guideText',
-          style: TextStyle(fontFamily: 'Dongle', fontSize: 35),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (iterCount == 0 || iterCount ==2)
+              Text(
+                "입모양을 보고 소리를 들어보아요",
+                style: TextStyle(fontFamily: 'Dongle', fontSize: 35),
+              ),
+            if(iterCount == 1 || iterCount == 3)
+              Text(
+                "내 입모양을 보며 따라 읽어보아요",
+                style: TextStyle(fontFamily: 'Dongle', fontSize: 35),
+              ),
+          ],
         ),
         Container(
           child: AspectRatio(
@@ -123,6 +137,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
           isPlaying = false;
           activeIndex = 0;
           _animationTimer?.cancel();
+          iterCount++;
         }
       });
     });
