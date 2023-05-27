@@ -20,12 +20,13 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   late VideoPlayerController _videoController;
   late Future<void> _initializedController;
   late String videoPath;
+  String guideText = "입모양을 보고 소리를 들어보아요";
 
   // 텍스트 애니메이션
   late List<String> words = widget
-      .learningMaterial.sentences?[widget.sentIndex]?.sentence
-      ?.split(" ")
-      ?.toList() ??
+          .learningMaterial.sentences?[widget.sentIndex]?.sentence
+          ?.split(" ")
+          ?.toList() ??
       [];
   Timer? _animationTimer;
   int activeIndex = 0;
@@ -42,17 +43,8 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
     _videoController.setLooping(false); //영상 반복재생 금지
     _animationTimer =
         Timer.periodic(const Duration(milliseconds: 500), (timer) {
-
-          if (mounted && isPlaying) {
-            activeIndex++;
-            setState(() {
-              if (activeIndex >= words.length) {
-                isPlaying = false;
-                activeIndex = 0;
-              }
-            });
-          }
-        });
+      setState(() {});
+    });
   }
 
   void dispose() {
@@ -73,8 +65,8 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
         _videoController.setLooping(false); //영상 반복재생 금지
 
         words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence
-            ?.split(" ")
-            ?.toList() ??
+                ?.split(" ")
+                ?.toList() ??
             [];
         activeIndex = -1;
       });
@@ -86,6 +78,10 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   Widget build(BuildContext context) {
     return FutureBuilder(builder: (_, snapshot) {
       return Column(children: <Widget>[
+        Text(
+          '$guideText',
+          style: TextStyle(fontFamily: 'Dongle', fontSize: 35),
+        ),
         Container(
           child: AspectRatio(
             aspectRatio: _videoController.value.aspectRatio,
@@ -107,7 +103,9 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
                 } else {
                   _videoController.play();
                   isPlaying = true;
+                  startTextAnimation();
                 }
+                setState(() {});
               },
             ),
             buildTextAnimation(context),
@@ -117,30 +115,47 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
     });
   }
 
+  void startTextAnimation() {
+    _animationTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        activeIndex++;
+        if (activeIndex >= words.length) {
+          isPlaying = false;
+          activeIndex = 0;
+          _animationTimer?.cancel();
+        }
+      });
+    });
+  }
+
+
   Widget buildTextAnimation(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: () {
-          List<InlineSpan> spans = [];
-          for (int i = 0; i < words.length; i++) {
-            spans.add(TextSpan(
-              text: words[i] + " ",
-              style: i == activeIndex
-                  ? const TextStyle(
-                // highlight style
-                color: Colors.orange,
-                fontSize: 35,
-                fontFamily: 'Dongle',
-              )
-                  : TextStyle(
-                color: Colors.grey.shade300,
-                fontSize: 35,
-                fontFamily: 'Dongle',
-              ),
-            ));
-          }
-          return spans;
-        }(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: RichText(
+        text: TextSpan(
+          children: () {
+            List<InlineSpan> spans = [];
+            for (int i = 0; i < words.length; i++) {
+              spans.add(TextSpan(
+                text: words[i] + " ",
+                style: i <= activeIndex
+                    ? const TextStyle(
+                        // highlight style
+                        color: Colors.orange,
+                        fontSize: 35,
+                        fontFamily: 'Dongle',
+                      )
+                    : TextStyle(
+                        color: Colors.grey.shade300,
+                        fontSize: 35,
+                        fontFamily: 'Dongle',
+                      ),
+              ));
+            }
+            return spans;
+          }(),
+        ),
       ),
     );
   }
