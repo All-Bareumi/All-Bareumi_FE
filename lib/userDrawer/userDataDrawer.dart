@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:capstone/userDrawer/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
@@ -31,10 +32,10 @@ class _myDrawerState extends State<myDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
         child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 70, 0, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+          padding: const EdgeInsets.fromLTRB(20, 70, 0, 0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
           (widget.profileImg == 'image/logo/logo.png')
               ? Image(image: AssetImage('image/logo/logo.png'), width: 100)
               : CircleAvatar(
