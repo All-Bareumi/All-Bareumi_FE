@@ -6,17 +6,18 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 // getUserData 함수 호출하는 drawer그려주는 stateless widget만들기
 
 class myDrawer extends StatefulWidget {
-  const myDrawer(
-      {Key? key,
-      required this.user,
-      required this.userName,
-      required this.userId,
-      required this.profileImg})
+  const myDrawer({Key? key,
+    required this.user,
+    required this.userName,
+    required this.userId,
+    required this.profileImg,
+    required this.login_token})
       : super(key: key);
   final User user;
   final String userName;
   final int userId;
   final String profileImg;
+  final String login_token;
 
   @override
   State<myDrawer> createState() => _myDrawerState();

@@ -17,7 +17,7 @@ class SetCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: LoadingDrawer(),
+      endDrawer: LoadingDrawer(login_token: login_token),
       appBar: buildAppBar(context),
       body: Stack(
         children: <Widget>[
