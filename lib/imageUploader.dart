@@ -146,7 +146,7 @@ class _ImageUploaderState extends State<ImageUploader> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: LoadingDrawer(),
+      endDrawer: LoadingDrawer(login_token: widget.login_token),
       appBar: buildAppBar(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

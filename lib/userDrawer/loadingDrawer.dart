@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 class LoadingDrawer extends StatefulWidget {
-  const LoadingDrawer({Key? key}) : super(key: key);
+  const LoadingDrawer({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
   @override
   State<LoadingDrawer> createState() => _LoadingDrawerState();
@@ -72,6 +73,7 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
             ));
           } else {
             return myDrawer(
+                login_token: widget.login_token,
                 user: snapshot.data!.user,
                 userName: snapshot.data!.userName.toString(),
                 userId: snapshot.data!.userId,

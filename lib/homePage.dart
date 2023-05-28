@@ -6,13 +6,14 @@ import 'userDrawer/loadingDrawer.dart';
 import 'userDrawer/userDataDrawer.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xffFED40B),
-        endDrawer: LoadingDrawer(),
+        endDrawer: LoadingDrawer(login_token: login_token),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => FileList(),
+                            builder: (BuildContext context) => FileList(login_token: login_token),
                           ));
                     },
                     child: Stack(children: <Widget>[
@@ -71,7 +72,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => VideoFileList(),
+                            builder: (BuildContext context) => VideoFileList(login_token: login_token,),
                           ));
                     },
                     child: Stack(children: <Widget>[

@@ -36,7 +36,7 @@ class _AddNewFilePageState extends State<AddNewFilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor(hexYellow),
-      endDrawer: LoadingDrawer(),
+      endDrawer: LoadingDrawer(login_token: widget.login_token),
       appBar: buildAppBar(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

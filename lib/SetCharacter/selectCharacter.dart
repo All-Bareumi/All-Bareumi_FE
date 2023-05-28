@@ -27,7 +27,7 @@ class SelectCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: LoadingDrawer(),
+      endDrawer: LoadingDrawer(login_token: login_token),
       appBar: buildAppBar(context),
       body: Stack(
         children: <Widget>[
@@ -145,7 +145,7 @@ class SelectCharacter extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context)=> LoadingCharacter(),
+              builder: (BuildContext context)=> LoadingCharacter(login_token: login_token),
             )
         );
         },
