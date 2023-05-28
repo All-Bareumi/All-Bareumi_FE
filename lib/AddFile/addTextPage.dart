@@ -1,14 +1,19 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AddTextPage extends StatelessWidget {
-  const AddTextPage({Key? key}) : super(key: key);
+  const AddTextPage({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffFED40B),
       appBar: buildAppBar(context),
-      body: TextScreen(),
+      body: TextScreen(login_token: login_token),
     );
   }
 
@@ -32,7 +37,15 @@ class AddTextPage extends StatelessWidget {
   }
 }
 
-class TextScreen extends StatelessWidget {
+class TextScreen extends StatefulWidget {
+  const TextScreen({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
+
+  @override
+  State<TextScreen> createState() => _TextScreenState();
+}
+
+class _TextScreenState extends State<TextScreen> {
   final myController = TextEditingController();
 
   @override
@@ -74,19 +87,52 @@ class TextScreen extends StatelessWidget {
                     color: const Color(0xffED5555)),
               ),
             ),
-            onTap: () => showDialog(
-                //실제로는 DB에 저장되고 이런 알림메시지는 보여주지 않을 예정
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
+            onTap: () async {
+              showDialog(
+                  //실제로는 DB에 저장되고 이런 알림메시지는 보여주지 않을 예정
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
                       content: Text(
-                    myController.text,
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontFamily: 'Dongle',
-                    ),
-                  ));
-                }))
+                        '추가하고 싶은 문장이\n' + myController.text + '\n이 맞나요?',
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontFamily: 'Dongle',
+                        ),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+
+                              print('문장을 서버에 업로드 합니다.');
+                              try {
+                                var response = await http.post(
+                                  Uri.parse(
+                                    'http://localhost:8001/api/user/??', // 추가되는 문장 경로 추가하기
+                                  ),
+                                  body: jsonEncode({
+                                    'sentences': myController.text,
+                                  }),
+                                  headers: {
+                                    HttpHeaders.authorizationHeader:
+                                        'Bearer ${widget.login_token}'
+                                  },
+                                );
+                                print('성공적으로 업로드했습니다');
+                                print(response.body);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            child: Text('네')),
+                        ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('아니요')),
+                      ],
+                    );
+                  });
+            })
       ],
     );
   }
