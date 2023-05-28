@@ -18,11 +18,17 @@ class LearningMaterial {
   }
 
   // json data 처리
-  factory LearningMaterial.fromJson(Map<String, dynamic> json){
+  factory LearningMaterial.fromJson(Map<String, dynamic> json, List<SentenceData> sentences){
+    // Future<List<SentenceData>> sentences = List.generate(
+    //     foodSentenceList.length,
+    //         (idx) =>
+    //         SentenceData(
+    //             json['subject'], foodSentenceList[idx], selectedCharacter,
+    //             foodSentenceVideoList[idx]));
     return LearningMaterial(
         subject: json['subject'],
         subjectKor: json['subjectKor'],
-        sentences: json['senteneces'],
+        sentences: sentences,
         imgPath: json['subjectImg']);
   }
 }

@@ -22,7 +22,7 @@ class LearningMaterial {
     return LearningMaterial(
         subject: json['subject'],
         subjectKor: json['subjectKor'],
-        sentences: json['senteneces'],
+        sentences: json['senteneces'], // !?
         imgPath: json['subjectImg']);
   }
 }
