@@ -73,8 +73,24 @@ class _myDrawerState extends State<myDrawer> {
             style: TextStyle(
                 color: Colors.black, fontFamily: 'Dongle', fontSize: 35),
           ),
-        ],
-      ),
-    ));
+          SizedBox(height: 200),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(icon: Icon(Icons.settings, size: 40,),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Settings(login_token: widget.login_token)));
+                },),
+                SizedBox(width: 20),
+                ],
+              ),
+            ],
+          ),
+        )
+    );
   }
 }
