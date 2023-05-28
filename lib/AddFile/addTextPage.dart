@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AddTextPage extends StatelessWidget {
-  const AddTextPage({Key? key, required this.login_token}) : super(key: key);
+  const AddTextPage({Key? key,required this.textSubject, required this.login_token}) : super(key: key);
+  final String textSubject;
   final String login_token;
 
   @override
@@ -13,7 +14,7 @@ class AddTextPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffFED40B),
       appBar: buildAppBar(context),
-      body: TextScreen(login_token: login_token),
+      body: TextScreen(textSubject : textSubject, login_token: login_token),
     );
   }
 
@@ -38,8 +39,9 @@ class AddTextPage extends StatelessWidget {
 }
 
 class TextScreen extends StatefulWidget {
-  const TextScreen({Key? key, required this.login_token}) : super(key: key);
+  const TextScreen({Key? key, required this.textSubject, required this.login_token}) : super(key: key);
   final String login_token;
+  final String textSubject;
 
   @override
   State<TextScreen> createState() => _TextScreenState();
@@ -94,7 +96,7 @@ class _TextScreenState extends State<TextScreen> {
                   builder: (context) {
                     return AlertDialog(
                       content: Text(
-                        '추가하고 싶은 문장이\n' + myController.text + '\n이 맞나요?',
+                        '추가하고 싶은 문장이\n"' + myController.text + '"\n이 맞나요?',
                         style: TextStyle(
                           fontSize: 35,
                           fontFamily: 'Dongle',
@@ -112,6 +114,7 @@ class _TextScreenState extends State<TextScreen> {
                                     'http://localhost:8001/api/user/??', // 추가되는 문장 경로 추가하기
                                   ),
                                   body: jsonEncode({
+                                    'textSubject': widget.textSubject, // 추가할 학습 자료의 제목
                                     'sentences': myController.text,
                                   }),
                                   headers: {

@@ -10,10 +10,11 @@ import 'userDrawer/loadingDrawer.dart';
 
 class ImageUploader extends StatefulWidget {
   const ImageUploader(
-      {Key? key, required this.login_token, required this.pageName})
+      {Key? key, required this.login_token, required this.pageName, this.textSubject})
       : super(key: key);
   final String login_token;
   final String pageName;
+  final String? textSubject; // 이건 선택사항 (내 아바타를 생성할 땐 필요 없음)
 
   @override
   State<ImageUploader> createState() => _ImageUploaderState();
@@ -53,6 +54,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         actions: [
           ElevatedButton(
               onPressed: () async {
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
 
                 print('사진을 서버에 업로드 합니다.');

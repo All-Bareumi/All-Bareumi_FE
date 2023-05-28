@@ -1,17 +1,36 @@
+import 'package:capstone/imageUploader.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
 import '../userDrawer/loadingDrawer.dart';
 import 'addTextPage.dart';
-import 'package:capstone/userDrawer/userDataDrawer.dart';
 
-class AddNewFilePage extends StatelessWidget {
-  const AddNewFilePage({Key? key}) : super(key: key);
+class AddNewFilePage extends StatefulWidget {
+  const AddNewFilePage({Key? key, required this.login_token}) : super(key: key);
+  final String login_token;
 
-  final String hexYellow ="FED40B";
-  final String hexGreen ="1AB846";
-  final String hexBlue ="1086fe";
-  final String hexRed ="ED5555";
+  @override
+  State<AddNewFilePage> createState() => _AddNewFilePageState();
+}
+
+class _AddNewFilePageState extends State<AddNewFilePage> {
+  final String hexYellow = "FED40B";
+  final String hexGreen = "1AB846";
+  final String hexBlue = "1086fe";
+  final String hexRed = "ED5555";
+
+  TextEditingController _textFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textFieldController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +43,67 @@ class AddNewFilePage extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => CameraPage(text: "책을 찍어주세요",),
-                  )
-              );
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(
+                          '추가할 학습 자료의 제목을\n입력하세요.',
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontFamily: 'Dongle',
+                              color: Colors.black),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        content: TextField(
+                          onChanged: (value) {},
+                          controller: _textFieldController,
+                          decoration: InputDecoration(hintText: "제목"),
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ImageUploader(
+                                                textSubject:
+                                                    _textFieldController.text,
+                                                login_token: widget.login_token,
+                                                pageName: '사진 업로드 하기',
+                                              )));
+                                  _textFieldController.text = '';
+                                },
+                                child: Container(
+                                    child: const Text(
+                                  '확인',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.black),
+                                )),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'cancel');
+                                  _textFieldController.text = '';
+                                },
+                                child: const Text(
+                                  '취소',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.black),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ));
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -53,12 +127,66 @@ class AddNewFilePage extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    //builder: (BuildContext context) => AddPictureFile(),
-                    builder: (BuildContext context) => AddTextPage(),
-                  ));
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(
+                          '추가할 학습 자료의 제목을\n입력하세요.',
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontFamily: 'Dongle',
+                              color: Colors.black),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        content: TextField(
+                          onChanged: (value) {},
+                          controller: _textFieldController,
+                          decoration: InputDecoration(hintText: "제목"),
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddTextPage(
+                                                textSubject:
+                                                    _textFieldController.text,
+                                                login_token: widget.login_token,
+                                              )));
+                                  _textFieldController.text = '';
+                                },
+                                child: Container(
+                                    child: const Text(
+                                  '확인',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.black),
+                                )),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'cancel');
+                                  _textFieldController.text = '';
+                                },
+                                child: const Text(
+                                  '취소',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.black),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ));
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -96,7 +224,7 @@ class AddNewFilePage extends StatelessWidget {
       ),
       leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
-          color:  HexColor("5a4c0c"),
+          color: HexColor("5a4c0c"),
           onPressed: () {
             Navigator.pop(context);
           }),
