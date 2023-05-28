@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => AddNewFilePage(),
+                        builder: (BuildContext context) => AddNewFilePage(login_token: login_token),
                       ));
                 },
                 child: Stack(children: <Widget>[
