@@ -132,6 +132,7 @@ final List<SentenceData> schoolSentences = List.generate(
             "school", schoolSentenceList[idx], selectedCharacter,
             schoolSentenceVideoList[idx]));
 
+// local 구동을 위한 learningMaterial 객체 생성
 LearningMaterial food =
 new LearningMaterial(subject: "food", subjectKor: "음식", sentences: foodSentences, imgPath: "image/icon/icon_food.png");
 LearningMaterial exercise =
@@ -143,3 +144,5 @@ new LearningMaterial(subject: "school",subjectKor: "학교", sentences: schoolSe
 
 List<LearningMaterial> learningMaterials = [food, school, family, exercise];
 List<String> learningMaterialKorList = ["음식", "학교", "가족", "운동"];
+
+// Server로 통신데이터 가져오는 과정이 필요함.

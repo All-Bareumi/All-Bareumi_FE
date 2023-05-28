@@ -21,15 +21,6 @@ class UserInfo {
 }
 
 class _LoadingDrawerState extends State<LoadingDrawer> {
-  // bool notNullUser = false;
-  // late Future<User> user;
-  // late Future<UserInfo> userInfo;
-  // late String? userNameNP; // null 가능 상태
-  // late String? profileImgNP;
-  // late int userId;
-  // late String userName;
-  // late String profileImg;
-
   Future<UserInfo> getUserData() async {
     //카카오에서 받아오는 user 정보
     User user = await UserApi.instance.me();
