@@ -36,7 +36,8 @@ class _myDrawerState extends State<myDrawer> {
         children: <Widget>[
           (widget.profileImg == 'image/logo/logo.png')
               ? Image(image: AssetImage('image/logo/logo.png'), width: 100)
-              : CircleAvatar(backgroundImage: NetworkImage(widget.profileImg), radius: 50),
+              : CircleAvatar(
+              backgroundImage: NetworkImage(widget.profileImg), radius: 50),
           SizedBox(height: 30),
           Text(
             '안녕하세요!',

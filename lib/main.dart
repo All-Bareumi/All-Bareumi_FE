@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:capstone/Learning/File/sentenceIndexProvider.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +21,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_)=>SentenceIndexProvider()),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'All-Bareumi',
         home: LogIn(),
-      ),
-    );
+      );
   }
 }
+
+// MultiProvider(
+// providers: [
+// //ChangeNotifierProvider(create: (_)=>SentenceIndexProvider()),
+// ],
+// child: MaterialApp(
+// debugShowCheckedModeBanner: false,
+// title: 'All-Bareumi',
+// home: LogIn(),
+// );
+// )

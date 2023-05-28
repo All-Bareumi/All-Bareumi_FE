@@ -110,6 +110,7 @@ class _LearningVideoState extends State<LearningVideo> {
               width: 60,
             ),
             onPressed: () => Scaffold.of(context).openEndDrawer(),
+
           );
         })
       ],

@@ -38,7 +38,12 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
     int userId = user.id;
     String userName = userNameNP ?? "사용자";
     String profileImg = profileImgNP ?? "image/logo/logo.png";
-    return UserInfo(user, userName, userId, profileImg);
+    return UserInfo(
+      user,
+      userName,
+      userId,
+      profileImg,
+    );
   }
 
   @override

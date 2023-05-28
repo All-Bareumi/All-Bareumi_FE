@@ -24,9 +24,9 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
 
   // 텍스트 애니메이션
   late List<String> words = widget
-          .learningMaterial.sentences?[widget.sentIndex]?.sentence
-          ?.split(" ")
-          ?.toList() ??
+      .learningMaterial.sentences?[widget.sentIndex]?.sentence
+      ?.split(" ")
+      ?.toList() ??
       [];
   Timer? _animationTimer;
   int activeIndex = 0;
@@ -43,8 +43,8 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
     _videoController.setLooping(false); //영상 반복재생 금지
     _animationTimer =
         Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      setState(() {});
-    });
+          setState(() {});
+        });
   }
 
   void dispose() {
@@ -65,8 +65,8 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
         _videoController.setLooping(false); //영상 반복재생 금지
 
         words = widget.learningMaterial.sentences?[widget.sentIndex]?.sentence
-                ?.split(" ")
-                ?.toList() ??
+            ?.split(" ")
+            ?.toList() ??
             [];
         activeIndex = -1;
         iterCount = 0;
@@ -78,7 +78,6 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(builder: (_, snapshot) {
-      print(iterCount);
 
       return Column(children: <Widget>[
         Row(
@@ -156,16 +155,16 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
                 text: words[i] + " ",
                 style: i <= activeIndex
                     ? const TextStyle(
-                        // highlight style
-                        color: Colors.orange,
-                        fontSize: 35,
-                        fontFamily: 'Dongle',
-                      )
+                  // highlight style
+                  color: Colors.orange,
+                  fontSize: 35,
+                  fontFamily: 'Dongle',
+                )
                     : TextStyle(
-                        color: Colors.grey.shade300,
-                        fontSize: 35,
-                        fontFamily: 'Dongle',
-                      ),
+                  color: Colors.grey.shade300,
+                  fontSize: 35,
+                  fontFamily: 'Dongle',
+                ),
               ));
             }
             return spans;

@@ -47,7 +47,7 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
                                     borderRadius: BorderRadius.circular(10),
                                     color: const Color(0xffED5555)),
                                 child: const Text(
-                                  '  바로 학습하기  ',
+                                  '  학습하기  ',
                                   style: TextStyle(
                                       fontSize: 45,
                                       fontFamily: 'Dongle',

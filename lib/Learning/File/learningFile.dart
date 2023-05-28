@@ -156,22 +156,23 @@ class _LearningFileState extends State<LearningFile> {
     );
   }
 
+
   Widget learningProgress() {
-    double percent = sentIndex/widget.learningMaterial.sentences!.length;
+    double percent = sentIndex / widget.learningMaterial.sentences!.length;
     return Column(
       children: [
         Container(
           alignment: FractionalOffset(percent, 1 - percent),
           child: FractionallySizedBox(
               child: Image.asset('image/logo/logo.png',
-                  width: 30, height: 30, fit: BoxFit.cover)),
+                  width: 25, height: 25, fit: BoxFit.cover)),
         ),
         LinearPercentIndicator(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
             percent: percent,
-            lineHeight: 10,
+            lineHeight: 8,
             backgroundColor: Colors.black38,
-            progressColor: Colors.indigo.shade900,
+            progressColor: Color(0XFF1086FE),
             width: MediaQuery.of(context).size.width)
       ],
     );
