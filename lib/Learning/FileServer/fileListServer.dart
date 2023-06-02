@@ -1,12 +1,13 @@
 // import 'package:flutter/material.dart';
-// import 'package:capstone/Learning/File/learningMaterials.dart';
+// import 'package:capstone/Learning/FileServer/learningMaterials.dart';
 //
 // import '../../userDrawer/loadingDrawer.dart';
 // import 'learningFileServer.dart';
 //
 // class FileList extends StatefulWidget {
-//   const FileList({Key? key}) : super(key: key);
+//   const FileList({Key? key, required this.login_token}) : super(key: key);
 //
+//   final String login_token;
 //   @override
 //   State<FileList> createState() => _FileListState();
 // }
@@ -16,7 +17,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //         backgroundColor: Color(0xffFED40B),
-//         endDrawer: LoadingDrawer(),
+//         endDrawer: LoadingDrawer(login_token: widget.login_token,),
 //         appBar: buildAppBar(context),
 //         body: Stack(
 //           children: <Widget>[
