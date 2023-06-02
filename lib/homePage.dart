@@ -5,8 +5,9 @@ import 'package:capstone/AddFile/addNewFilePage.dart';
 import 'userDrawer/loadingDrawer.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.login_token}) : super(key: key);
+  const HomePage({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
   final String login_token;
+  final String selectedCharacter;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => FileList(login_token: login_token),
+                            builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
                           ));
                     },
                     child: Stack(children: <Widget>[
