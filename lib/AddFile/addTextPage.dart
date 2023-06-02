@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AddTextPage extends StatelessWidget {
-  const AddTextPage({Key? key,required this.textSubject, required this.login_token}) : super(key: key);
+  const AddTextPage(
+      {Key? key, required this.textSubject, required this.login_token})
+      : super(key: key);
   final String textSubject;
   final String login_token;
 
   @override
   Widget build(BuildContext context) {
+결    print('AddTextPage: ' + textSubject);
+
     return Scaffold(
       backgroundColor: const Color(0xffFED40B),
       appBar: buildAppBar(context),
-      body: TextScreen(textSubject : textSubject, login_token: login_token),
+      body: TextScreen(textSubject: textSubject, login_token: login_token),
     );
   }
 
@@ -39,7 +43,9 @@ class AddTextPage extends StatelessWidget {
 }
 
 class TextScreen extends StatefulWidget {
-  const TextScreen({Key? key, required this.textSubject, required this.login_token}) : super(key: key);
+  const TextScreen(
+      {Key? key, required this.textSubject, required this.login_token})
+      : super(key: key);
   final String login_token;
   final String textSubject;
 
@@ -107,23 +113,30 @@ class _TextScreenState extends State<TextScreen> {
                             onPressed: () async {
                               Navigator.of(context).pop();
 
-                              print('문장을 서버에 업로드 합니다.');
+                              print(
+                                  "textPage : action : " + widget.textSubject);
                               try {
-                                var response = await http.post(
+                                var response = await http.put(
                                   Uri.parse(
-                                    'http://localhost:8001/api/user/??', // 추가되는 문장 경로 추가하기
+                                    'http://localhost:8001/api/learning/sentences/insert', // 추가되는 문장 경로 추가하기
                                   ),
                                   body: jsonEncode({
-                                    'textSubject': widget.textSubject, // 추가할 학습 자료의 제목
-                                    'sentences': myController.text,
+                                    //'category': "food",
+                                    // 추가할 학습 자료의 제목
+                                    'category': widget.textSubject,
+                                    // 추가할 학습 자료의 제목
+                                    'content': myController.text,
+                                    //'content': "food",
                                   }),
                                   headers: {
+                                    "Content-Type": "application/json",
                                     HttpHeaders.authorizationHeader:
                                         'Bearer ${widget.login_token}'
                                   },
                                 );
                                 print('성공적으로 업로드했습니다');
                                 print(response.body);
+
                               } catch (e) {
                                 print(e);
                               }
