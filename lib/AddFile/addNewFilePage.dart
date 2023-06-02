@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:capstone/imageUploader.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../CameraPage.dart';
 import '../userDrawer/loadingDrawer.dart';
 import 'addTextPage.dart';
+import 'package:http/http.dart' as http;
 
 class AddNewFilePage extends StatefulWidget {
   const AddNewFilePage({Key? key, required this.login_token}) : super(key: key);
@@ -149,14 +152,35 @@ class _AddNewFilePageState extends State<AddNewFilePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               TextButton(
-                                onPressed: () {
+                                onPressed: () async{
+                                  String textSubject = _textFieldController.text;
+                                  try {
+                                    var response = await http.post(
+                                      Uri.parse(
+                                        'http://localhost:8001/api/learning/sentences/category', // 추가되는 문장 경로 추가하기
+                                      ),
+                                      body: jsonEncode({
+                                        'category': textSubject,
+                                      }),
+                                      headers: {
+                                        "Content-Type": "application/json",
+                                        HttpHeaders.authorizationHeader:
+                                        'Bearer ${widget.login_token}'
+                                      },
+                                    );
+                                    print(response.body);
+
+                                  } catch (e) {
+                                    print(e);
+
+                                  }
                                   Navigator.of(context).pop();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => AddTextPage(
                                                 textSubject:
-                                                    _textFieldController.text,
+                                                textSubject,
                                                 login_token: widget.login_token,
                                               )));
                                   _textFieldController.text = '';
