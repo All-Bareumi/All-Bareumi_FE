@@ -6,10 +6,11 @@ import 'videoAndTextScreen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class LearningFile extends StatefulWidget {
-  const LearningFile({Key? key, required this.learningMaterial})
+  const LearningFile({Key? key, required this.learningMaterial, required this.login_token})
       : super(key: key);
 
   final LearningMaterial learningMaterial;
+  final String login_token;
 
   @override
   State<LearningFile> createState() => _LearningFileState();
@@ -69,6 +70,7 @@ class _LearningFileState extends State<LearningFile> {
         VideoAndTextScreen(
           learningMaterial: widget.learningMaterial,
           sentIndex: sentIndex,
+          login_token: widget.login_token,
         ),
         Expanded(
           child: Image(
