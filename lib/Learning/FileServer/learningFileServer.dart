@@ -18,7 +18,7 @@
 //     return LearningMaterial.fromJson(json.decode(response.body));
 //   } else {
 //     //만약 응답이 ok가 아니면 에러를 던집니다.
-//     throw Exception('계좌정보를 불러오는데 실패했습니다');
+//     throw Exception('정보를 불러오는데 실패했습니다');
 //   }
 // }
 //
