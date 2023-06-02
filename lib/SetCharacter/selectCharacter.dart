@@ -138,14 +138,34 @@ class SelectCharacter extends StatelessWidget {
 
   InkWell buildCharacterButton(Character character, BuildContext context ) {
     return InkWell(
-      onTap: (){
+      onTap: () async{
         // 캐릭터 선택 이후 액션
         // 캐릭터 선택 확정 로딩페이지로 이동
         selectedCharacter.setCharacter(character);
+
+        print('서버에 선택된 캐릭터를 post합니다.');
+        // try {
+        //   var response = await http.post(
+        //     Uri.parse(
+        //       'http://localhost:8001/api/user/character', // 추가되는 문장 경로 추가하기
+        //     ),
+        //     body: jsonEncode({
+        //       '' : character,
+        //     }),
+        //     headers: {
+        //       HttpHeaders.authorizationHeader:
+        //       'Bearer ${login_token}'
+        //     },
+        //   );
+        //   print('성공');
+        //   print(response.body);
+        // } catch (e) {
+        //   print(e);
+        // }
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context)=> LoadingCharacter(login_token: login_token),
+              builder: (BuildContext context)=> LoadingCharacter(login_token: login_token, selectedCharacter : character.name),
             )
         );
         },

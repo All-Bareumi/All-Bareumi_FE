@@ -4,8 +4,9 @@ import 'dart:async';
 import 'package:capstone/homePage.dart';
 
 class LoadingCharacter extends StatefulWidget {
-  const LoadingCharacter({Key? key, required this.login_token}) : super(key: key);
+  const LoadingCharacter({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
   final String login_token;
+  final String selectedCharacter;
   @override
   State<LoadingCharacter> createState() => _LoadingCharacterState();
 }
@@ -15,7 +16,7 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
   void initState() {
     Timer(Duration(milliseconds: 1500), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage(login_token: widget.login_token)));
+          context, MaterialPageRoute(builder: (context) => HomePage(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter,)));
       showDialog(
           context: context,
           builder: (c) => AlertDialog(
@@ -40,7 +41,7 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => FileList(login_token: widget.login_token)));
+                                      builder: (context) => FileList(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter)));
                             },
                             child: Container(
                                 decoration: BoxDecoration(
