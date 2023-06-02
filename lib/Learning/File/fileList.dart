@@ -6,8 +6,9 @@ import 'package:capstone/userDrawer/userDataDrawer.dart';
 import '../../userDrawer/loadingDrawer.dart';
 
 class FileList extends StatefulWidget {
-  const FileList({Key? key, required this.login_token}) : super(key: key);
+  const FileList({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
   final String login_token;
+  final String selectedCharacter;
 
   @override
   State<FileList> createState() => _FileListState();
@@ -64,7 +65,7 @@ class _FileListState extends State<FileList> {
                                   return InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(_createRoute(
-                                          learningMaterials[index]));
+                                          learningMaterials[index], widget.login_token));
                                     },
                                     child: Container(
                                       height: 200,
@@ -141,10 +142,10 @@ class _FileListState extends State<FileList> {
   }
 }
 
-Route _createRoute(LearningMaterial learningMaterial) {
+Route _createRoute(LearningMaterial learningMaterial, String login_token) {
   return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          new LearningFile(learningMaterial: learningMaterial),
+          new LearningFile(learningMaterial: learningMaterial, login_token: login_token,),
       // pageBuilder: (context, animation, secondaryAnimation) =>
       // new LearningFile(learningMaterial: learningMaterial),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
