@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../userDrawer/loadingDrawer.dart';
 import 'character.dart';
 import 'loadingCharacter.dart';
+import 'package:http/http.dart' as http;
 // 이후 캐릭터 객체 생성후 처리하기
 // 지금은 페이지 그리기 용.
 
