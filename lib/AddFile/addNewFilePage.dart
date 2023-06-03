@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:capstone/imageUploader.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../CameraPage.dart';
 import '../userDrawer/loadingDrawer.dart';
 import 'addTextPage.dart';
 import 'package:http/http.dart' as http;
 
 class AddNewFilePage extends StatefulWidget {
-  const AddNewFilePage({Key? key, required this.login_token}) : super(key: key);
+  const AddNewFilePage({Key? key, required this.login_token, required this.textSubject}) : super(key: key);
   final String login_token;
+  final String textSubject;
 
   @override
   State<AddNewFilePage> createState() => _AddNewFilePageState();
@@ -46,68 +46,16 @@ class _AddNewFilePageState extends State<AddNewFilePage> {
         children: <Widget>[
           InkWell(
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(
-                          '추가할 학습 자료의 제목을\n입력하세요.',
-                          style: TextStyle(
-                              fontSize: 35,
-                              fontFamily: 'Dongle',
-                              color: Colors.black),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        content: TextField(
-                          onChanged: (value) {},
-                          controller: _textFieldController,
-                          decoration: InputDecoration(hintText: "제목"),
-                        ),
-                        actions: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ImageUploader(
-                                                textSubject:
-                                                    _textFieldController.text,
-                                                login_token: widget.login_token,
-                                                pageName: '사진 업로드 하기',
-                                              )));
-                                  _textFieldController.text = '';
-                                },
-                                child: Container(
-                                    child: const Text(
-                                  '확인',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Dongle',
-                                      color: Colors.black),
-                                )),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, 'cancel');
-                                  _textFieldController.text = '';
-                                },
-                                child: const Text(
-                                  '취소',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Dongle',
-                                      color: Colors.black),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ));
-            },
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ImageUploader(
+                        textSubject:
+                        _textFieldController.text,
+                        login_token: widget.login_token,
+                        pageName: '사진 업로드 하기',
+                      )));
+              },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -130,87 +78,14 @@ class _AddNewFilePageState extends State<AddNewFilePage> {
           ),
           InkWell(
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(
-                          '추가할 학습 자료의 제목을\n입력하세요.',
-                          style: TextStyle(
-                              fontSize: 35,
-                              fontFamily: 'Dongle',
-                              color: Colors.black),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        content: TextField(
-                          onChanged: (value) {},
-                          controller: _textFieldController,
-                          decoration: InputDecoration(hintText: "제목"),
-                        ),
-                        actions: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              TextButton(
-                                onPressed: () async{
-                                  String textSubject = _textFieldController.text;
-                                  try {
-                                    var response = await http.post(
-                                      Uri.parse(
-                                        'http://localhost:8001/api/learning/sentences/category', // 추가되는 문장 경로 추가하기
-                                      ),
-                                      body: jsonEncode({
-                                        'category': textSubject,
-                                      }),
-                                      headers: {
-                                        "Content-Type": "application/json",
-                                        HttpHeaders.authorizationHeader:
-                                        'Bearer ${widget.login_token}'
-                                      },
-                                    );
-                                    print(response.body);
-
-                                  } catch (e) {
-                                    print(e);
-
-                                  }
-                                  Navigator.of(context).pop();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AddTextPage(
-                                                textSubject:
-                                                textSubject,
-                                                login_token: widget.login_token,
-                                              )));
-                                  _textFieldController.text = '';
-                                },
-                                child: Container(
-                                    child: const Text(
-                                  '확인',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Dongle',
-                                      color: Colors.black),
-                                )),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, 'cancel');
-                                  _textFieldController.text = '';
-                                },
-                                child: const Text(
-                                  '취소',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Dongle',
-                                      color: Colors.black),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddTextPage(
+                        textSubject:
+                        widget.textSubject,
+                        login_token: widget.login_token,
+                      )));
             },
             child: Padding(
               padding: const EdgeInsets.all(20.0),

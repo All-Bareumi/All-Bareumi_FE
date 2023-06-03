@@ -1,3 +1,4 @@
+import 'package:capstone/AddFile/addNewFileCategoryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/fileList.dart';
 import 'package:capstone/Learning/Video/videoFileList.dart';
@@ -119,7 +120,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => AddNewFilePage(login_token: login_token),
+                        builder: (BuildContext context) => AddNewFileCategoryPage(login_token: login_token, selectedCharacter: selectedCharacter),
                       ));
                 },
                 child: Stack(children: <Widget>[
