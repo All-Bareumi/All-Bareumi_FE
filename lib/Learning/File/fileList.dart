@@ -1,7 +1,6 @@
 import 'package:capstone/Learning/File/learningFile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/learningMaterials.dart';
-import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 import '../../userDrawer/loadingDrawer.dart';
 
