@@ -78,84 +78,88 @@ class _LearningFileState extends State<LearningFile> {
             width: MediaQuery.of(context).size.width,
           ),
         ),
+        buildCameraFutureBuilder(),
         learningProgress(),
-        //buildCameraFutureBuilder(),
-        Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: sentIndex != 0
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (sentIndex > 0) {
-                                  sentIndex--;
-                                }
-                              });
-                            },
-                            child: Text(
-                              "< 이전",
-                              style:
-                                  TextStyle(fontFamily: 'Dongle', fontSize: 30),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (sentIndex >=
-                                    (widget.learningMaterial.sentences
-                                                ?.length ??
-                                            1) -
-                                        1) {
-                                  Navigator.pop(context);
-                                  sentIndex = 0;
-                                } else {
-                                  sentIndex++;
-                                }
-                              });
-                            },
-                            child: Text(
-                              "다음 >",
-                              style:
-                                  TextStyle(fontFamily: 'Dongle', fontSize: 30),
-                            )),
-                      ),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (sentIndex >=
-                                    (widget.learningMaterial.sentences
-                                                ?.length ??
-                                            0) -
-                                        1) {
-                                  Navigator.pop(context);
-                                } else {
-                                  sentIndex++;
-                                }
-                              });
-                            },
-                            child: Text(
-                              "다음 >",
-                              style:
-                                  TextStyle(fontFamily: 'Dongle', fontSize: 30),
-                            )),
-                      ),
-                    ],
-                  )),
+        buildPrevAndNextRow(context),
       ],
     );
+  }
+
+  Padding buildPrevAndNextRow(BuildContext context) {
+    return Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: sentIndex != 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (sentIndex > 0) {
+                                sentIndex--;
+                              }
+                            });
+                          },
+                          child: Text(
+                            "< 이전",
+                            style:
+                                TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (sentIndex >=
+                                  (widget.learningMaterial.sentences
+                                              ?.length ??
+                                          1) -
+                                      1) {
+                                Navigator.pop(context);
+                                sentIndex = 0;
+                              } else {
+                                sentIndex++;
+                              }
+                            });
+                          },
+                          child: Text(
+                            "다음 >",
+                            style:
+                                TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                          )),
+                    ),
+                  ],
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (sentIndex >=
+                                  (widget.learningMaterial.sentences
+                                              ?.length ??
+                                          0) -
+                                      1) {
+                                Navigator.pop(context);
+                              } else {
+                                sentIndex++;
+                              }
+                            });
+                          },
+                          child: Text(
+                            "다음 >",
+                            style:
+                                TextStyle(fontFamily: 'Dongle', fontSize: 30),
+                          )),
+                    ),
+                  ],
+                ));
   }
 
 
