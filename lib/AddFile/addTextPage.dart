@@ -13,7 +13,7 @@ class AddTextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-결    print('AddTextPage: ' + textSubject);
+    print('AddTextPage: ' + textSubject);
 
     return Scaffold(
       backgroundColor: const Color(0xffFED40B),
