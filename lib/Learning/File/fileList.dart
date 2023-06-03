@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:capstone/Learning/File/learningFile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/learningMaterials.dart';
-
+import 'package:http/http.dart' as http;
 import '../../userDrawer/loadingDrawer.dart';
+
 
 class FileList extends StatefulWidget {
   const FileList({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
@@ -14,6 +16,43 @@ class FileList extends StatefulWidget {
 }
 
 class _FileListState extends State<FileList> {
+
+  bool showLearningReportPopup = false;
+
+  Future<bool> fetchServerResponse() async {
+    final url = Uri.parse('http://localhost:8001/api/'); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final boolValue = data['goalAchived']; // Replace 'response' with the actual key in your server response
+        return boolValue;
+      } else {
+        // Handle error case if the request was not successful
+        throw Exception('Failed to fetch server response');
+      }
+    } catch (e) {
+      // Handle network or other runtime errors
+      throw Exception('Failed to connect to the server');
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    fetchServerResponse().then((bool serverResponse) {
+      setState(() {
+        showLearningReportPopup = serverResponse;
+      });
+    }).catchError((error) {
+      print('Failed to fetch server response: $error');
+      // Handle the error case accordingly
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
