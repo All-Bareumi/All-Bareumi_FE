@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
 
 import '../../userDrawer/loadingDrawer.dart';
+import '../LearningReport/reoportContent.dart';
 import 'learningFileServer.dart';
 import 'package:http/http.dart' as http;
 
 
 // 서버에서 subject리스트를 받아와서 해당 subject별로 learningMaterials를
-Future<List<LearningMaterialServer>> fetchLearningMaterials() async {
+Future<List<LearningMaterialServer>> fetchLearningMaterials(String selectedCharacter) async {
   final response = await http.get(Uri.parse('https://example.com/api/subjects')); // 서버에서 학습 파일 주제 모은 리스트있는 곳에 접근
 
   if (response.statusCode == 200) {
@@ -19,7 +20,7 @@ Future<List<LearningMaterialServer>> fetchLearningMaterials() async {
     List<LearningMaterialServer> learningMaterials = [];
 
     for (var subject in subjects) {
-      LearningMaterialServer material = await fetchLearningMaterial(subject);
+      LearningMaterialServer material = await fetchLearningMaterial(subject, selectedCharacter);
       learningMaterials.add(material);
     }
 
@@ -41,10 +42,36 @@ class FileListServer extends StatefulWidget {
 class _FileListServerState extends State<FileListServer> {
   List<LearningMaterialServer> learningMaterials = [];
 
+  bool showLearningReportPopup = true;
+  ReportContent? reportContent;
+
+  Future<bool> fetchServerResponse() async {
+    final url =
+    Uri.parse('http://localhost:8001/api/'); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final boolValue = data[
+        'goalAchived']; // Replace 'response' with the actual key in your server response
+        return boolValue;
+      } else {
+        // Handle error case if the request was not successful
+        throw Exception('Failed to fetch server response');
+      }
+    } catch (e) {
+      // Handle network or other runtime errors
+      throw Exception('Failed to connect to the server');
+    }
+  }
+
   @override
   void initState(){
     super.initState();
-    fetchLearningMaterials().then((materials) {
+    //학습 자료 불러오기
+    fetchLearningMaterials(widget.selectedCharacter).then((materials) {
       setState(() {
         learningMaterials = materials;
       });
@@ -52,13 +79,26 @@ class _FileListServerState extends State<FileListServer> {
       // 에러 처리
       print(error);
     });
+
+    // 오늘의 학습 리포트 불러오기
+    fetchServerResponse().then((bool serverResponse) {
+      setState(() {
+        showLearningReportPopup = serverResponse;
+      });
+    }).catchError((error) {
+      print('Failed to fetch server response: $error');
+      // Handle the error case accordingly
+    });
+    if (showLearningReportPopup) {
+      //fetchData();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xffFED40B),
-        endDrawer: LoadingDrawer(login_token: widget.login_token,),
+        endDrawer: LoadingDrawer(login_token: widget.login_token),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[

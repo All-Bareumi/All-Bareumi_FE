@@ -17,7 +17,7 @@ class LearningMaterialServer {
   }
 
   // json data 처리
-  factory LearningMaterialServer.fromJson(Map<String, dynamic> json, SelectedCharacter selectedCharacter){
+  factory LearningMaterialServer.fromJson(Map<String, dynamic> json, String selectedCharacter){
 
     final List<dynamic> item = json['sentences'];
     final String subject = json['subject'];
@@ -37,12 +37,12 @@ class SentenceDataServer {
   final String sentence;
   final String videoPath;
 
-  SentenceDataServer({required this.subject, required this.sentence, required SelectedCharacter selectedCharacter, required this.videoPath}) {
+  SentenceDataServer({required this.subject, required this.sentence, required String selectedCharacter, required this.videoPath}) {
     // this.videoPath =
     //     "video/sentence/${this.subject}/${selectedCharacter.character.name}/" +
     //         video + ".mp4";
   }
-  factory SentenceDataServer.fromJson(Map<String, dynamic> json, String subject, SelectedCharacter selectedCharacter){
+  factory SentenceDataServer.fromJson(Map<String, dynamic> json, String subject, String selectedCharacter){
     return SentenceDataServer(
       subject : json['subject'],
       sentence : json['sentence'],

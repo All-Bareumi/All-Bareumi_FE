@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/File/fileList.dart';
 import 'package:capstone/Learning/Video/videoFileList.dart';
 import 'package:capstone/AddFile/addNewFilePage.dart';
+import 'AddFileServer/addNewFileCategoryPageServer.dart';
+import 'Learning/FileServer/fileListServer.dart';
 import 'userDrawer/loadingDrawer.dart';
 
 class HomePage extends StatelessWidget {
@@ -46,7 +48,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            //builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            builder: (BuildContext context) => FileListServer(login_token: login_token, selectedCharacter: selectedCharacter,),
                           ));
                     },
                     child: Stack(children: <Widget>[
@@ -120,7 +123,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => AddNewFileCategoryPage(login_token: login_token, selectedCharacter: selectedCharacter),
+                        builder: (BuildContext context) => AddNewFileCategoryPageServer(login_token: login_token, selectedCharacter: selectedCharacter),
                       ));
                 },
                 child: Stack(children: <Widget>[

@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
-import 'package:capstone/SetCharacter/selectCharacter.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'videoAndTextScreenServer.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:http/http.dart' as http;
 
-Future<LearningMaterialServer> fetchLearningMaterial(String subject) async {
-  var url = '$subject';
+Future<LearningMaterialServer> fetchLearningMaterial(String subject, String selectedCharacter) async {
+  var url = '$subject/${selectedCharacter}'; // 주제에 따른
   final response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {

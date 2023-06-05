@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:capstone/homePage.dart';
 
+import '../Learning/FileServer/fileListServer.dart';
+
 class LoadingCharacter extends StatefulWidget {
   const LoadingCharacter({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
   final String login_token;
@@ -41,7 +43,7 @@ class _LoadingCharacterState extends State<LoadingCharacter> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => FileList(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter)));
+                                      builder: (context) => FileListServer(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter)));
                             },
                             child: Container(
                                 decoration: BoxDecoration(
