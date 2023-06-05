@@ -1,8 +1,33 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
 
 import '../../userDrawer/loadingDrawer.dart';
 import 'learningFileServer.dart';
+import 'package:http/http.dart' as http;
+
+
+// 서버에서 subject리스트를 받아와서 해당 subject별로 learningMaterials를
+Future<List<LearningMaterialServer>> fetchLearningMaterials() async {
+  final response = await http.get(Uri.parse('https://example.com/api/subjects')); // 서버에서 학습 파일 주제 모은 리스트있는 곳에 접근
+
+  if (response.statusCode == 200) {
+    final jsonData = json.decode(response.body);
+    final List<dynamic> subjects = jsonData['subjects'];
+
+    List<LearningMaterialServer> learningMaterials = [];
+
+    for (var subject in subjects) {
+      LearningMaterialServer material = await fetchLearningMaterial(subject);
+      learningMaterials.add(material);
+    }
+
+    return learningMaterials;
+  } else {
+    throw Exception('Failed to fetch subjects');
+  }
+}
 
 class FileListServer extends StatefulWidget {
   const FileListServer({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
@@ -26,7 +51,8 @@ class _FileListServerState extends State<FileListServer> {
     }).catchError((error) {
       // 에러 처리
       print(error);
-    });  }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +105,7 @@ class _FileListServerState extends State<FileListServer> {
                                   return InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(_createRoute(
-                                          learningMaterials[index].subject));
+                                          learningMaterials[index], widget.login_token));
                                     },
                                     child: Container(
                                       height: 200,
@@ -122,7 +148,8 @@ class _FileListServerState extends State<FileListServer> {
                         )),
                   );
                 }),],
-        ));
+        )
+    );
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -155,10 +182,10 @@ class _FileListServerState extends State<FileListServer> {
   }
 }
 
-Route _createRoute(String learningFileName) {
+Route _createRoute(LearningMaterialServer learningMaterialServer, String login_token) {
   return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      new LearningFileServer(learningFileName: learningFileName),
+      new LearningFileServer(learningMaterialServer: learningMaterialServer, login_token: login_token,),
       // pageBuilder: (context, animation, secondaryAnimation) =>
       // new LearningFile(learningMaterial: learningMaterial),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
