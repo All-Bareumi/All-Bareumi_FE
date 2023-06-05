@@ -16,16 +16,16 @@ class Character{
 //     notifyListeners();
 //   }
 // }
-class SelectedCharacter extends ChangeNotifier {
-  Character character;
-  //String videoPath;
-
-  SelectedCharacter(this.character);
-  void setCharacter(Character character){
-    this.character = character;
-    notifyListeners();
-  }
-  String getCharacter(){
-    return this.character.name;
-  }
-}
+// class SelectedCharacter extends ChangeNotifier {
+//   Character character;
+//   //String videoPath;
+//
+//   SelectedCharacter(this.character);
+//   void setCharacter(Character character){
+//     this.character = character;
+//     notifyListeners();
+//   }
+//   String getCharacter(){
+//     return this.character.name;
+//   }
+// }
