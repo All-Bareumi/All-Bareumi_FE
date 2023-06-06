@@ -19,6 +19,7 @@ class ReportListPage extends StatefulWidget {
 }
 ReportContent today = new ReportContent(title: '6월 6일', goodSentence: "나는 엄마가 좋아요", badSentence: "나는 운동을 좋아해요", score: 4);
 List<ReportContent> reportContents = [today];
+
 class _ReportListPageState extends State<ReportListPage> {
   //List<ReportContent> reportContents = [];
 
