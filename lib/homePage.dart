@@ -48,8 +48,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
-                            //builder: (BuildContext context) => FileListServer(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            //builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            builder: (BuildContext context) => FileListServer(login_token: login_token, selectedCharacter: selectedCharacter,),
                           ));
                     },
                     child: Stack(children: <Widget>[
