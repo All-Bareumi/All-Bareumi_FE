@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'package:capstone/userDrawer/settings.dart';
+import 'dart:convert';
+import 'package:capstone/Reward/rewardListPage.dart';
 import 'package:capstone/userDrawer/userData.dart';
 import 'package:flutter/material.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
-import '../LearningReport/fetchReportContent.dart';
-import '../LearningReport/reoportContent.dart';
 import '../LearningReport/reportListPage.dart';
-import '../LearningReport/reportPage.dart';
+import 'package:http/http.dart' as http;
 
 // void 반환하는 userData 받는 async getUserData 함수 하나 만들기
 // getUserData 함수 호출하는 drawer그려주는 stateless widget만들기
@@ -125,11 +122,12 @@ class _myDrawerState extends State<myDrawer> {
                 color: Colors.blueAccent, fontFamily: 'Dongle', fontSize: 35),),
             Text('문장 / 일',style: TextStyle(
                 color: Colors.black, fontFamily: 'Dongle', fontSize: 35),),
-            TextButton(onPressed: (){}, child: Text('(변경)',style: TextStyle(
+            TextButton(onPressed: (){
+              showModifyTargetLearningAmountPopup();
+            }, child: Text('(변경)',style: TextStyle(
                 color: Colors.black26, fontFamily: 'Dongle', fontSize: 30)) ),
           ],
         ),
-
         Row(
           children: [
             Text(
@@ -148,11 +146,11 @@ class _myDrawerState extends State<myDrawer> {
         ),
         ElevatedButton(
           onPressed: () {
-            //report page로 이동하기
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => ReportPage(login_token : widget.login_token)),
-            // );
+            //reward page로 이동하기
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RewardListPage(login_token: widget.login_token),)
+            );
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -194,4 +192,71 @@ class _myDrawerState extends State<myDrawer> {
       ],
     );
   }
+  void showModifyTargetLearningAmountPopup() {
+    TextEditingController targetLearningAmountController =
+    TextEditingController(text: widget.userData.targetLearningAmountPerDay.toString());
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            '학습량 수정',
+            style: TextStyle(fontFamily: 'Dongle', fontSize: 40),
+          ),
+          content: TextField(
+            controller: targetLearningAmountController,
+            decoration: InputDecoration(labelText: '학습량'),
+            keyboardType: TextInputType.number,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('취소', style: TextStyle(fontFamily: 'Dongle', fontSize: 30)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('확인', style: TextStyle(fontFamily: 'Dongle', fontSize: 30)),
+              onPressed: () {
+                updateTargetLearningAmount(targetLearningAmountController.text);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void updateTargetLearningAmount(String newAmount) async {
+    // 서버로 수정된 데이터 전송
+    try {
+      final response = await http.put(
+        Uri.parse('https://example.com/api/user/target-learning-amount'),
+        headers: {
+          'Authorization': 'Bearer ${widget.login_token}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'targetLearningAmount': int.parse(newAmount),
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // 서버 응답 성공
+        print('학습량 수정 완료');
+        setState(() {
+          widget.userData.targetLearningAmountPerDay = int.parse(newAmount);
+        });
+      } else {
+        // 서버 응답 실패
+        print('학습량 수정 실패');
+      }
+    } catch (error) {
+      // 예외 처리
+      print('학습량 수정 중 오류 발생: $error');
+    }
+  }
+
 }

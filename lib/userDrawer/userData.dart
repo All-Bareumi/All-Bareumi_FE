@@ -12,7 +12,7 @@ class UserData {
   final String degree;
   final String selectedCharacter;
   final int continue_day;
-  final int targetLearningAmountPerDay;
+  late final int targetLearningAmountPerDay;
   final String current_reward;
 
   UserData(this.user, this.userName, this.userId, this.profileImg, this.degree, this.selectedCharacter, this.continue_day, this.targetLearningAmountPerDay, this.current_reward);
