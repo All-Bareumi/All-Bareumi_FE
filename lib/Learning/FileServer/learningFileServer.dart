@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -7,20 +8,6 @@ import 'videoAndTextScreenServer.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:http/http.dart' as http;
 
-Future<LearningMaterialServer> fetchLearningMaterial(String subject, String selectedCharacter) async {
-  var url = '$subject/${selectedCharacter}'; // 주제에 따른
-  final response = await http.get(Uri.parse(url));
-
-  if (response.statusCode == 200) {
-    //만약 서버가 ok응답을 반환하면, json을 파싱합니다
-    print('응답 완료');
-    print(json.decode(response.body));
-    return LearningMaterialServer.fromJson(json.decode(response.body), selectedCharacter);
-  } else {
-    //만약 응답이 ok가 아니면 에러를 던집니다.
-    throw Exception('정보를 불러오는데 실패했습니다');
-  }
-}
 
 class LearningFileServer extends StatefulWidget {
   const LearningFileServer({Key? key, required this.learningMaterialServer, required this.login_token})

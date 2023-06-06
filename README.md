@@ -2,10 +2,10 @@
 
 Flutter FrontEnd Code
 ## ISSUE 
-- Character 선택 이후 변경 문제
-~~- Future builder, late initialization문제 (사용자 프로필 확인)~~
-~~- 다음 문장으로 넘기기 문제~~
-~~- 텍스트 애니메이션 속도가 빨라지는 문제~~
+- Character 선택 이후 변경 문제   
+~~- Future builder, late initialization문제 (사용자 프로필 확인)~~   
+~~- 다음 문장으로 넘기기 문제~~   
+~~- 텍스트 애니메이션 속도가 빨라지는 문제~~   
 
 ## TODO List
 - 내 얼굴로 캐릭터 생성하기 -> 기존 사진으로 진행하기 버튼 만들기

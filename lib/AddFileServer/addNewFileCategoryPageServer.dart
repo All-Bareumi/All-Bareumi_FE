@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:capstone/AddFile/addNewFilePage.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/File/learningMaterials.dart';
 import '../../userDrawer/loadingDrawer.dart';
-import '../Learning/FileServer/fileListServer.dart';
+import '../Learning/FileServer/fetchLearningMaterial.dart';
 import '../Learning/FileServer/learningMaterialsServer.dart';
 import 'addNewFilePageServer.dart';
-import 'addTextPageServer.dart';
 import 'package:http/http.dart' as http;
 
 class AddNewFileCategoryPageServer extends StatefulWidget {
@@ -19,17 +15,19 @@ class AddNewFileCategoryPageServer extends StatefulWidget {
   final String selectedCharacter;
 
   @override
-  State<AddNewFileCategoryPageServer> createState() => _AddNewFileCategoryPageServerState();
+  State<AddNewFileCategoryPageServer> createState() =>
+      _AddNewFileCategoryPageServerState();
 }
 
-class _AddNewFileCategoryPageServerState extends State<AddNewFileCategoryPageServer> {
+class _AddNewFileCategoryPageServerState
+    extends State<AddNewFileCategoryPageServer> {
   TextEditingController _textFieldController = TextEditingController();
   List<LearningMaterialServer> learningMaterials = [];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    fetchLearningMaterials(widget.selectedCharacter).then((materials) {
+    fetchLearningMaterials(widget.login_token, widget.selectedCharacter).then((materials) {
       setState(() {
         learningMaterials = materials;
       });
@@ -42,20 +40,23 @@ class _AddNewFileCategoryPageServerState extends State<AddNewFileCategoryPageSer
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffFED40B),
-        endDrawer: LoadingDrawer(login_token: widget.login_token),
-        appBar: buildAppBar(context),
-        body: buildStackBody(context),
-        floatingActionButton: buildFloatingActionButton(context),
+      backgroundColor: Color(0xffFED40B),
+      endDrawer: LoadingDrawer(
+        login_token: widget.login_token,
+        selectedCharacter: widget.selectedCharacter,
+      ),
+      appBar: buildAppBar(context),
+      body: buildStackBody(context),
+      floatingActionButton: buildFloatingActionButton(context),
     );
   }
 
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
                   title: Text(
                     '추가할 학습 자료의 제목을\n입력하세요.',
                     style: TextStyle(
@@ -75,7 +76,7 @@ class _AddNewFileCategoryPageServerState extends State<AddNewFileCategoryPageSer
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         TextButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             String textSubject = _textFieldController.text;
                             try {
                               var response = await http.post(
@@ -88,34 +89,32 @@ class _AddNewFileCategoryPageServerState extends State<AddNewFileCategoryPageSer
                                 headers: {
                                   "Content-Type": "application/json",
                                   HttpHeaders.authorizationHeader:
-                                  'Bearer ${widget.login_token}'
+                                      'Bearer ${widget.login_token}'
                                 },
                               );
                               print(response.body);
-
                             } catch (e) {
                               print(e);
-
                             }
                             Navigator.of(context).pop();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => AddNewFilePageServer(
-                                      textSubject:
-                                      textSubject,
-                                      login_token: widget.login_token,
-                                    )));
+                                        textSubject: textSubject,
+                                        login_token: widget.login_token,
+                                        selectedCharacter:
+                                            widget.selectedCharacter)));
                             _textFieldController.text = '';
                           },
                           child: Container(
                               child: const Text(
-                                '확인',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    fontFamily: 'Dongle',
-                                    color: Colors.black),
-                              )),
+                            '확인',
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: 'Dongle',
+                                color: Colors.black),
+                          )),
                         ),
                         TextButton(
                           onPressed: () {
@@ -134,90 +133,95 @@ class _AddNewFileCategoryPageServerState extends State<AddNewFileCategoryPageSer
                     ),
                   ],
                 ));
-          },
-          child: Icon(Icons.add),
-          );
+      },
+      child: Icon(Icons.add),
+    );
   }
 
   Stack buildStackBody(BuildContext context) {
     return Stack(
-    children: <Widget>[
-      Column(children: <Widget>[
-        SizedBox(height: MediaQuery.of(context).size.height / 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Column(children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).size.height / 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 4),
+          Row(
+            children: [
+              //SizedBox(width: 30,),
+              Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
+            ],
+          )
+        ]),
+        Column(
           children: [
-            Image(image: AssetImage("image/design/WhiteEllipseTop.png")),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white70,
+              child: Text('학습 자료를 추가할 주제를 골라주세요',
+                  style: TextStyle(
+                      fontSize: 35, fontFamily: 'Dongle', color: Colors.green),
+                  textAlign: TextAlign.center),
+            ),
+            Expanded(
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: learningMaterials.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          elevation: 2,
+                          color: Color(0xfffffBDE),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddNewFilePageServer(
+                                              textSubject:
+                                                  learningMaterials[index]
+                                                      .subject,
+                                              login_token: widget.login_token,
+                                              selectedCharacter:
+                                                  widget.selectedCharacter)));
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  learningMaterials[index].subjectKor,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 35,
+                                      fontFamily: 'Dongle',
+                                      color: Colors.black),
+                                ),
+                                Image(
+                                    image: AssetImage(
+                                        learningMaterials[index].imgPath),
+                                    width:
+                                        MediaQuery.of(context).size.width / 4),
+                              ],
+                            ),
+                          )),
+                    );
+                  }),
+            ),
           ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 4),
-        Row(
-          children: [
-            //SizedBox(width: 30,),
-            Image(image: AssetImage("image/design/WhiteEllipseBottom.png")),
-          ],
-        )
-      ]),
-      Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white70,
-            child: Text('학습 자료를 추가할 주제를 골라주세요', style: TextStyle(fontSize: 35, fontFamily: 'Dongle', color: Colors.green),
-            textAlign: TextAlign.center),),
-          Expanded(
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: learningMaterials.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        elevation: 2,
-                        color: Color(0xfffffBDE),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddNewFilePageServer(
-                                      textSubject:
-                                      learningMaterials[index].subject,
-                                      login_token: widget.login_token,
-                                    )));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                learningMaterials[index].subjectKor,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 35,
-                                    fontFamily: 'Dongle',
-                                    color: Colors.black),
-                              ),
-                              Image(
-                                  image:
-                                      AssetImage(learningMaterials[index].imgPath),
-                                  width: MediaQuery.of(context).size.width / 4),
-                            ],
-                          ),
-                        )),
-                  );
-                }
-                ),
-          ),
-        ],
-      ),
-    ],
-  );
+      ],
+    );
   }
-
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(

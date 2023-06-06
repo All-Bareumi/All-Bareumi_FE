@@ -10,10 +10,11 @@ import 'userDrawer/loadingDrawer.dart';
 
 class ImageUploader extends StatefulWidget {
   const ImageUploader(
-      {Key? key, required this.login_token, required this.pageName, this.textSubject})
+      {Key? key, required this.login_token, required this.pageName, this.textSubject, required this.selectedCharacter})
       : super(key: key);
   final String login_token;
   final String pageName;
+  final String selectedCharacter;
   final String? textSubject; // 이건 선택사항 (내 아바타를 생성할 땐 필요 없음)
 
   @override
@@ -146,7 +147,7 @@ class _ImageUploaderState extends State<ImageUploader> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: LoadingDrawer(login_token: widget.login_token),
+      endDrawer: LoadingDrawer(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter),
       appBar: buildAppBar(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

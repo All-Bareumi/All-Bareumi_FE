@@ -21,7 +21,7 @@ final List<Character> CharacterData= List.generate(
 );
 
 //future로 선택(late키워드) -> 여기서 그냥 임의 객체 생성해주기로 함.
-SelectedCharacter selectedCharacter = new SelectedCharacter(CharacterData[0]);
+// SelectedCharacter selectedCharacter = new SelectedCharacter(CharacterData[0]);
 
 class SelectCharacter extends StatelessWidget {
   const SelectCharacter({Key? key, required this.login_token}) : super(key: key);
@@ -31,7 +31,7 @@ class SelectCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFED40B),
-      endDrawer: LoadingDrawer(login_token: login_token),
+      endDrawer: LoadingDrawer(login_token: login_token, selectedCharacter : "설정 안됨"),
       appBar: buildAppBar(context),
       body: Stack(
         children: <Widget>[
@@ -145,7 +145,7 @@ class SelectCharacter extends StatelessWidget {
       onTap: () async{
         // 캐릭터 선택 이후 액션
         // 캐릭터 선택 확정 로딩페이지로 이동
-        selectedCharacter.setCharacter(character);
+        //selectedCharacter.setCharacter(character);
 
         print('서버에 선택된 캐릭터를 post합니다.');
         // try {

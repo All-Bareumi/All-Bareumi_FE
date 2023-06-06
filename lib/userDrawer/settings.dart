@@ -13,7 +13,7 @@ class _SettingsState extends State<Settings> {
     return Drawer(
       child: Column(
         children: <Widget>[
-
+          Text('환경설정', style: TextStyle(fontFamily: 'Dongle', fontSize: 40),)
         ]
       )
     );

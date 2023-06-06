@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xffFED40B),
-        endDrawer: LoadingDrawer(login_token: login_token),
+        endDrawer: LoadingDrawer(login_token: login_token, selectedCharacter : selectedCharacter),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[
@@ -48,8 +48,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            //builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
-                            builder: (BuildContext context) => FileListServer(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            builder: (BuildContext context) => FileList(login_token: login_token, selectedCharacter: selectedCharacter,),
+                            //builder: (BuildContext context) => FileListServer(login_token: login_token, selectedCharacter: selectedCharacter,),
                           ));
                     },
                     child: Stack(children: <Widget>[
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => VideoFileList(login_token: login_token,),
+                            builder: (BuildContext context) => VideoFileList(login_token: login_token, selectedCharacter: selectedCharacter),
                           ));
                     },
                     child: Stack(children: <Widget>[

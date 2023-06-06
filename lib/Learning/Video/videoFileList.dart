@@ -6,8 +6,9 @@ import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 
 class VideoFileList extends StatefulWidget {
-  const VideoFileList({Key? key, required this.login_token}) : super(key: key);
+  const VideoFileList({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
   final String login_token;
+  final String selectedCharacter;
   @override
   State<VideoFileList> createState() => _VideoFileListState();
 }
@@ -19,7 +20,7 @@ class _VideoFileListState extends State<VideoFileList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xffFED40B),
-        endDrawer: LoadingDrawer(login_token: widget.login_token),
+        endDrawer: LoadingDrawer(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter),
         appBar: buildAppBar(context),
         body: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

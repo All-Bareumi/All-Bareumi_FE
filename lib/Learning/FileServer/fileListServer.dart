@@ -4,31 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
 
 import '../../userDrawer/loadingDrawer.dart';
-import '../LearningReport/reoportContent.dart';
+import 'package:capstone/LearningReport/reoportContent.dart';
+import 'fetchLearningMaterial.dart';
 import 'learningFileServer.dart';
 import 'package:http/http.dart' as http;
 
-
-// 서버에서 subject리스트를 받아와서 해당 subject별로 learningMaterials를
-Future<List<LearningMaterialServer>> fetchLearningMaterials(String selectedCharacter) async {
-  final response = await http.get(Uri.parse('https://example.com/api/subjects')); // 서버에서 학습 파일 주제 모은 리스트있는 곳에 접근
-
-  if (response.statusCode == 200) {
-    final jsonData = json.decode(response.body);
-    final List<dynamic> subjects = jsonData['subjects'];
-
-    List<LearningMaterialServer> learningMaterials = [];
-
-    for (var subject in subjects) {
-      LearningMaterialServer material = await fetchLearningMaterial(subject, selectedCharacter);
-      learningMaterials.add(material);
-    }
-
-    return learningMaterials;
-  } else {
-    throw Exception('Failed to fetch subjects');
-  }
-}
 
 class FileListServer extends StatefulWidget {
   const FileListServer({Key? key, required this.login_token, required this.selectedCharacter}) : super(key: key);
@@ -54,8 +34,7 @@ class _FileListServerState extends State<FileListServer> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        final boolValue = data[
-        'goalAchived']; // Replace 'response' with the actual key in your server response
+        final boolValue = data['goalAchived']; // Replace 'response' with the actual key in your server response
         return boolValue;
       } else {
         // Handle error case if the request was not successful
@@ -71,7 +50,7 @@ class _FileListServerState extends State<FileListServer> {
   void initState(){
     super.initState();
     //학습 자료 불러오기
-    fetchLearningMaterials(widget.selectedCharacter).then((materials) {
+    fetchLearningMaterials(widget.login_token, widget.selectedCharacter).then((materials) {
       setState(() {
         learningMaterials = materials;
       });
@@ -89,16 +68,32 @@ class _FileListServerState extends State<FileListServer> {
       print('Failed to fetch server response: $error');
       // Handle the error case accordingly
     });
-    if (showLearningReportPopup) {
-      //fetchData();
-    }
+    // if (showLearningReportPopup) {
+    //   fetchData();
+    // }
   }
+  void showAlert(BuildContext context){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: Text('오늘 학습 완료!',style: TextStyle(fontFamily: 'Dongle', fontSize: 40, color: Color(0xff1AB846)),
+          textAlign: TextAlign.center),
+        content: Text('학습 리포트가 생성되었어요.\n확인하러 가볼까요?', style: TextStyle(fontFamily: 'Dongle', fontSize: 30),
+            textAlign: TextAlign.center),
+      );
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    if (showLearningReportPopup) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        showAlert(context);
+      });
+    }
     return Scaffold(
         backgroundColor: Color(0xffFED40B),
-        endDrawer: LoadingDrawer(login_token: widget.login_token),
+        endDrawer: LoadingDrawer(login_token: widget.login_token, selectedCharacter: widget.selectedCharacter),
         appBar: buildAppBar(context),
         body: Stack(
           children: <Widget>[
