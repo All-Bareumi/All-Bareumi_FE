@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:capstone/userDrawer/userData.dart';
 import 'package:capstone/userDrawer/userDataDrawer.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,9 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
     //late int targetLearningAmountPerDay;
     //late String current_reward;
     // 우리 서버에서 받아오는 user 정보
-    var response = await http.get(Uri.parse('http://localhost:8001/api/userData/')); // 여기 bearer 있는 헤더 넣어주어야!!
+    var response = await http.get(Uri.parse('http://localhost:8001/api/userData/'),
+      headers:{ HttpHeaders.authorizationHeader :'Bearer ${widget.login_token}'},
+    ); // 여기 bearer 있는 헤더 넣어주어야!!
     if (response.statusCode == 200) {
       // 팝업 내용 가져오기 성공
       var data = jsonDecode(response.body);

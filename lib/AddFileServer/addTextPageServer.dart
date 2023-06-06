@@ -6,10 +6,11 @@ import 'package:http/http.dart' as http;
 
 class AddTextPageServer extends StatelessWidget {
   const AddTextPageServer(
-      {Key? key, required this.textSubject, required this.login_token})
+      {Key? key, required this.textSubject, required this.login_token, required this.selectedCharacter})
       : super(key: key);
   final String textSubject;
   final String login_token;
+  final String selectedCharacter;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class AddTextPageServer extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffFED40B),
       appBar: buildAppBar(context),
-      body: TextScreen(textSubject: textSubject, login_token: login_token),
+      body: TextScreen(textSubject: textSubject, login_token: login_token, selectedCharacter: selectedCharacter),
     );
   }
 
@@ -44,10 +45,11 @@ class AddTextPageServer extends StatelessWidget {
 
 class TextScreen extends StatefulWidget {
   const TextScreen(
-      {Key? key, required this.textSubject, required this.login_token})
+      {Key? key, required this.textSubject, required this.login_token, required this.selectedCharacter})
       : super(key: key);
   final String login_token;
   final String textSubject;
+  final String selectedCharacter;
 
   @override
   State<TextScreen> createState() => _TextScreenState();
@@ -124,10 +126,12 @@ class _TextScreenState extends State<TextScreen> {
                                   body: jsonEncode({
                                     //'category': "food",
                                     // 추가할 학습 자료의 제목
-                                    'category': widget.textSubject,
-                                    // 추가할 학습 자료의 제목
-                                    'content': myController.text,
-                                    //'content': "food",
+                                    'sentence': {'category': widget.textSubject,
+                                      // 추가할 학습 자료의 제목
+                                      'content': myController.text,
+                                      //'content': "food",
+                                    },
+                                    'character':widget.selectedCharacter
                                   }),
                                   headers: {
                                     "Content-Type": "application/json",
@@ -137,6 +141,7 @@ class _TextScreenState extends State<TextScreen> {
                                 );
                                 print('성공적으로 업로드했습니다');
                                 print(response.body);
+                                print(1);
 
                               } catch (e) {
                                 print(e);

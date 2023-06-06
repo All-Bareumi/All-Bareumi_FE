@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
@@ -28,10 +29,12 @@ class _FileListServerState extends State<FileListServer> {
 
   Future<bool> fetchServerResponse() async {
     final url =
-    Uri.parse('http://localhost:8001/api/'); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
+    Uri.parse('http://localhost:8001/api/',); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
 
     try {
-      final response = await http.get(url);
+      final response = await http.get(url,
+        headers:{ HttpHeaders.authorizationHeader :'Bearer ${widget.login_token}'},
+      );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -51,9 +54,12 @@ class _FileListServerState extends State<FileListServer> {
   void initState(){
     super.initState();
     //학습 자료 불러오기
+    print("1");
     fetchLearningMaterials(widget.login_token, widget.selectedCharacter).then((materials) {
+      print(6);
       setState(() {
         learningMaterials = materials;
+        print(7);
       });
     }).catchError((error) {
       // 에러 처리

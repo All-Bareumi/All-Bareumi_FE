@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 
 import '../../SetCharacter/character.dart';
@@ -9,25 +11,28 @@ class LearningMaterialServer {
   List<SentenceDataServer> sentences;
   int sentenceCnt = 0;
 
-  //final String videoPath;
-
   LearningMaterialServer({required this.subject, required this.subjectKor, required this.sentences,  required this.imgPath}) {
     this.sentenceCnt = this.sentences!.length;
-    // sentence list어떻게 만들지 고민!
   }
 
   // json data 처리
   factory LearningMaterialServer.fromJson(Map<String, dynamic> json, String selectedCharacter){
 
-    final List<dynamic> item = json['sentences'];
-    final String subject = json['subject'];
-
-    List<SentenceDataServer> SentenceDataList = item.map((item) => SentenceDataServer.fromJson(item, subject, selectedCharacter)).toList();
-
+    final List<dynamic> sentenceList = json['sentences'];
+    print(sentenceList[0]['category']);
+    print(3);
+    final List<SentenceDataServer> sentenceDataList = [];
+    for(int i =0; i < sentenceList.length ; i++){
+      final item = sentenceList[i];
+      final sentenceData = SentenceDataServer.fromJson(item, sentenceList[i]['category'], selectedCharacter);
+      sentenceDataList.add(sentenceData);
+    }
+    print(5);
+    print(sentenceDataList[3].videoPath);
     return LearningMaterialServer(
-        subject: json['subject'],
-        subjectKor: json['subjectKor'],
-        sentences: SentenceDataList,
+        subject: json['category'],
+        subjectKor: json['subjectKOR'],
+        sentences: sentenceDataList,
         imgPath: json['subjectImg']);
   }
 }
@@ -38,14 +43,14 @@ class SentenceDataServer {
   final String videoPath;
 
   SentenceDataServer({required this.subject, required this.sentence, required String selectedCharacter, required this.videoPath}) {
-    // this.videoPath =
-    //     "video/sentence/${this.subject}/${selectedCharacter.character.name}/" +
-    //         video + ".mp4";
   }
+
   factory SentenceDataServer.fromJson(Map<String, dynamic> json, String subject, String selectedCharacter){
+    print(subject);
+    print(4);
     return SentenceDataServer(
-      subject : json['subject'],
-      sentence : json['sentence'],
+      subject : json['category'],
+      sentence : json['content'],
       selectedCharacter : selectedCharacter,
       videoPath : json['videoPath'],
     );

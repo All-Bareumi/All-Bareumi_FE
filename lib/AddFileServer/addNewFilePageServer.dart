@@ -88,6 +88,7 @@ class _AddNewFilePageServerState extends State<AddNewFilePageServer> {
                         textSubject:
                         widget.textSubject,
                         login_token: widget.login_token,
+                        selectedCharacter: widget.selectedCharacter,
                       )));
             },
             child: Padding(
