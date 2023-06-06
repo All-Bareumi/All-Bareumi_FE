@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:capstone/Learning/FileServer/learningMaterialsServer.dart';
 
+import '../../LearningReport/reportListPage.dart';
 import '../../userDrawer/loadingDrawer.dart';
 import 'package:capstone/LearningReport/reoportContent.dart';
 import 'fetchLearningMaterial.dart';
@@ -22,7 +23,7 @@ class FileListServer extends StatefulWidget {
 class _FileListServerState extends State<FileListServer> {
   List<LearningMaterialServer> learningMaterials = [];
 
-  bool showLearningReportPopup = true;
+  bool showLearningReportPopup= true;
   ReportContent? reportContent;
 
   Future<bool> fetchServerResponse() async {
@@ -68,9 +69,7 @@ class _FileListServerState extends State<FileListServer> {
       print('Failed to fetch server response: $error');
       // Handle the error case accordingly
     });
-    // if (showLearningReportPopup) {
-    //   fetchData();
-    // }
+
   }
   void showAlert(BuildContext context){
     showDialog(context: context, builder: (BuildContext context){
