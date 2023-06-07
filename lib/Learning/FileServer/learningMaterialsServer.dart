@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../SetCharacter/character.dart';
-
 class LearningMaterialServer {
   String subject;
   String subjectKor;

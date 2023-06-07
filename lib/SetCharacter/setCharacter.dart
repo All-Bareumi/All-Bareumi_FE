@@ -1,13 +1,7 @@
-import 'package:capstone/CameraPage.dart';
-import 'package:capstone/NoMoreUse/old_myAvatar.dart';
-import 'package:capstone/NoMoreUse/selectMyAvatar.dart';
-import 'package:capstone/imageUploader.dart';
 import 'package:flutter/material.dart';
 import '../userDrawer/loadingDrawer.dart';
-import 'character.dart';
 import 'selectCharacter.dart';
 import 'myAvatar.dart';
-import 'package:capstone/userDrawer/userDataDrawer.dart';
 
 
 class SetCharacter extends StatelessWidget {

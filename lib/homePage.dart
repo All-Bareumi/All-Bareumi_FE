@@ -1,8 +1,5 @@
-import 'package:capstone/AddFile/addNewFileCategoryPage.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/Learning/File/fileList.dart';
 import 'package:capstone/Learning/Video/videoFileList.dart';
-import 'package:capstone/AddFile/addNewFilePage.dart';
 import 'AddFileServer/addNewFileCategoryPageServer.dart';
 import 'Learning/FileServer/fileListServer.dart';
 import 'userDrawer/loadingDrawer.dart';

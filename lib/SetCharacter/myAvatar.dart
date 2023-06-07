@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:face_camera/face_camera.dart';
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -180,13 +179,10 @@ class _MyAvatarImageUploaderState extends State<MyAvatarImageUploader> {
                         builder: (BuildContext context)=> LoadingCharacter(login_token: login_token, selectedCharacter : "myAvatar"),
                       )
                   );
-
                   //return response.data;
-
                 } catch (e) {
                   print(e);
                 }
-
               },
               child: Text('네')),
           ElevatedButton(

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'LogIn/login.dart';
 
 Future<void> main() async {

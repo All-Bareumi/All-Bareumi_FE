@@ -34,6 +34,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   int iterCount = 0;
   int score= -1;
   final recorder = FlutterSoundRecorder();
+
   void initRecorder() async{
     final status = await Permission.microphone.request();
     if (status != PermissionStatus.granted){

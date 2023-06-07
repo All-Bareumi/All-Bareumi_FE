@@ -38,12 +38,15 @@ class _LearningFileServerState extends State<LearningFileServer> {
     final cameras = await availableCameras();
     int frontIdx = 0;
     // 전면 카메라를 바로 켜야하기 때문에!
+    print("카메라는 총 ${cameras.length}개 있어요");
     for (int idx = 0; idx < cameras.length; idx++) {
       if (cameras[idx] == CameraLensDirection.front) {
         frontIdx = idx;
         break;
       }
     }
+    print("그 중 전면 카메라는 ${frontIdx} 예요");
+
     _cameraController =
         CameraController(cameras[frontIdx], ResolutionPreset.veryHigh);
     _initializeCameraControllerFuture =
@@ -75,12 +78,6 @@ class _LearningFileServerState extends State<LearningFileServer> {
           learningMaterial: widget.learningMaterialServer,
           sentIndex: sentIndex,
           login_token: widget.login_token,
-        ),
-        Expanded(
-          child: Image(
-            image: AssetImage("image/logo/logo.png"),
-            width: MediaQuery.of(context).size.width,
-          ),
         ),
         buildCameraFutureBuilder(),
         learningProgress(),
@@ -195,14 +192,11 @@ class _LearningFileServerState extends State<LearningFileServer> {
         if (snapshot.connectionState == ConnectionState.done) {
           // Future가 완료되면, 프리뷰를 보여줍니다.
           return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width,
-            child: SizedBox(
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/4+30,
               child: AspectRatio(
-                  aspectRatio: 1 / _cameraController!.value.aspectRatio,
+                  aspectRatio: _cameraController!.value.aspectRatio,
                   child: CameraPreview(_cameraController!)),
-            ),
           );
         } else {
           // Otherwise, display a loading indicator.
