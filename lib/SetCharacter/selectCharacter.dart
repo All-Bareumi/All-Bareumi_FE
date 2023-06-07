@@ -147,7 +147,7 @@ class SelectCharacter extends StatelessWidget {
         // 캐릭터 선택 확정 로딩페이지로 이동
         //selectedCharacter.setCharacter(character);
 
-        print('서버에 선택된 캐릭터를 post합니다.');
+        //print('서버에 선택된 캐릭터를 post합니다.');
         // try {
         //   var response = await http.post(
         //     Uri.parse(
