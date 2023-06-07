@@ -1,4 +1,5 @@
 import 'package:capstone/CameraPage.dart';
+import 'package:capstone/NoMoreUse/old_myAvatar.dart';
 import 'package:capstone/NoMoreUse/selectMyAvatar.dart';
 import 'package:capstone/imageUploader.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class SetCharacter extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 //builder: (BuildContext context) => CameraPage(text: "내 얼굴을 찍어주세요"),
-                                builder: (BuildContext context) => ImageUploader(login_token : login_token, pageName: '내 아바타 생성',selectedCharacter: "설정 안됨"),
+                                builder: (BuildContext context) => MyAvatarImageUploader(login_token : login_token, pageName: '내 아바타 생성',selectedCharacter: "설정 안됨"),
                               ));
                         },
                         child: _buildChooseCharacter(
