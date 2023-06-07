@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'LogIn/login.dart';
 
 Future<void> main() async {
+
+  // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
+  WidgetsFlutterBinding.ensureInitialized();
   //runApp 메소드 호출 전 Flutter SDK를 초기화 해야함.
   KakaoSdk.init(nativeAppKey: 'a7c9156b6c2c4aab0f535c89d618b305', javaScriptAppKey: 'f018c1e6f7f6089813b1b9e9002de712');
 

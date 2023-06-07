@@ -151,7 +151,7 @@ class SelectCharacter extends StatelessWidget {
         // try {
         //   var response = await http.post(
         //     Uri.parse(
-        //       'http://localhost:8001/api/user/character', // 추가되는 문장 경로 추가하기
+        //       'http://10.210.60.33:8001/api/user/character', // 추가되는 문장 경로 추가하기
         //     ),
         //     body: jsonEncode({
         //       '' : character,

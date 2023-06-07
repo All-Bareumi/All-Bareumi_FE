@@ -27,12 +27,15 @@ class _LogInState extends State<LogIn> {
   void signInWithKakao() async {
     try {
       // 카카오톡이 설치되어 있으면 카카오톡 실행 후 로그인, 그렇지 않으면 웹으로 로그인
-      bool isInstalled = await isKakaoTalkInstalled();
-      OAuthToken token = isInstalled
-          ? await UserApi.instance.loginWithKakaoTalk()
-          : await UserApi.instance.loginWithKakaoAccount();
+      // bool isInstalled = await isKakaoTalkInstalled();
+      // OAuthToken token = isInstalled
+      //     ? await UserApi.instance.loginWithKakaoTalk()
+      //     : await UserApi.instance.loginWithKakaoAccount();
+      OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
 
-      final login_url = Uri.http('localhost:8001','/api/auth/login');
+      print(token);
+      print("1 : 카카오 로그인이 됨");
+      final login_url = Uri.http('10.210.60.33:8001','/api/auth/login');
 
       final login_response = await http.get(
         login_url,
@@ -42,9 +45,9 @@ class _LogInState extends State<LogIn> {
       );
       login_token = json.decode(login_response.body)['token'];
       print(login_token); // 이거를 다른거 요청할 때마다 보내주기(토큰)
+      print("2 : login_url 을 통해 로그인 토큰을 받아옴");
 
       final url = Uri.https('kapi.kakao.com', '/v2/user/me');
-
       final response = await http.get(
         url,
         headers: {
@@ -53,6 +56,7 @@ class _LogInState extends State<LogIn> {
       );
       final profileInfo = json.decode(response.body);
       print(profileInfo.toString());
+      print("3 : 유저에 관한 정보를 서버에서 받아옴");
 
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
@@ -63,7 +67,9 @@ class _LogInState extends State<LogIn> {
           MaterialPageRoute(
             builder: (BuildContext context) => SetCharacter(login_token: login_token),
           ));
+      print("로그인은 마무리가 됨");
     } catch (error) {
+      print(error.toString());
       print('카카오톡으로 로그인 실패 ');
     }
   }

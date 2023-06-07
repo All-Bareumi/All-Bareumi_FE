@@ -24,12 +24,12 @@ class FileListServer extends StatefulWidget {
 class _FileListServerState extends State<FileListServer> {
   List<LearningMaterialServer> learningMaterials = [];
 
-  bool showLearningReportPopup= true;
+  bool showLearningReportPopup= false;
   ReportContent? reportContent;
 
   Future<bool> fetchServerResponse() async {
     final url =
-    Uri.parse('http://localhost:8001/api/',); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
+    Uri.parse('http://10.210.60.33:8001/api/',); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
 
     try {
       final response = await http.get(url,
@@ -54,12 +54,9 @@ class _FileListServerState extends State<FileListServer> {
   void initState(){
     super.initState();
     //학습 자료 불러오기
-    print("1");
     fetchLearningMaterials(widget.login_token, widget.selectedCharacter).then((materials) {
-      print(6);
       setState(() {
         learningMaterials = materials;
-        print(7);
       });
     }).catchError((error) {
       // 에러 처리

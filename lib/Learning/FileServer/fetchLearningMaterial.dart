@@ -6,7 +6,7 @@ import 'learningMaterialsServer.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<LearningMaterialServer>> fetchLearningMaterials(String login_token, String selectedCharacter) async {
-  final response = await http.get(Uri.parse('http://localhost:8001/api/learning/sentences/category'),
+  final response = await http.get(Uri.parse('http://10.210.60.33:8001/api/learning/sentences/category'),
     headers:{ HttpHeaders.authorizationHeader :'Bearer ${login_token}'},
   ); // 서버에서 학습 파일 주제 모은 리스트있는 곳에 접근
   if (response.statusCode == 200) {
@@ -25,7 +25,7 @@ Future<List<LearningMaterialServer>> fetchLearningMaterials(String login_token, 
 }
 
 Future<LearningMaterialServer> fetchLearningMaterial(String login_token, String subject, String selectedCharacter) async {
-  var url = 'http://localhost:8001/api/learning/sentences/list/'+subject+'/'+selectedCharacter; // 주제에 따른
+  var url = 'http://10.210.60.33:8001/api/learning/sentences/list/'+subject+'/'+selectedCharacter; // 주제에 따른
   final response = await http.get(Uri.parse(url),
     headers:{ HttpHeaders.authorizationHeader :'Bearer ${login_token}'},
   );

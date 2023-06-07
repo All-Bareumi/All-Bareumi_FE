@@ -23,7 +23,7 @@
 //
 //   Future<bool> fetchServerResponse() async {
 //     final url =
-//         Uri.parse('http://localhost:8001/api/'); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
+//         Uri.parse('http://10.210.60.33:8001/api/'); // 오늘의 학습량 목표를 도달했는지 확인하기 위한 서버
 //
 //     try {
 //       final response = await http.get(url);

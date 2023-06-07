@@ -72,7 +72,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         'Bearer ${widget.login_token}' // 이 형식으로 항상 넘겨주기
                   }; // login token
                   var response = await dio.post(
-                    'http://localhost:8001/api/user/photos/upload',
+                    'http://10.210.60.33:8001/api/user/photos/upload',
                     data: formDataImg,
                   );
                   print('성공적으로 업로드했습니다');

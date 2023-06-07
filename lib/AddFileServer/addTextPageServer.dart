@@ -121,7 +121,7 @@ class _TextScreenState extends State<TextScreen> {
                               try {
                                 var response = await http.put(
                                   Uri.parse(
-                                    'http://localhost:8001/api/learning/sentences/insert', // 추가되는 문장 경로 추가하기
+                                    'http://10.210.60.33:8001/api/learning/sentences/insert', // 추가되는 문장 경로 추가하기
                                   ),
                                   body: jsonEncode({
                                     //'category': "food",
@@ -141,6 +141,7 @@ class _TextScreenState extends State<TextScreen> {
                                 );
                                 print('성공적으로 업로드했습니다');
                                 print(response.body);
+
                                 print(1);
 
                               } catch (e) {

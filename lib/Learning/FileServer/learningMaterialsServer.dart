@@ -19,16 +19,14 @@ class LearningMaterialServer {
   factory LearningMaterialServer.fromJson(Map<String, dynamic> json, String selectedCharacter){
 
     final List<dynamic> sentenceList = json['sentences'];
-    print(sentenceList[0]['category']);
-    print(3);
     final List<SentenceDataServer> sentenceDataList = [];
-    for(int i =0; i < sentenceList.length ; i++){
+    for(int i =0; i < sentenceList.length ; i++) {
       final item = sentenceList[i];
-      final sentenceData = SentenceDataServer.fromJson(item, sentenceList[i]['category'], selectedCharacter);
+      final sentenceData = SentenceDataServer.fromJson(
+          item, sentenceList[i]['category'], selectedCharacter);
       sentenceDataList.add(sentenceData);
+      print(sentenceData.videoPath);
     }
-    print(5);
-    print(sentenceDataList[3].videoPath);
     return LearningMaterialServer(
         subject: json['category'],
         subjectKor: json['subjectKOR'],

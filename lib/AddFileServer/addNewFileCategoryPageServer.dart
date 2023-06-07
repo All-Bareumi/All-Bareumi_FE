@@ -81,7 +81,7 @@ class _AddNewFileCategoryPageServerState
                             try {
                               var response = await http.post(
                                 Uri.parse(
-                                  'http://localhost:8001/api/learning/sentences/category', // 추가되는 문장 경로 추가하기
+                                  'http://10.210.60.33:8001/api/learning/sentences/category', // 추가되는 문장 경로 추가하기
                                 ),
                                 body: jsonEncode({
                                   'category': textSubject,
@@ -93,6 +93,9 @@ class _AddNewFileCategoryPageServerState
                                 },
                               );
                               print(response.body);
+                              final jsonData = json.decode(response.body);
+                              final bool videoRecieved = jsonData['success'];
+                              print(videoRecieved);
                             } catch (e) {
                               print(e);
                             }

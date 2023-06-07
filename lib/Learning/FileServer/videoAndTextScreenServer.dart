@@ -45,7 +45,7 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
   Future startRecord() async{
     Directory tempDir = await getTemporaryDirectory(); // test를 위한 현재 경로
     print('${tempDir.path}');
-    await recorder.startRecorder(toFile: '/audio');
+    await recorder.startRecorder(toFile: '/audio/', codec: Codec.pcm16WAV);
   }
 
   Future stopRecord() async{
@@ -78,19 +78,19 @@ class _VideoAndTextScreenState extends State<VideoAndTextScreen> {
           )));
 
       var response = await dio.post(
-        'http://localhost:8001/api/user',//경로 설정하기
+        'http://10.210.60.33:8001/api/learning/sentences/submit',//경로 설정하기
         data: formData,
       );
 
       if (response.statusCode == 200) {
         // 업로드 성공
-        print('Data uploaded successfully');
+        print('문장 녹음 파일 전송 성공 및 점수 받아옴');
 
         // 서버에서 반환된 int 값 리턴
         return response.data['score'] as int;
       } else {
         // 업로드 실패
-        print('Failed to upload data. Error: ${response.statusCode}');
+        print('녹음 파일 전송 실패 및 점수 못받아옴, Error: ${response.statusCode}');
         return -1; // 예외 상황을 나타내는 음수 값이나 적절한 기본값으로 대체해주세요.
       }
     } catch (e) {

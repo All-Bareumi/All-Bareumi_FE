@@ -1,7 +1,7 @@
 // import 'dart:async';
 // import 'dart:io';
 // import 'package:flutter/material.dart';
-지// import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 // import 'package:video_player/video_player.dart';
 // import 'learningMaterials.dart';
 // import 'package:flutter_sound/flutter_sound.dart';
@@ -77,7 +77,7 @@
 //           )));
 //
 //       var response = await dio.post(
-//         'http://localhost:8001/api/user',//경로 설정하기
+//         'http://10.210.60.33:8001/api/user',//경로 설정하기
 //         data: formData,
 //       );
 //

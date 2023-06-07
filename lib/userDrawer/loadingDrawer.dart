@@ -34,7 +34,7 @@ class _LoadingDrawerState extends State<LoadingDrawer> {
     //late int targetLearningAmountPerDay;
     //late String current_reward;
     // 우리 서버에서 받아오는 user 정보
-    var response = await http.get(Uri.parse('http://localhost:8001/api/userData/'),
+    var response = await http.get(Uri.parse('http://10.210.60.33:8001/api/userData/'),
       headers:{ HttpHeaders.authorizationHeader :'Bearer ${widget.login_token}'},
     ); // 여기 bearer 있는 헤더 넣어주어야!!
     if (response.statusCode == 200) {
